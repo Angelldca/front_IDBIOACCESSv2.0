@@ -1,0 +1,17 @@
+
+
+.container{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.panelContainers{
+    width: 100%;
+    min-height: 100%;
+}
+.menuContainer{
+    border: 1px solid blue;
+}

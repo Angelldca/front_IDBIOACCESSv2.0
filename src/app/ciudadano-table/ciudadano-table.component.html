@@ -1,0 +1,113 @@
+<p>ciudadano-table works!</p>
+@if (ciudadano) {
+
+    <div class="mat-elevation-z8 tabla_div">
+        <table mat-table [dataSource]="dataSource" >
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element ; let i = index" >{{i+1}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element" > 
+              <input type="text" value="{{element.nombre}}" 
+              [class.inputInactive]="!element.editMode"
+              [class.inputActive]="element.editMode"
+
+              [disabled]="!element.editMode"/>
+            </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="apellidos">
+            <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+            <td mat-cell *matCellDef="let element" > 
+              <input type="text" value="{{element.apellidos}}"
+              [class.inputInactive]="!element.editMode"
+              [class.inputActive]="element.editMode"
+              [disabled]="!element.editMode"/>
+            
+            </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="solapin">
+            <th mat-header-cell *matHeaderCellDef> Solapín </th>
+            <td mat-cell *matCellDef="let element" >
+             <input type="text" value="{{element.solapin}}" 
+             [class.inputInactive]="!element.editMode"
+             [class.inputActive]="element.editMode"
+             [disabled]="!element.editMode"/>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef> dni </th>
+            <td mat-cell *matCellDef="let element" >
+             <input type="text" value="{{element.dni}}" 
+             [class.inputInactive]="!element.editMode"
+             [class.inputActive]="element.editMode"
+             [disabled]="!element.editMode"/>
+             
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="rol_institucional">
+            <th mat-header-cell *matHeaderCellDef> rol_institucional </th>
+            <td mat-cell *matCellDef="let element" >
+             <input type="text" value="{{element.rol_institucional}}" 
+             [disabled]="!element.editMode"
+             [class.inputInactive]="!element.editMode"
+             [class.inputActive]="element.editMode"
+             />
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef> Opciones </th>
+            <td mat-cell *matCellDef="let element" class="opcion">
+
+              @if (!element.editMode) {
+
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" 
+                (click)="editarElemento(element)" >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                  <mat-icon>person_remove</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                  <mat-icon>add_a_photo</mat-icon>
+                </button>
+
+              }@else {
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" 
+                (click)="cancelEdit(element)" >
+                  <mat-icon>close</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" 
+                (click)="editarElemento(element)" >
+                  <mat-icon>done</mat-icon>
+                </button>
+              }
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+        </table>
+      
+        <mat-paginator 
+                    
+        [length] = "count"
+        [pageIndex]="0"
+        [pageSize]="page_size"
+        (page)="onPageFired($event)">
+        </mat-paginator>
+      </div>
+}
+@else {
+    <p>No hay ciudadanos</p>
+}

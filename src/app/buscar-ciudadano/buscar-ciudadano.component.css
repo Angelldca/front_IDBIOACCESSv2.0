@@ -1,0 +1,20 @@
+
+.search_elements{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn_buscar{
+    min-height: 52px;
+    width: 75px;
+    border: none;
+    border-right: 1px solid #444;
+    border-radius: 0 2px 2px 0;
+}
+.buscar_section{
+    width: 60%;
+}
+.buscar{
+    width: 100%;
+}

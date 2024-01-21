@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+    
+}
+.tabla_div{
+    overflow-x: auto;
+}
+
+.inputInactive{
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    
+}
+.inputActive{
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #444;
+    margin: 0px;
+    padding: 0px;
+}
+
+.opcion{
+    display: flex;
+}
+.mat-mdc-row .mat-mdc-cell {
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+.mat-mdc-row:hover .mat-mdc-cell{
+    background-color: #f5f3f3;
+    cursor: pointer;
+}
