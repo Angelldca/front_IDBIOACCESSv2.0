@@ -1,4 +1,4 @@
-import { Component,AfterViewInit, ViewChild, OnInit, OnChanges } from '@angular/core';
+import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, NgModule } from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
@@ -6,7 +6,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService,Ciudadano } from './ciudadano.service';
 import { ChangeDetectorRef } from '@angular/core';
 
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
 import { Observable, tap } from 'rxjs';
+import { DialogComponent } from '../dialog/dialog.component';
 
 
 @Component({
@@ -21,13 +26,15 @@ import { Observable, tap } from 'rxjs';
 
 export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
 
-  constructor(private ciudadanoService :CiudadanoService,private cdr: ChangeDetectorRef){
+  constructor(private ciudadanoService :CiudadanoService,
+    private cdr: ChangeDetectorRef,public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer){
      
    
   }
   
   displayedColumns: string[] = ['id','nombre', 'apellidos', 'rol_institucional', 'dni','solapin','opciones'];
-  ciudadano: Ciudadano[] | undefined;
+  ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
   dataSource = new MatTableDataSource<Ciudadano>(this.ELEMENT_DATA);
   url:string = 'http://127.0.0.1:8000/api/ciudadano/'
@@ -35,10 +42,11 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
   urlPrevious:string = 'http://127.0.0.1:8000/api/ciudadano/'
   count:Number = 5
   page_size = 5
+  ciudadano:Ciudadano | undefined
+
   
   error: any;
   headers: string[] = [];
-
   clear() {
     this.ciudadano = undefined;
     this.error = undefined;
@@ -51,9 +59,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
       .subscribe({
         next: data => {
           
-          this.ciudadano = data.results
-          this.ciudadano.forEach(c => c.editMode = false)
-          this.ELEMENT_DATA = this.ciudadano
+          this.ciudadanos = data.results
+          this.ciudadanos.forEach(c => c.editMode = false)
+          this.ELEMENT_DATA = this.ciudadanos
           this.dataSource.data = this.ELEMENT_DATA;
           this.url = url
           this.urlNext = data.next
@@ -76,6 +84,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
       
   }
 
+
   onPageFired(event:any){
     if(event.previousPageIndex > event.pageIndex){
       this.showCiudadanos(this.urlPrevious)
@@ -89,11 +98,13 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
   ngOnInit(): void {
     // Lógica que deseas ejecutar al renderizar el componente
     this.showCiudadanos(this.url);
+    
    
   }
+  
   ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
-    
+
   }
   edicionActivada:boolean = false
   editarElemento(e:any){
@@ -108,8 +119,66 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
     console.log(e.editMode)
     this.showCiudadanos(this.url)
   }
+  senEdit(e:any){
+     // this.ciudadanoService.updateCiudadano(e.id, )
+     
+     const nameInputs = document.getElementById(`${e.nombre}`) as HTMLInputElement;
+     const apellidoInputs = document.getElementById(`${e.apellidos}`) as HTMLInputElement;
+     const nameDni = document.getElementById(`${e.dni}`) as HTMLInputElement;
+     const nameSolapin = document.getElementById(`${e.solapin}`) as HTMLInputElement;
+     const nameRol = document.getElementById(`${e.rol_institucional}`) as HTMLInputElement;
+     const nuevosDatos = { 
+       nombre:nameInputs.value,
+       apellidos:apellidoInputs.value,
+       dni: nameDni.value,
+       solapin: nameSolapin.value,
+       rol_institucional:nameRol.value
+      };
+      this.ciudadanoService.updateCiudadano(e.id,nuevosDatos).subscribe({
+        next: data => {
+          console.log(data)
+        }, // success path
+        error: error => {
+          this.error = error
+          console.log(error)
+        }, // error path
+      })
+     e.editMode = !e.editMode
+    this.edicionActivada =  !this.edicionActivada
+  }
+  deleteCiudadano(e:any){
+    this.openDialogDelete('0ms', '0ms',e)
+    console.log("delete", e.id)
+  }
+
+  openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
+    const dialogRef =  this.dialog.open(DialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.ciudadanoService.deleteCiudadano(e.id)
+        .subscribe({
+        next: data => {
+          this.showCiudadanos(this.url)
+          if(this.error){
+            this.showCiudadanos(this.urlPrevious)
+            this.clear
+          }
+          
+        }, // success path
+        error: error => this.error = error, // error path
+      })
+      }
+
+    })
+    
+  }
   
 }
+
 
 export interface PeriodicElement {
   name: string;

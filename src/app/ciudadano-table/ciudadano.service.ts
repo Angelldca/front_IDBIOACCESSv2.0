@@ -61,6 +61,12 @@ export class CiudadanoService {
     return this.http.get<Ciudadano[]>(
       this.ciudadanoUrl, { observe: 'response' });
   }
+  deleteCiudadano(id:string) {
+    return this.http.delete<Ciudadano>(this.ciudadanoUrl+`${id}`)
+  }
+  updateCiudadano(id:string,data:any) {
+    return this.http.put<Ciudadano>(this.ciudadanoUrl+`${id}/`,data)
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
