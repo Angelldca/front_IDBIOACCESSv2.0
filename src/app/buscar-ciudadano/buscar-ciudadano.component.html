@@ -1,18 +1,30 @@
 <div class="search_elements">
     <mat-form-field>
         <mat-label>Filtrar</mat-label>
-        <mat-select [formControl]='colorControl'>
-          <mat-option value="primary">No. carnet</mat-option>
-          <mat-option value="accent">Nombre y apellidos</mat-option>
-          <mat-option value="warn">Solapín</mat-option>
-          <mat-option value="warn">No. Expediente</mat-option>
+        <mat-select [formControl]='control'>
+          <mat-option value="dni">No. carnet</mat-option>
+          <mat-option value="nombre_apellidos">Nombre y apellidos</mat-option>
+          <mat-option value="solapin">Solapín</mat-option>
+          <mat-option value="expediente">No. Expediente</mat-option>
         </mat-select>
     </mat-form-field>
     <section class="buscar_section">
-        <mat-form-field appearance="outline" class="buscar">
+        <mat-form-field 
+        appearance="outline"
+        class="buscar" 
+        
+        >
             <mat-label>Buscar Ciudadano</mat-label>
-            <input matInput placeholder="Buscar...">
-            <button matSuffix mat-icon-button  aria-label="buscar" class="btn_buscar">
+            <input 
+            matInput 
+            placeholder="Buscar..."
+            [(ngModel)]="busqueda"
+            >
+            <button matSuffix mat-icon-button  
+            aria-label="buscar" 
+            class="btn_buscar"
+            (click)="find()"
+            >
                 <mat-icon>search</mat-icon>
             </button>
 

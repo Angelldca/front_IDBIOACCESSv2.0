@@ -2,16 +2,17 @@
 
 .container{
     border: 1px solid #ccc;
-    width: 100%;
+    width: 97%;
     height: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .panelContainers{
-    width: 100%;
+    width: 78%;
     min-height: 100%;
 }
 .menuContainer{
     border: 1px solid blue;
+    max-width: 20%;
 }

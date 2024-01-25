@@ -6,7 +6,7 @@ h1{
 }
 
 .app{
-    width: 100%;
+    width: 85%;
 }
 
 .cont_all{
@@ -22,7 +22,7 @@ h1{
     border-width: 1px 0px 1px 1px;
     border-radius: 3px 0 0 3px;
     background-color: #fffefb;
-    width: 250px;
+    min-width: 14%;
     height: 40px;
     padding: 2px;
     text-align: center; /* Alinea el texto al centro */

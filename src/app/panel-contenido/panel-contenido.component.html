@@ -1,6 +1,12 @@
 
 <div class="panel">
-    <app-buscar-ciudadano/>
-    <app-ciudadano-table/>
+  
+    <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+    <app-ciudadano-table buscar = {{search}} />
+    
+    @if(userID !== undefined){
+        <app-tomar-foto userID = {{userID}}/>
+        
+    }
 </div>
 

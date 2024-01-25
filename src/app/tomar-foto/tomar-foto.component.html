@@ -1,1 +1,46 @@
-<p>tomar-foto works!</p>
+<!----showWebcam-->
+@if(videoDevices && showWebcam && webcamImage === null){
+<div class="webcam-container">
+    <webcam #webcam class="webcam" [height]="500" [width]="500" [trigger]="trigger" [id]="deviceId" [imageQuality]="1"
+        [switchCamera]="nextWebcamObservable" [allowCameraSwitch]="allowCameraSwitch"
+        (imageCapture)="handleImage($event)" (cameraSwitched)="cameraWasSwitched($event)"
+        (initError)="handleInitError($event)" [videoOptions]="{ facingMode: 'user' }">
+    </webcam>
+    <canvas #canvas id="canvas"></canvas>
+</div>
+<div class="btnsContainer">
+    <!--
+            <button (click)="showWebcamToggle()">Mostrar/ocultar webcam</button>
+        -->
+    <button mat-raised-button color="primary" (click)="showNextWebcam(true);"
+        [disabled]="!multiplesCamarasDisponibles">Cambiar cámara</button>
+
+    <section>
+        <mat-checkbox  matTooltip="Validar imagen con IA" class="example-margin">Validar Imagen</mat-checkbox>
+
+    </section>
+    <div class="example-button-container">
+        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="triggerCaptura()">
+            <mat-icon>add_a_photo</mat-icon>
+        </button>
+
+    </div>
+
+</div>
+}
+<!--<canvas id="canvaImg"></canvas>-->
+@if (webcamImage) {
+    <div>
+        <div id="imageContainer" >
+            <img [src]="webcamImage.imageAsDataUrl " alt="foto capturada" />
+        </div>
+        <div class="btnsContainer">
+            <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="webcamImage = null">
+                <mat-icon>undo</mat-icon>
+            </button>
+            <button mat-raised-button color="warn">Guardar</button>
+        
+        </div>
+
+    </div>
+}

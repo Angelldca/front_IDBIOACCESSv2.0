@@ -1,4 +1,4 @@
-import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, NgModule } from '@angular/core';
+import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChange, SimpleChanges } from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
@@ -12,6 +12,7 @@ import {
 } from '@angular/material/dialog';
 import { Observable, tap } from 'rxjs';
 import { DialogComponent } from '../dialog/dialog.component';
+import { Busqueda } from '../buscar-ciudadano/buscar-ciudadano.component';
 
 
 @Component({
@@ -24,11 +25,28 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 
 
-export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
+export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
+  @Input() buscar:string|undefined;
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.buscar !== undefined && this.buscar !==''){
+      const obj =JSON.parse(this.buscar)
+      let value ='';
+      let atributo='';
+      for (let key in obj){
+        if(obj[key].length > 0){
+          value  = obj[key]
+          atributo = key
+         break;
+        }
+      }
+      console.log(value,atributo)
+      const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+      this.showCiudadanos(urlFind)
+    }
+  }
 
-  constructor(private ciudadanoService :CiudadanoService,
-    private cdr: ChangeDetectorRef,public dialog: MatDialog,
-    private _liveAnnouncer: LiveAnnouncer){
+
+  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog){
      
    
   }
@@ -58,27 +76,22 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit {
     this.ciudadanoService.getCiudadano_pagination(url)
       .subscribe({
         next: data => {
-          
-          this.ciudadanos = data.results
-          this.ciudadanos.forEach(c => c.editMode = false)
-          this.ELEMENT_DATA = this.ciudadanos
-          this.dataSource.data = this.ELEMENT_DATA;
-          this.url = url
-          this.urlNext = data.next
-          this.urlPrevious = data.previous
-          if(this.count != data.count){
-            this.count = data.count
-          }
-          
-          /*
-          this.dataSource.paginator = this.paginator;
-          
-          //
-          console.log(this.ciudadano)
-          
-          */
-        }, // success path
-        error: error => this.error = error, // error path
+          console.log(data)
+          if(data.results.length> 0){
+            this.ciudadanos = data.results
+            this.ciudadanos.forEach(c => c.editMode = false)
+            this.ELEMENT_DATA = this.ciudadanos
+            this.dataSource.data = this.ELEMENT_DATA;
+            this.url = url
+            this.urlNext = data.next
+            this.urlPrevious = data.previous
+            if(this.count != data.count){
+              this.count = data.count
+            }
+
+          }else this.ciudadanos = undefined
+        }, 
+        error: error => this.error = error, 
       })
       
       
