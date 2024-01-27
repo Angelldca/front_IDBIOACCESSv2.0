@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit, ViewChild, AfterViewInit, DoCheck, AfterContentInit, AfterContentChecked, Input } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild, AfterViewInit, DoCheck, AfterContentInit, AfterContentChecked, Input, Output, EventEmitter } from '@angular/core';
 
 import { WebcamModule, WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Subject, Observable } from 'rxjs';
@@ -14,14 +14,15 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   selector: 'app-tomar-foto',
   standalone: true,
   imports: [WebcamModule,MatIconModule,MatButtonModule,MatCheckboxModule,MatTooltipModule],
-
+  providers:[MediaDevicesService],
   templateUrl: './tomar-foto.component.html',
   styleUrl: './tomar-foto.component.css'
 })
 export class TomarFotoComponent implements OnInit, AfterViewInit  {
   @ViewChild('webcam') webcam: any;
   @ViewChild('canvas') canvas: any;
-  @Input() userID:string  = ''
+  @Input() userID:string|null  = ''
+  @Output() newEmitterUserIDChange = new EventEmitter<string|null|undefined>()
   videoDevices: MediaDeviceInfo[] = [];
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -70,11 +71,28 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   public get nextWebcamObservable(): Observable<boolean | string> {
     return this.siguienteWebcam.asObservable();
   }
-
-
+  
+  isValid: boolean = false;
+  imgValid: boolean = true;
+  getValidate(e:boolean){
+    this.isValid = e
+    console.log(this.isValid)
+  }
   public triggerCaptura(): void {
-
     this.trigger.next();
+    console.log("Captura trigger",this.isValid)
+    if(this.isValid){
+      this.mediaDevicesService.validarImage(this.webcamImage?.imageAsDataUrl) .subscribe({
+        next: data => {
+          this.imgValid = data.data
+          console.log(this.imgValid)
+        }, 
+        error: error => console.log(error), 
+      })
+    }
+
+
+
   }
 
   recapturar(): void {
@@ -226,6 +244,29 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   }
   ngAfterViewInit(): void {
     this.drawPlanilla()
+  }
+
+  saveImg(){
+    console.log(this.userID)
+    
+      this.mediaDevicesService.sendImage(this.userID,this.webcamImage?.imageAsDataUrl) .subscribe({
+        next: data => {
+          console.log(data)
+          this.undo()
+        }, 
+        error: error => console.log(error), 
+      })
+    
+
+  }
+  undo(){
+    this.isValid = false
+    this.userID = null
+    this.newEmitterUserIDChange.emit(null)
+  }
+  undoCapture(){
+    this.isValid = false;
+    this.webcamImage = null;
   }
 
 }

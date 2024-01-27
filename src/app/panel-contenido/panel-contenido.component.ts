@@ -11,10 +11,14 @@ import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
   styleUrl: './panel-contenido.component.css'
 })
 export class PanelContenidoComponent {
-  userID:string| undefined;
+  userID:string| undefined| null;
   search:string| undefined;
 
   getBusqueda(value:Busqueda){
     this.search =  JSON.stringify(value)
+  }
+  getUserID(value: string|undefined|null){
+     this.userID = value;
+
   }
 }

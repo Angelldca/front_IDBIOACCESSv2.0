@@ -22,12 +22,13 @@ table {
 
 .opcion{
     display: flex;
+    padding: 2px;
 }
 .mat-mdc-row .mat-mdc-cell {
     cursor: pointer;
     border: 1px solid #ccc;
   }
 .mat-mdc-row:hover .mat-mdc-cell{
-    background-color: #f5f3f3;
+    background-color: #71c4ef;
     cursor: pointer;
 }

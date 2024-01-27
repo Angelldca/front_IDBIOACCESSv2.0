@@ -1,12 +1,14 @@
 
 <div class="panel">
   
-    <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
-    <app-ciudadano-table buscar = {{search}} />
-    
-    @if(userID !== undefined){
-        <app-tomar-foto userID = {{userID}}/>
+    @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
         
+    } @else {
+        <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+        <app-ciudadano-table buscar = {{search}} (newUserIDEvent)="getUserID($event)" />
+
     }
+    
 </div>
 

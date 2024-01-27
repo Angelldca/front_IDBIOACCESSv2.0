@@ -1,9 +1,33 @@
 .menu{
 
-    width: 300px;
+    width: 100%;
     height: auto;
+    
     
 }
 .menu p{
-    text-align: start;
+   margin: 0px;
+  
+}
+
+.btnMenu{
+    display: flex;
+    border: 1px solid #ccc;
+    height: 44px;
+    align-items: center;
+    justify-content: space-between;
+}
+.btnMenu p{
+    margin-right: 20px;
+   color: #1d1c1c;
+}
+
+
+.btnMenu:hover{
+    background-color: #71c4ef;
+    cursor: pointer;
+
+}
+.btnMenu:hover p{
+    text-shadow: 0 0 10px #444
 }

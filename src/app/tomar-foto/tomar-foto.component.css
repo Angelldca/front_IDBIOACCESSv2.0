@@ -51,4 +51,15 @@ img{
     display: flex;
     margin-top: 10px;
     justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+
+.imgValid{
+  border:5px solid #00c851;
+}
+
+.imgInValid{
+  border:5px solid #ff4444;
 }

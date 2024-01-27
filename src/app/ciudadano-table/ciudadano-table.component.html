@@ -65,13 +65,18 @@
 
         @if (!element.editMode) {
 
-        <button mat-icon-button aria-label="edit" (click)="editarElemento(element)">
-          <mat-icon>edit</mat-icon>
+        <button mat-icon-button aria-label="edit"
+         (click)="editarElemento(element)"
+         >
+          <mat-icon class="material-icons">edit</mat-icon>
         </button>
         <button mat-icon-button aria-label="delete" (click)="deleteCiudadano(element)">
           <mat-icon>person_remove</mat-icon>
         </button>
-        <button mat-icon-button aria-label="photo">
+        <button mat-icon-button 
+        aria-label="photo" 
+        
+        (click)="capturarImg(element)">
           <mat-icon>add_a_photo</mat-icon>
         </button>
 

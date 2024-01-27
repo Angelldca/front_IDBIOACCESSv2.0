@@ -1,18 +1,15 @@
-import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService,Ciudadano } from './ciudadano.service';
-import { ChangeDetectorRef } from '@angular/core';
 
-import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {
   MatDialog,
 } from '@angular/material/dialog';
-import { Observable, tap } from 'rxjs';
 import { DialogComponent } from '../dialog/dialog.component';
-import { Busqueda } from '../buscar-ciudadano/buscar-ciudadano.component';
+
 
 
 @Component({
@@ -27,6 +24,14 @@ import { Busqueda } from '../buscar-ciudadano/buscar-ciudadano.component';
 
 export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
+  @Output() newUserIDEvent = new EventEmitter<string>();
+  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog){
+     
+   
+  }
+  addNewUserID(value: string) {
+    this.newUserIDEvent.emit(value);
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if(this.buscar !== undefined && this.buscar !==''){
       const obj =JSON.parse(this.buscar)
@@ -39,17 +44,14 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
          break;
         }
       }
-      console.log(value,atributo)
+     
       const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
       this.showCiudadanos(urlFind)
     }
   }
 
 
-  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog){
-     
-   
-  }
+  
   
   displayedColumns: string[] = ['id','nombre', 'apellidos', 'rol_institucional', 'dni','solapin','opciones'];
   ciudadanos: Ciudadano[] | undefined;
@@ -188,6 +190,11 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
 
     })
     
+  }
+  capturarImg(element:any){
+    console.log(element)
+    this.addNewUserID(element.id);
+      
   }
   
 }

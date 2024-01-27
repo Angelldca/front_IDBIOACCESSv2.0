@@ -12,11 +12,18 @@
     <!--
             <button (click)="showWebcamToggle()">Mostrar/ocultar webcam</button>
         -->
+        <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undo()">
+            <mat-icon>undo</mat-icon>
+        </button> 
     <button mat-raised-button color="primary" (click)="showNextWebcam(true);"
         [disabled]="!multiplesCamarasDisponibles">Cambiar cámara</button>
 
     <section>
-        <mat-checkbox  matTooltip="Validar imagen con IA" class="example-margin">Validar Imagen</mat-checkbox>
+        <mat-checkbox  
+        matTooltip="Validar imagen con IA" 
+        class="example-margin"
+        (change)="getValidate($event.checked)"
+        >Validar Imagen</mat-checkbox>
 
     </section>
     <div class="example-button-container">
@@ -31,14 +38,20 @@
 <!--<canvas id="canvaImg"></canvas>-->
 @if (webcamImage) {
     <div>
-        <div id="imageContainer" >
+        <div id="imageContainer"
+         [class.imgValid]="imgValid" 
+         [class.imgInValid]="!imgValid"
+         >
             <img [src]="webcamImage.imageAsDataUrl " alt="foto capturada" />
         </div>
         <div class="btnsContainer">
-            <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="webcamImage = null">
+            <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undoCapture()">
                 <mat-icon>undo</mat-icon>
             </button>
-            <button mat-raised-button color="warn">Guardar</button>
+            <button 
+            mat-raised-button color="warn"
+            [disabled]="!imgValid"
+             (click)="saveImg()" >Guardar</button>
         
         </div>
 
