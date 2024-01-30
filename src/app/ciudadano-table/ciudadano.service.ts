@@ -67,6 +67,16 @@ export class CiudadanoService {
   updateCiudadano(id:string,data:any) {
     return this.http.put<Ciudadano>(this.ciudadanoUrl+`${id}/`,data)
   }
+  createiudadano(data:any) {
+    return this.http.post<Ciudadano>(this.ciudadanoUrl,data)
+  }
+  exportCiudadanos(url: string){
+    return this.http.get<any>(url)
+  }
+
+  uploadFile( urlUploadFile:string,formData: FormData) {
+    return this.http.post<any[]>(urlUploadFile, formData);
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -1,8 +1,68 @@
-<section>
-    
-    @if (isLoggedIn) {
-        <p>ciudadano {{name}}</p>
-    }@else {
-        <p>ningun ciudadano</p>
-    }
-</section>
+<div class="ciudadano_create">
+
+    <h2>Crear Ciudadano</h2>
+    <hr />
+    <div class="formContainer">
+        <form [formGroup]="ciudadanoForm" (ngSubmit)="onSubmit(ciudadanoForm)">
+            <mat-form-field>
+                <mat-label>Nombre </mat-label>
+                <input matInput [formControl]="nombre" required >
+                @if (nombre.invalid) {
+                    <mat-error>{{getErrorMessage(nombre)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Apellidos</mat-label>
+                <input matInput [formControl]="apellidos">
+                @if (apellidos.invalid) {
+                    <mat-error>{{getErrorMessage(apellidos)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Carnet de Identidad</mat-label>
+                <input matInput [formControl]="dni">
+                @if (dni.invalid) {
+                    <mat-error>{{getErrorMessage(dni)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Solapín</mat-label>
+                <input matInput maxlength="7" [formControl]="solapin">
+                @if (solapin.invalid) {
+                    <mat-error>{{getErrorMessage(solapin)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Expediente</mat-label>
+                <input matInput [formControl]="expediente">
+                @if (expediente.invalid) {
+                    <mat-error>{{getErrorMessage(expediente)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Rol Institucional</mat-label>
+                <input matInput [formControl]="rolInst">
+                @if (rolInst.invalid) {
+                    <mat-error>{{getErrorMessage(rolInst)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Area</mat-label>
+                <input matInput [formControl]="area">
+                @if (area.invalid) {
+                    <mat-error>{{getErrorMessage(area)}}</mat-error>
+                  }
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Fecha de Nacimiento</mat-label>
+                <input  matInput [matDatepicker]="picker" [formControl]="fecha">
+                <mat-hint>YYYY/MM/DD</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button mat-button type="submit" id="sendUser">Registrar</button>
+            
+        </form>
+    </div>
+
+</div>

@@ -1,6 +1,10 @@
 
 <div class="panel">
-  
+
+
+    <!--
+
+    -->
     @if(userID !== undefined && userID !== null){
         <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
         
@@ -9,6 +13,7 @@
         <app-ciudadano-table buscar = {{search}} (newUserIDEvent)="getUserID($event)" />
 
     }
+  
     
 </div>
 

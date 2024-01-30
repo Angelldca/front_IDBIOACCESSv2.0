@@ -32,3 +32,8 @@ table {
     background-color: #71c4ef;
     cursor: pointer;
 }
+
+
+.imgTable{
+    width: 50px;
+}

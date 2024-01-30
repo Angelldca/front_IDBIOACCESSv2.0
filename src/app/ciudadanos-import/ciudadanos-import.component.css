@@ -1,0 +1,128 @@
+.ciudadanos_import_container{
+    width: 1002px;
+}
+
+
+.btn_export{
+    display: flex;
+    align-items: baseline;
+    justify-content: end;
+}
+
+a{
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    text-decoration: none;
+    color: #050505;
+    background-color: #71c4ef;
+    border: none;
+    width: 200px;
+    height:25px;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 1px 2px #497388;
+}
+
+
+a:hover {
+    cursor: pointer;
+    color: #444;
+}
+a:active {
+    transform: scale(0.95);
+}
+
+mat-icon {
+ color: #444;
+}
+
+.export_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.upload{
+    background-color: #71c4ef;
+    height:35px;
+    margin: 20px;
+}
+
+
+.upload:hover {
+    cursor: pointer;
+    color: #444;
+}
+.upload:active {
+    transform: scale(0.95);
+}
+
+#selectFile{
+    border: none;
+    text-decoration: none;
+    
+}
+
+
+.file-upload {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  .file-upload__input {
+    display: none;
+  }
+  
+  .file-upload__button {
+    -webkit-appearance: none;
+    background: #009879;
+    border: 2px solid #00745d;
+    border-radius: 4px;
+    outline: none;
+    padding: 0.5em 0.8em;
+    margin-right: 2px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .file-upload__button:active {
+    background: #00745d;
+  }
+  
+  .file-upload__label {
+    max-width: 250px;
+    font-size: 0.95em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "Quicksand", sans-serif;
+  }
+
+table {
+    width: 100%;
+    
+}
+
+
+.mat-mdc-row .mat-mdc-cell {
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+.mat-mdc-row:hover .mat-mdc-cell{
+    background-color: #71c4ef;
+    cursor: pointer;
+}
+
+.mat-elevation-z8{
+    height: 400px;
+    overflow-y: auto;
+}
+.imgTable{
+    width: 50px;
+}

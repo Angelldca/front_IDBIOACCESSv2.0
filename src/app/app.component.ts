@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet,RouterLink,RouterLinkActive } from '@angular/router';
 import { CiudadanoComponent } from './ciudadano/ciudadano.component';
 import { ContainerComponent } from './container/container.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,CiudadanoComponent,ContainerComponent],
+  imports: [RouterOutlet,RouterLink,RouterLinkActive,CiudadanoComponent,ContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

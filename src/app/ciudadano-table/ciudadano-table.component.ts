@@ -24,6 +24,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 
 export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
+  @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
   constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog){
      
@@ -44,16 +45,21 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
          break;
         }
       }
-     
-      const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
-      this.showCiudadanos(urlFind)
+      if( this.urlCiudadanos !== undefined){
+        const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
+        this.showCiudadanos(urlFind)
+      }else{
+        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        this.showCiudadanos(urlFind)
+
+      }
     }
   }
 
 
   
   
-  displayedColumns: string[] = ['id','nombre', 'apellidos', 'rol_institucional', 'dni','solapin','opciones'];
+  displayedColumns: string[] = ['id','img','nombre', 'apellidos', 'rol_institucional', 'dni','solapin','opciones'];
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
   dataSource = new MatTableDataSource<Ciudadano>(this.ELEMENT_DATA);
@@ -112,7 +118,12 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   
   ngOnInit(): void {
     // Lógica que deseas ejecutar al renderizar el componente
-    this.showCiudadanos(this.url);
+    if(this.urlCiudadanos != undefined){
+      this.showCiudadanos(this.urlCiudadanos);
+    }else{
+      this.showCiudadanos(this.url);
+
+    }
     
    
   }

@@ -1,0 +1,36 @@
+h2{
+    margin-bottom: 12px 
+}
+
+.ciudadano_create{
+    width: 1000px;
+}
+
+
+mat-form-field {
+    margin-left: 40px;
+}
+
+
+#sendUser{
+    background-color: #71c4ef;
+    border: none;
+    width: 70px;
+    height:35px;
+    border-radius: 5px;
+    margin-left: 80px;
+    box-shadow: 0px 1px 2px #497388;
+}
+
+#sendUser:hover {
+    cursor: pointer;
+    color: #444;
+}
+#sendUser:active {
+    transform: scale(0.95);
+}
+
+.formContainer{
+    margin: 5%;
+    margin-top: 10%;
+}

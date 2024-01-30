@@ -1,39 +1,67 @@
 
 
 <div class="menu">
-  <section class="btnMenu">
+  <section class="btnMenu" routerLink="/buscar-ciudadano">
     <mat-icon>chevron_left</mat-icon>
-    <p>
-        Buscar Cuidadano
+    <p >
+       Buscar Cuidadano
     </p>
     
   </section>
-  <section class="btnMenu">
+  <section class="btnMenu" routerLink="/ciudadano">
     <mat-icon>chevron_left</mat-icon>
     <p>
         Crear Ciudadano
     </p>
     
   </section>
-  <section class="btnMenu">
+  <section class="btnMenu" routerLink="/ciudadanos_import">
     <mat-icon>chevron_left</mat-icon>
     <p>
         Importar Ciudadanos
     </p>
     
   </section>
-  <section class="btnMenu">
+  <section class="btnMenu" routerLink="/img-out">
     <mat-icon>chevron_left</mat-icon>
     <p>
         Ciudadanos sin captura de Imagen
     </p>
     
   </section>
-  <section class="btnMenu">
-    <mat-icon>chevron_left</mat-icon>
-    <p>
-        Reportes
-    </p>
-    
-  </section>
+  <div (mouseenter)="showSubmenu()" (mouseleave)="hideSubmenu()" id="contReporte">
+      <section class="btnMenu" id="reporte" >
+        <mat-icon class="rotateIcon">chevron_left</mat-icon>
+        <p>
+            Reportes
+        </p>
+      </section>
+      @if(isSubmenuVisible){
+        <div id="submenu" (mouseenter)="showSubmenu()" (mouseleave)="hideSubmenu()">
+          <section class="btnSubmenu">
+             
+              <p>
+                  Listar Ciudadanos
+              </p>
+              
+            </section>
+            <section class="btnSubmenu">
+              
+              <p>
+                  Usuarios Activos/Inactivos
+              </p>
+              
+            </section>
+            <section class="btnSubmenu">
+              
+                <p>
+                    Historial de fotos capturadas
+                </p>
+                
+              </section>
+        </div>
+  
+    }
+  </div>
+  
 </div>
