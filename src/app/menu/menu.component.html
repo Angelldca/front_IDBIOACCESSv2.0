@@ -38,21 +38,21 @@
       </section>
       @if(isSubmenuVisible){
         <div id="submenu" (mouseenter)="showSubmenu()" (mouseleave)="hideSubmenu()">
-          <section class="btnSubmenu">
+          <section class="btnSubmenu" routerLink="/report_ciudadanos">
              
               <p>
                   Listar Ciudadanos
               </p>
               
             </section>
-            <section class="btnSubmenu">
+            <section class="btnSubmenu" routerLink="report_historial_ciudadanos">
               
               <p>
-                  Usuarios Activos/Inactivos
+                  Historial de ciudadanos
               </p>
               
             </section>
-            <section class="btnSubmenu">
+            <section class="btnSubmenu" routerLink="report_historial_fotos">
               
                 <p>
                     Historial de fotos capturadas

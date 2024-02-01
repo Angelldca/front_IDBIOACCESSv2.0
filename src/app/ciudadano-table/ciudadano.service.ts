@@ -77,6 +77,16 @@ export class CiudadanoService {
   uploadFile( urlUploadFile:string,formData: FormData) {
     return this.http.post<any[]>(urlUploadFile, formData);
   }
+  donwloadCiudadanoList(entidad: string){
+      return this.http.get(`http://127.0.0.1:8000/api/ciudadanos/%7Bpk%7D/ciudadanos_entidad_csv/?entidad=${entidad}`)
+  }
+
+  getCiudadanos_fechas(){
+
+  }
+  donwloadCiudadanos_fecha(){
+    
+  }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

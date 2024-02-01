@@ -120,7 +120,7 @@ export class CiudadanoComponent {
         return;
       }
     }
-    
+     
     this.createCiudadano(data)
   }
   edadCalcular(fechaNacimiento:Date):any{

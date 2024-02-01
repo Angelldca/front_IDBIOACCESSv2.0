@@ -27,8 +27,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
   constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog){
-     
-   
+
   }
   addNewUserID(value: string) {
     this.newUserIDEvent.emit(value);
@@ -46,10 +45,10 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         }
       }
       if( this.urlCiudadanos !== undefined){
-        const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
+        const urlFind = `${this.urlCiudadanos}?${atributo}=${value}&entidad=${this.user.entidad}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}&${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -63,9 +62,12 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
   dataSource = new MatTableDataSource<Ciudadano>(this.ELEMENT_DATA);
-  url:string = 'http://127.0.0.1:8000/api/ciudadano/'
-  urlNext:string = 'http://127.0.0.1:8000/api/ciudadano/'
-  urlPrevious:string = 'http://127.0.0.1:8000/api/ciudadano/'
+  user = { ////Poner unuario autenticado
+    entidad :"UCI"
+  }
+  url:string = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}`
+  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}`
+  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}`
   count:Number = 5
   page_size = 5
   ciudadano:Ciudadano | undefined
@@ -109,9 +111,11 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   onPageFired(event:any){
     if(event.previousPageIndex > event.pageIndex){
       this.showCiudadanos(this.urlPrevious)
+      console.log(this.urlPrevious)
       
     }else{
       this.showCiudadanos(this.urlNext)
+      console.log(this.urlNext)
     }
     
   }
@@ -119,13 +123,17 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   ngOnInit(): void {
     // Lógica que deseas ejecutar al renderizar el componente
     if(this.urlCiudadanos != undefined){
-      this.showCiudadanos(this.urlCiudadanos);
+      if(this.urlCiudadanos.includes('?')){
+        this.showCiudadanos(`${this.urlCiudadanos}&entidad=${this.user.entidad}`);
+
+      }else{
+        this.showCiudadanos(`${this.urlCiudadanos}?entidad=${this.user.entidad}`);
+      }
     }else{
       this.showCiudadanos(this.url);
 
     }
-    
-   
+
   }
   
   ngAfterViewInit() {

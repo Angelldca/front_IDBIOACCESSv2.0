@@ -1,1 +1,21 @@
-<p>report-list-ciudadano works!</p>
+
+<div class="repor_ciudadanosList">
+    <h2>Exportar Lista de Ciudadanos de la Entidad</h2>
+    <hr/>
+    <app-ciudadano-table/>
+
+    <hr />
+    <section class="btn_export">
+        <p>Exportar registro en csv</p>
+
+        <span (click)="donwloadListCiudadanos()">
+            Descargar
+            <button mat-button color="primary" aria-label="download">
+                <mat-icon>download</mat-icon>
+            </button>
+        </span>
+
+
+    </section>
+
+</div>
