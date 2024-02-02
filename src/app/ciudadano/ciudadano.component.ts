@@ -7,6 +7,7 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {FormControl, Validators, FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import moment  from 'moment';
+import Swal from 'sweetalert2';
 
 
 const MY_DATE_FORMATS = {
@@ -145,10 +146,55 @@ export class CiudadanoComponent {
     this.ciudadanoService.createiudadano(data).subscribe({
       next: data => {
         console.log(data)
+        Swal.fire({
+          title: "Ciudadano creado correctamente",
+          text: `ciudadano: ${data.nombre} ${data.apellidos}`,
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Aceptar',
+          buttonsStyling: false,
+          
+          customClass: {
+              confirmButton: 'btn btn-primary px-4',
+              cancelButton: 'btn btn-danger ms-2 px-4',
+          
+          },
+          }).then(data=>{
+            this.limpiarInputs();
+          })
       }, // success path
       error: error => {
-        console.log(error.error)
+        let errorText =''
+        for (const field in error.error) {
+          if (error.error.hasOwnProperty(field)) {
+            errorText += `${field}: ${error.error[field][0]}\n `;
+            
+          }
+        }
+        Swal.fire({
+          title: 'Oops...',
+          text: errorText,
+          icon: 'error',
+          footer: `${error.statusText} error ${error.status}`,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+              confirmButton: 'btn btn-primary px-4'
+          },
+          buttonsStyling: false,
+          })
+       
       }, // error path
     })
+  }
+
+  limpiarInputs(){
+    this.nombre.reset();
+    this.apellidos.reset();
+    this.dni.reset();
+    this.solapin.reset();
+    this.expediente.reset();
+    this.area.reset();
+    this.rolInst.reset();
+    this.fecha.reset();
   }
 }

@@ -6,6 +6,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, retry, throwError } from 'rxjs';
 
 export interface Ciudadano {
+  editMode: boolean,
   nombre: string;
   apellidos: string;
   img: BinaryType;
@@ -19,7 +20,22 @@ export interface Ciudadano {
   area: any ,
   entidad: any,
   created_At: any,
-  editMode: boolean
+  detail: string,
+  data: {
+    nombre: string;
+    apellidos: string;
+    img: BinaryType;
+    id: any ,
+    dni: any ,
+    solapin: any ,
+    expediente: any ,
+    fecha_nacimiento: any,
+    edad: any ,
+    rol_institucional: any ,
+    area: any ,
+    entidad: any,
+    created_At: any,
+  }
 }
 
 export interface Pagination {

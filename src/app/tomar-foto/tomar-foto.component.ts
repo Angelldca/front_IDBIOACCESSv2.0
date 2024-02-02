@@ -8,6 +8,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -62,10 +63,20 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
       .getVideoDevices()
       .then((devices) => {
         this.videoDevices = devices;
-        console.log(devices)
+        
       })
       .catch((error) => {
-        console.error('Error al obtener dispositivos:', error);
+        Swal.fire({
+          title: 'Oops...',
+          text: 'Error al obtener dispositivos',
+          icon: 'error',
+          footer: error,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+              confirmButton: 'btn btn-primary px-4'
+          },
+          buttonsStyling: false,
+          })
       });
   }
   public get nextWebcamObservable(): Observable<boolean | string> {
@@ -76,19 +87,33 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   imgValid: boolean = true;
   getValidate(e:boolean){
     this.isValid = e
-    console.log(this.isValid)
+   
   }
   public triggerCaptura(): void {
     this.trigger.next();
-    console.log("Captura trigger",this.isValid)
+  
     if(this.isValid){
       this.mediaDevicesService.validarImage(this.webcamImage?.imageAsDataUrl) .subscribe({
         next: data => {
           this.imgValid = data.data
-          console.log(this.imgValid)
+       
         }, 
-        error: error => console.log(error), 
+        error: error => {
+          Swal.fire({
+            title: 'Oops...',
+            text: error,
+            icon: 'error',
+            footer: error,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                confirmButton: 'btn btn-primary px-4'
+            },
+            buttonsStyling: false,
+            })
+        }, 
       })
+    }else{
+      this.imgValid = true
     }
 
 
@@ -112,9 +137,6 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
     image.src = webcamImage.imageAsDataUrl;
 
     image.onload = () => {
-
-      console.log(image.width)
-      console.log(image.height)
     };
 
 
@@ -247,14 +269,41 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   }
 
   saveImg(){
-    console.log(this.userID)
+
     
       this.mediaDevicesService.sendImage(this.userID,this.webcamImage?.imageAsDataUrl) .subscribe({
         next: data => {
-          console.log(data)
-          this.undo()
+          Swal.fire({
+            title: data.detail,
+            text: `Imagen capturada: ${data.data.nombre} ${data.data.apellidos}`,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+            buttonsStyling: false,
+            
+            customClass: {
+                confirmButton: 'btn btn-primary px-4',
+                cancelButton: 'btn btn-danger ms-2 px-4',
+            
+            },
+            }).then(data=>{
+              this.undo()
+
+            })
         }, 
-        error: error => console.log(error), 
+        error: error => {
+          Swal.fire({
+            title: 'Oops...',
+            text: error,
+            icon: 'error',
+            footer: error,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                confirmButton: 'btn btn-primary px-4'
+            },
+            buttonsStyling: false,
+            })
+        }, 
       })
     
 

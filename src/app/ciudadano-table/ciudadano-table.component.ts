@@ -9,13 +9,16 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import Swal from 'sweetalert2';
 
 
 
 @Component({
   selector: 'app-ciudadano-table',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,MatIconModule,MatButtonModule],
+  imports: [MatTableModule, MatPaginatorModule,
+    MatIconModule,MatButtonModule,
+  ],
   providers:[CiudadanoService],
   templateUrl: './ciudadano-table.component.html',
   styleUrl: './ciudadano-table.component.css'
@@ -150,7 +153,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   cancelEdit(e:any){
     e.editMode = !e.editMode
     this.edicionActivada =  !this.edicionActivada
-    console.log(e.editMode)
+   
     this.showCiudadanos(this.url)
   }
   senEdit(e:any){
@@ -170,11 +173,36 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
       };
       this.ciudadanoService.updateCiudadano(e.id,nuevosDatos).subscribe({
         next: data => {
-          console.log(data)
+          Swal.fire({
+            title: data.detail,
+            text: `ciudadano: ${data.data.nombre} ${data.data.apellidos}`,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+            buttonsStyling: false,
+            
+            customClass: {
+                confirmButton: 'btn btn-primary px-4',
+                cancelButton: 'btn btn-danger ms-2 px-4',
+            
+            },
+            });
         }, // success path
         error: error => {
           this.error = error
-          console.log(error)
+          Swal.fire({
+            title: 'Oops...',
+            text: error.error.detail,
+            icon: 'error',
+            footer: `${error.statusText} error ${error.status}`,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                confirmButton: 'btn btn-primary px-4'
+            },
+            buttonsStyling: false,
+            })
+            console.log(error)
+            this.showCiudadanos(this.url)
         }, // error path
       })
      e.editMode = !e.editMode
@@ -182,6 +210,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   }
   deleteCiudadano(e:any){
     this.openDialogDelete('0ms', '0ms',e)
+    
     console.log("delete", e.id)
   }
 
@@ -196,6 +225,20 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         this.ciudadanoService.deleteCiudadano(e.id)
         .subscribe({
         next: data => {
+          Swal.fire({
+            title: 'Exito',
+            text: `ciudadano eliminado`,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar',
+            buttonsStyling: false,
+            
+            customClass: {
+                confirmButton: 'btn btn-primary px-4',
+                cancelButton: 'btn btn-danger ms-2 px-4',
+            
+            },
+            });
           this.showCiudadanos(this.url)
           if(this.error){
             this.showCiudadanos(this.urlPrevious)
@@ -203,7 +246,19 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
           }
           
         }, // success path
-        error: error => this.error = error, // error path
+        error: error => {
+          Swal.fire({
+            title: 'Oops...',
+            text: error,
+            icon: 'error',
+            footer: `${error.statusText} error ${error.status}`,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                confirmButton: 'btn btn-primary px-4'
+            },
+            buttonsStyling: false,
+            })
+        }, // error path
       })
       }
 
@@ -211,11 +266,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
     
   }
   capturarImg(element:any){
-    console.log(element)
     this.addNewUserID(element.id);
       
   }
-  
 }
 
 
