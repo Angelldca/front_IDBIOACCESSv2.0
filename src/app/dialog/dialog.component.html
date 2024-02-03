@@ -1,8 +1,17 @@
-<h1 mat-dialog-title>Delete file</h1>
-     <div mat-dialog-content>
-       Estas seguro de eliminar ?
-     </div>
-     <div mat-dialog-actions>
-       <button mat-button mat-dialog-close (click)="onEliminarClick()">Cancelar</button>
-       <button mat-button mat-dialog-close cdkFocusInitial (click)="onAceptarClick()">Aceptar</button>
-     </div>
+<div class="animate__animated animate__fadeIn animate__fast">
+  <h1 mat-dialog-title>Delete file</h1>
+       <div mat-dialog-content>
+         Estas seguro de eliminar ?
+       </div>
+       <div mat-dialog-actions>
+         <button mat-button mat-dialog-close (click)="onEliminarClick()">Cancelar</button>
+         <button 
+         mat-button
+          mat-dialog-close 
+          cdkFocusInitial
+          (click)="onAceptarClick()"
+          color="warn"
+           >Aceptar</button>
+       </div>
+
+</div>

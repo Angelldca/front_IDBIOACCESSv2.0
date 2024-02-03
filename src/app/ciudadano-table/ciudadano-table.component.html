@@ -1,7 +1,7 @@
 
 @if (ciudadanos) {
 
-<div class="mat-elevation-z8 tabla_div">
+<div class="mat-elevation-z8 tabla_div animate__animated animate__fadeIn animate__fast">
   <table mat-table   [dataSource]="dataSource" >
 
     <!-- Position Column -->
@@ -105,11 +105,26 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="page_size" (page)="onPageFired($event)">
+  <mat-paginator 
+  [length]="count" 
+  [pageIndex]="0" 
+  [pageSize]="page_size" 
+  (page)="onPageFired($event)"
+  class="paginator"
+  >
+  
   </mat-paginator>
 </div>
 
 }
 @else {
-<p>No hay ciudadanos</p>
+  <div class="newSearch animate__animated animate__fadeIn animate__fast">
+   
+    <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg" alt="nueva busqueda"/>
+
+    <div class="animate__animated animate__fadeInRight">
+      <h3>No se encontraron ciudadanos</h3>
+      <p>Realize una nueva busqueda</p>
+    </div>
+  </div>
 }

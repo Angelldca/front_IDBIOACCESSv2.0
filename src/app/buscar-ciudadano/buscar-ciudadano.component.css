@@ -14,8 +14,11 @@
     cursor: pointer;
 }
 .buscar_section{
-    width: 60%;
+    width: 30%;
+    height: 40px
 }
 .buscar{
     width: 100%;
+    height: 40px
 }
+

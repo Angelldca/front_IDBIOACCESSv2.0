@@ -11,10 +11,17 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 
 
+
 @Component({
   selector: 'app-tomar-foto',
   standalone: true,
-  imports: [WebcamModule,MatIconModule,MatButtonModule,MatCheckboxModule,MatTooltipModule],
+  imports: [
+    WebcamModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+  ],
   providers:[MediaDevicesService],
   templateUrl: './tomar-foto.component.html',
   styleUrl: './tomar-foto.component.css'

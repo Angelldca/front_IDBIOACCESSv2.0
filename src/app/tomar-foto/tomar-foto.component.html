@@ -1,6 +1,6 @@
 <!----showWebcam-->
 @if(videoDevices && showWebcam && webcamImage === null){
-<div class="webcam-container">
+<div class="webcam-container animate__animated animate__fadeIn animate__faster">
     <webcam #webcam class="webcam" [height]="500" [width]="500" [trigger]="trigger" [id]="deviceId" [imageQuality]="1"
         [switchCamera]="nextWebcamObservable" [allowCameraSwitch]="allowCameraSwitch"
         (imageCapture)="handleImage($event)" (cameraSwitched)="cameraWasSwitched($event)"
@@ -26,9 +26,13 @@
         >Validar Imagen</mat-checkbox>
 
     </section>
-    <div class="example-button-container">
-        <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="triggerCaptura()">
-            <mat-icon>add_a_photo</mat-icon>
+    <div class="example-button-container" >
+        <button
+        mat-fab color="primary" 
+        aria-label="button-image"
+        [style.view-transition-name] = "'transition_img'"
+        (click)="triggerCaptura()">
+            <mat-icon >add_a_photo</mat-icon>
         </button>
 
     </div>
@@ -37,12 +41,14 @@
 }
 <!--<canvas id="canvaImg"></canvas>-->
 @if (webcamImage) {
-    <div>
+    <div class="animate__animated animate__fadeIn animate__faster">
         <div id="imageContainer"
          [class.imgValid]="imgValid" 
          [class.imgInValid]="!imgValid"
          >
             <img [src]="webcamImage.imageAsDataUrl " alt="foto capturada" />
+
+           
         </div>
         <div class="btnsContainer">
             <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undoCapture()">

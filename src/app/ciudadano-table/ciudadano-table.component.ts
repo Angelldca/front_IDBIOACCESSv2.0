@@ -72,7 +72,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   urlNext:string = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}`
   urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/?entidad=${this.user.entidad}`
   count:Number = 5
-  page_size = 5
+  page_size = 8
   ciudadano:Ciudadano | undefined
 
   

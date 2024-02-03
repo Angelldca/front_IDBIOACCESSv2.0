@@ -1,9 +1,17 @@
 table {
     width: 100%;
     
+    
 }
 .tabla_div{
     overflow-x: auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.mat-mdc-header-row{
+    height: 23px;
+    background-color: #d4eaf7;
 }
 
 .inputInactive{
@@ -36,4 +44,20 @@ table {
 
 .imgTable{
     width: 50px;
+}
+
+.imgBusqueda{
+    width: 500px;
+}
+.newSearch{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newSearch p {
+    color: #686868;
+}
+.newSearch h3 {
+    color: #444;
 }

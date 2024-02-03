@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/animate.css/animate.min.css';
+
 :root{
     margin: 0px;
 }
@@ -23,7 +25,7 @@ body{
     --bg-300:#cccaca;
     #ccc
     #################
-        --primary-100:#d4eaf7;
+        --primary-100:#d4eaf7; 444
     --primary-200:#b6ccd8;
     --primary-300:#3b3c3d;
     --accent-100:#71c4ef;
