@@ -11,6 +11,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './container.component.css'
 })
 export class ContainerComponent {
-  todo = "design"
 
 }

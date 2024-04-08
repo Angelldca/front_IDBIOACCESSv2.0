@@ -1,21 +1,29 @@
 
 <div class="repor_ciudadanosList">
-    <h2>Exportar Lista de Ciudadanos de la Entidad</h2>
-    <hr/>
-    <app-ciudadano-table/>
+    @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
+        
+    } @else {
+        <h2>Exportar Lista de Ciudadanos de la Entidad</h2>
+        <hr/>
+        <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+        <app-ciudadano-table buscar={{search}} (newUserIDEvent)="getUserID($event)"/>
+    
+        <hr />
+        <section class="btn_export">
+            <p>Exportar registro en csv</p>
+    
+            <span (click)="donwloadListCiudadanos()">
+                Descargar
+                <button mat-button color="primary" aria-label="download">
+                    <mat-icon>download</mat-icon>
+                </button>
+            </span>
+    
+    
+        </section>
 
-    <hr />
-    <section class="btn_export">
-        <p>Exportar registro en csv</p>
-
-        <span (click)="donwloadListCiudadanos()">
-            Descargar
-            <button mat-button color="primary" aria-label="download">
-                <mat-icon>download</mat-icon>
-            </button>
-        </span>
-
-
-    </section>
+    }
+   
 
 </div>

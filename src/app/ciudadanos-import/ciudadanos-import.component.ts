@@ -44,7 +44,7 @@ constructor(private ciudadanoService : CiudadanoService){}
     console.log('Subiendo archivo:', file);
     const formData = new FormData();
     formData.append('planilla_ciudadanos', file);
-    this.ciudadanoService.uploadFile('http://127.0.0.1:8000/api/ciudadanos/',formData)
+    this.ciudadanoService.uploadFile('http://127.0.0.1:8000/api/ciudadanoscsv/',formData)
     .subscribe({
       next: data => {
         console.log(data)
@@ -64,7 +64,10 @@ constructor(private ciudadanoService : CiudadanoService){}
     )
     this.nameFile='Ningun archivo seleccionado'
   }
-  displayedColumns: string[] = ['id','img','nombre', 'apellidos', 'rol_institucional', 'dni','solapin'];
+  displayedColumns: string[] = ['id','img','primernombre','segundonombre', 
+  'primerapellido','segundoapellido', 'area', 
+  'roluniversitario', 'carnetidentidad','solapin','provincia','municipio',
+  'sexo','residente','idexpediente','fechanacimiento'];
   elementData: any = []
   dataSource = new MatTableDataSource<Ciudadano>(this.elementData);
   @ViewChild(MatPaginator) paginator !: MatPaginator;

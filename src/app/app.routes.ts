@@ -11,6 +11,7 @@ export const routes: Routes = [
 
   { path: 'buscar-ciudadano', component: PanelContenidoComponent },
   { path: 'ciudadano', component: CiudadanoComponent },
+  { path: 'ciudadano/:id', component: CiudadanoComponent },
   { path: 'img-out', component: CiudanosCapturaImgComponent },
   { path: 'ciudadanos_import', component: CiudadanosImportComponent },
   { path: 'report_ciudadanos', component: ReportListCiudadanoComponent },

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CiudadanoComponent } from './ciudadano.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CiudadanoComponent', () => {
   let component: CiudadanoComponent;
@@ -8,7 +10,7 @@ describe('CiudadanoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CiudadanoComponent]
+      imports: [CiudadanoComponent,HttpClientModule,BrowserAnimationsModule]
     })
     .compileComponents();
     

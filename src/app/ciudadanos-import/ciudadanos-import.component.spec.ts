@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CiudadanosImportComponent } from './ciudadanos-import.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CiudadanosImportComponent', () => {
   let component: CiudadanosImportComponent;
@@ -8,7 +9,7 @@ describe('CiudadanosImportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CiudadanosImportComponent]
+      imports: [CiudadanosImportComponent,HttpClientModule]
     })
     .compileComponents();
     

@@ -25,9 +25,9 @@ export class BuscarCiudadanoComponent {
   @Output() newSearchEvent = new EventEmitter<Busqueda>();
   busqueda :string = ''
   data:Busqueda = {
-    dni:'',
+    carnetidentidad:'',
     solapin:'',
-    expediente:'',
+    idexpediente:'',
     nombre_apellidos:'',
     
   };
@@ -46,9 +46,9 @@ export class BuscarCiudadanoComponent {
   }
    clear(){
     this.data = {
-      dni:'',
+      carnetidentidad:'',
       solapin:'',
-      expediente:'',
+      idexpediente:'',
       nombre_apellidos:'',
     }
    }
@@ -57,8 +57,8 @@ export class BuscarCiudadanoComponent {
 
 export interface Busqueda{
   solapin:string,
-  dni:string,
+  carnetidentidad:string,
   nombre_apellidos:string,
-  expediente:string,
+  idexpediente:string,
   [key: string]: string;
 }

@@ -29,7 +29,7 @@ constructor(private ciudadanoService: CiudadanoService ){
 
   }
   exportCiudadanos_sin_img(){
-    this.ciudadanoService.exportCiudadanos('http://127.0.0.1:8000/api/img/') .subscribe({
+    this.ciudadanoService.exportCiudadanos('http://127.0.0.1:8000/api/ciudadanoscsv/') .subscribe({
       next: data => {
         console.log(data)
       }, 

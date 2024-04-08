@@ -3,6 +3,7 @@
 
 
     <!--
+        <app-ciudadano-table buscar = {{search}} (newUserIDEvent)="getUserID($event)" />
 
     -->
     @if(userID !== undefined && userID !== null){
@@ -10,7 +11,7 @@
         
     } @else {
         <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
-        <app-ciudadano-table buscar = {{search}} (newUserIDEvent)="getUserID($event)" />
+        <app-ciudadanobash-table buscar = {{search}} (newUserIDEvent)="getUserID($event)"/>
 
     }
   

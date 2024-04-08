@@ -10,6 +10,10 @@ import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import { CiudadanoTableComponent } from '../ciudadano-table/ciudadano-table.component';
 import {MatIconModule} from '@angular/material/icon';
 import moment from 'moment';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 
 
@@ -33,19 +37,21 @@ const MY_DATE_FORMATS = {
     MatButtonModule,
     CiudadanoTableComponent,
     MatIconModule,
-    FormsModule],
+    FormsModule,
+    HttpClientModule
+  ],
   providers: [
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-Es' }, 
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    CiudadanoService,
+    CiudadanoService,HttpClient
   
   ],
   templateUrl: './report-user.component.html',
   styleUrl: './report-user.component.css'
 })
 export class ReportUserComponent {
-  constructor(private ciudadanoService: CiudadanoService,private cdr: ChangeDetectorRef){}
+  constructor(private httpClient: HttpClient, private ciudadanoService: CiudadanoService,private cdr: ChangeDetectorRef){}
 
   rango = false;
   urlCiudadanos = '';
@@ -104,17 +110,26 @@ export class ReportUserComponent {
         return;
       }
     }
-    const url = `http://127.0.0.1:8000/api/ciudadanos/%7Bpk%7D/ciudadanos_fecha_csv/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}&entidad=${this.user.entidad}`
-    const a = document.createElement('a');
-    a.href = url
-    a.download = 'nombre-del-archivo.csv'; // Asigna un nombre al archivo
-    document.body.appendChild(a);
+    const url = `http://127.0.0.1:8000/api/ciudadanoscsv/%7Bpk%7D/ciudadanos_fecha_csv/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`
+    this.httpClient.get(url, { responseType: 'blob' })
+        .pipe(
+            catchError((error: HttpErrorResponse) => {
+                console.error('Error en la solicitud:', error);
+                return throwError('Error en la solicitud. Por favor, inténtalo de nuevo más tarde.');
+            })
+        )
+        .subscribe((response: Blob) => {
+            const blob = new Blob([response], { type: 'text/csv' });
+            const downloadUrl = window.URL.createObjectURL(blob);
 
-    // Inicia la descarga
-    a.click();
-
-    // Libera recursos
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = 'nombre-del-archivo.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(downloadUrl);
+        });
+  
   }
 }

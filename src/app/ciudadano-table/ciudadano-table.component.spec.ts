@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CiudadanoTableComponent } from './ciudadano-table.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CiudadanoTableComponent', () => {
   let component: CiudadanoTableComponent;
@@ -8,7 +9,7 @@ describe('CiudadanoTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CiudadanoTableComponent]
+      imports: [CiudadanoTableComponent,HttpClientModule]
     })
     .compileComponents();
     

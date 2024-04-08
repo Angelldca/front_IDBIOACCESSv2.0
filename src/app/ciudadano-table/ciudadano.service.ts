@@ -7,34 +7,42 @@ import { Observable, catchError, retry, throwError } from 'rxjs';
 
 export interface Ciudadano {
   editMode: boolean,
-  nombre: string;
-  apellidos: string;
+  primernombre: string;
+  segundonombre: string;
+  primerapellido:string;
+  segundoapellido: string;
   img: BinaryType;
-  id: any ,
-  dni: any ,
+  idciudadano: any ,
+  carnetidentidad: any ,
   solapin: any ,
-  expediente: any ,
-  fecha_nacimiento: any,
-  edad: any ,
-  rol_institucional: any ,
+  idexpediente: any ,
+  fechanacimiento: any,
+  residente: boolean;
+  sexo: string ,
+  provincia: string;
+  municipio: string;
+  roluniversitario: any ,
   area: any ,
-  entidad: any,
-  created_At: any,
+  fecha: any,
   detail: string,
   data: {
-    nombre: string;
-    apellidos: string;
+    primernombre: string;
+    segundonombre: string;
+    primerapellido:string;
+    segundoapellido: string;
     img: BinaryType;
-    id: any ,
-    dni: any ,
+    idciudadano: any ,
+    carnetidentidad: any ,
     solapin: any ,
-    expediente: any ,
-    fecha_nacimiento: any,
-    edad: any ,
-    rol_institucional: any ,
+    idexpediente: any ,
+    fechanacimiento: any,
+    residente: boolean;
+    sexo: string ,
+    provincia: string;
+    municipio: string;
+    roluniversitario: any ,
     area: any ,
-    entidad: any,
-    created_At: any,
+    fecha: any,
   }
 }
 
@@ -61,8 +69,10 @@ export class CiudadanoService {
       );
   }
 
-  getCiudadano_1() {
-    return this.http.get<Ciudadano[]>(this.ciudadanoUrl);
+  getCiudadano_1(id: string|null) {
+    if(id != null)
+    return this.http.get<Ciudadano[]>(this.ciudadanoUrl+`${id}/`);
+    return null
   }
   getCiudadano_pagination(url:string) {
     return this.http.get<Pagination>(url);
@@ -77,14 +87,31 @@ export class CiudadanoService {
     return this.http.get<Ciudadano[]>(
       this.ciudadanoUrl, { observe: 'response' });
   }
+
+  
   deleteCiudadano(id:string) {
     return this.http.delete<Ciudadano>(this.ciudadanoUrl+`${id}`)
   }
   updateCiudadano(id:string,data:any) {
     return this.http.put<Ciudadano>(this.ciudadanoUrl+`${id}/`,data)
   }
-  createiudadano(data:any) {
-    return this.http.post<Ciudadano>(this.ciudadanoUrl,data)
+  eliminarAtributosVacios(objeto: any): any {
+    return Object.fromEntries(
+        Object.entries(objeto)
+            .filter(([_, valor]) => valor !== null && valor !== undefined && valor !== '')
+    );
+}
+  createiudadano(data:any, id:any|undefined) {
+    console.log(id)
+      if(id != undefined || id != null){
+        data = this.eliminarAtributosVacios(data)
+        console.log(data)
+        return this.http.patch<Ciudadano>(this.ciudadanoUrl+`${id}/`,data)
+
+      }
+      else
+      return this.http.post<Ciudadano>(this.ciudadanoUrl,data)
+
   }
   exportCiudadanos(url: string){
     return this.http.get<any>(url)

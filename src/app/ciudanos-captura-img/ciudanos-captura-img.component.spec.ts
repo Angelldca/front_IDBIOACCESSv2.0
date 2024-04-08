@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CiudanosCapturaImgComponent } from './ciudanos-captura-img.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CiudanosCapturaImgComponent', () => {
   let component: CiudanosCapturaImgComponent;
@@ -8,7 +10,7 @@ describe('CiudanosCapturaImgComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CiudanosCapturaImgComponent]
+      imports: [CiudanosCapturaImgComponent,HttpClientModule,BrowserAnimationsModule]
     })
     .compileComponents();
     

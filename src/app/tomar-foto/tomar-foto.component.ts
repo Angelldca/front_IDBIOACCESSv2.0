@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
+import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 
 
 
@@ -22,14 +23,14 @@ import Swal from 'sweetalert2';
     MatCheckboxModule,
     MatTooltipModule,
   ],
-  providers:[MediaDevicesService],
+  providers:[MediaDevicesService, CiudadanoService],
   templateUrl: './tomar-foto.component.html',
   styleUrl: './tomar-foto.component.css'
 })
 export class TomarFotoComponent implements OnInit, AfterViewInit  {
   @ViewChild('webcam') webcam: any;
   @ViewChild('canvas') canvas: any;
-  @Input() userID:string|null  = ''
+  @Input() userID:string|null  = null
   @Output() newEmitterUserIDChange = new EventEmitter<string|null|undefined>()
   videoDevices: MediaDeviceInfo[] = [];
   public showWebcam = true;
@@ -50,7 +51,7 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   captureImage = '';
   animationFrameId: number = 0;
 
-  constructor(private mediaDevicesService: MediaDevicesService) { }
+  constructor(private mediaDevicesService: MediaDevicesService, private ciudadanoService: CiudadanoService) { }
   ngOnInit(): void {
     this.getVideoDevices();
     WebcamUtil.getAvailableVideoInputs()
@@ -184,7 +185,7 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
       const radiusY = (canvas.height * 30) / 100;
 
       ctx.beginPath();
-      ctx.arc(centerX, centerY - 20, radiusY, 0, 2 * Math.PI); // Dibuja un círculo como ejemplo
+      ctx.arc(centerX, centerY - 20, radiusY, 0, 2 * Math.PI); // Dibuja un círculo
 
       ctx.strokeStyle = '#d32b2e';
       ctx.lineWidth = 2;
@@ -276,13 +277,12 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   }
 
   saveImg(){
-
-    
-      this.mediaDevicesService.sendImage(this.userID,this.webcamImage?.imageAsDataUrl) .subscribe({
+      this.mediaDevicesService.createImage(this.userID,this.webcamImage?.imageAsDataUrl) .subscribe({
         next: data => {
+          console.log(data)
           Swal.fire({
             title: data.detail,
-            text: `Imagen capturada: ${data.data.nombre} ${data.data.apellidos}`,
+            text: `Id del ciudadano: ${data.data.idciudadano} , fecha: ${data.data.fecha_actualizacion}`,
             icon: 'success',
             showCancelButton: false,
             confirmButtonText: 'Aceptar',
@@ -299,6 +299,7 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
             })
         }, 
         error: error => {
+          console.log(error)
           Swal.fire({
             title: 'Oops...',
             text: error,

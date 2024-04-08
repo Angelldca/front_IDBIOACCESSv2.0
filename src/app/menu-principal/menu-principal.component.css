@@ -1,6 +1,6 @@
 
 .btn_cd{
-    background-color: #d4eaf7;
+    background-color: #B5E2FA;
     color: #444;
     min-width: 14%;
     width: 100%;
@@ -20,10 +20,11 @@
     padding-top: 10px;
     padding-right: 3px;
     width: 200px;
-    background-color: #d4eaf7;
+    background-color: #B5E2FA;
     height: 100%;
 }
 
 .btn_cd:hover {
-    background-color: #71c4ef;
+    background-color: #a7d0e7;
+    
 }

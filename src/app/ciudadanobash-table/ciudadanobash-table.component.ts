@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { CiudadanoService,Ciudadano } from './ciudadano.service';
+import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
 
 import {
   MatDialog,
@@ -12,21 +12,17 @@ import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
-
-
 @Component({
-  selector: 'app-ciudadano-table',
+  selector: 'app-ciudadanobash-table',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule,
     MatIconModule,MatButtonModule,
   ],
   providers:[CiudadanoService],
-  templateUrl: './ciudadano-table.component.html',
-  styleUrl: './ciudadano-table.component.css'
+  templateUrl: './ciudadanobash-table.component.html',
+  styleUrl: './ciudadanobash-table.component.css'
 })
-
-
-export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
@@ -52,7 +48,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadanobash/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -60,9 +56,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   }
 
   displayedColumns: string[] = ['id',
-  'opciones',
-  'img','primernombre','segundonombre', 'primerapellido','segundoapellido', 'area', 
-  'roluniversitario', 'carnetidentidad','solapin','provincia','municipio',
+  'opciones','primernombre','segundonombre', 'primerapellido','segundoapellido',
+  'idestado', 'identificadorarea', 
+  'identificadorroluni', 'carnetidentidad','solapin','provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
@@ -70,9 +66,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   user = { ////Poner unuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/`
+  url:string = `http://127.0.0.1:8000/api/ciudadanobash/`
+  urlNext:string = `http://127.0.0.1:8000/api/ciudadanobash/`
+  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanobash/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined
@@ -209,9 +205,35 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
     
   }
   capturarImg(element:any){
-    console.log(element.idciudadano)
-    this.addNewUserID(element.idciudadano);
-      
+   
+    this.ciudadanoService.createiudadano(element, null).subscribe({
+      next: data => {
+        console.log(data)
+        this.addNewUserID(data.idciudadano);
+      }, // success path
+      error: error => {
+        let errorText =''
+        for (const field in error.error) {
+          if (error.error.hasOwnProperty(field)) {
+            errorText += `${field}: ${error.error[field][0]}\n `;
+            
+          }
+        }
+        Swal.fire({
+          title: 'Oops...',
+          text: errorText,
+          icon: 'error',
+          footer: `${error.statusText} error ${error.status}`,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+              confirmButton: 'btn btn-primary px-4'
+          },
+          buttonsStyling: false,
+          })
+       
+      }, // error path X119041
+    })
+    
   }
 }
 
