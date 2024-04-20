@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-left:5%;
+    padding-top:20px;
+    padding-right:5%;
+    font-weight:bold;
+    background-color:rgb(241, 44, 24);
+    height: 100px;
+
+}
+
+h1{
+    color:rgb(255, 254, 254);
+    font-size:60px;
+}
+
+ul li{
+    display: inline-block;
+    padding: 0px 20px;
+    font-size:45px;
+}
+
+
+a{
+    color:white;
+    text-decoration:none;
+}
+
+a:hover{
+    color: rgb(75, 71, 71);
+}
