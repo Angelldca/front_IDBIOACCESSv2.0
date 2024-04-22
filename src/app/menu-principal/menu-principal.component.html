@@ -1,8 +1,159 @@
-
 <div class="container_opcion">
-    <div class="btn_cd">
-        <mat-icon>edit_note</mat-icon>
-        <p>Captura de datos</p>
-    </div>
 
+    <h4>Menú</h4>
+    <hr/>
+    <div (mouseenter)="showSubmenu('captura_datos')"
+     (mouseleave)="hideSubmenu('captura_datos')" class="opciones">
+        <section class="btn_cd desplegable">
+            <p>
+               Captura de datos
+            </p>
+    
+            <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+    
+        </section>
+        @if(isCapturaDatosVisible){
+        <div id="submenu" (mouseenter)="showSubmenu('captura_datos')"
+         (mouseleave)="hideSubmenu('captura_datos')">
+         <section class="btnSubmenu" routerLink="ciudadanosbash">
+            <p>
+                Buscar Ciudadano
+            </p>
+            <img src="../../assets/img/chevron_right.svg" alt="ri" />
+    
+        </section>
+        <section class="btnSubmenu" routerLink="ciudadano">
+            <p>
+                Crear Ciudadano
+            </p>
+            <img src="../../assets/img/chevron_right.svg" alt="ri" />
+    
+        </section>
+            <section class="btnSubmenu" routerLink="img_out">
+                <p>
+                    Ciudadanos sin captura de Imagen
+                </p>
+                <img src="../../assets/img/chevron_right.svg" alt="ri" />
+        
+            </section>
+         
+
+            <section class="btnSubmenu" routerLink="ciudadanos_import">
+                <p>
+                    Importar Ciudadanos
+                </p>
+        
+                <img src="../../assets/img/chevron_right.svg" alt="ri" />
+            </section>
+            <div (mouseenter)="showSubmenu('reporte_captura_datos')"
+             (mouseleave)="hideSubmenu('reporte_captura_datos')" class="contReporte">
+                <section class="btn_cd desplegable">
+                    <p>
+                        Reportes Captura de datos
+                    </p>
+        
+                    <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
+                </section>
+                @if(isReportesCapturaVisible){
+                <div id="submenu" (mouseenter)="showSubmenu('reporte_captura_datos')" 
+                (mouseleave)="hideSubmenu('reporte_captura_datos')">
+                    <section class="btnSubmenu" routerLink="report_ciudadanos">
+        
+                        <p>
+                            Listar Ciudadanos
+                        </p>
+        
+                    </section>
+                    <section class="btnSubmenu" routerLink="report_historial_ciudadanos">
+        
+                        <p>
+                            Historial de ciudadanos
+                        </p>
+        
+                    </section>
+                    <section class="btnSubmenu" routerLink="report_historial_fotos">
+        
+                        <p>
+                            Historial de fotos capturadas
+                        </p>
+        
+                    </section>
+                </div>
+        
+                }
+            </div>
+        </div>
+
+        }
+    </div>
+    <!-----Seguridad------>
+    <div (mouseenter)="showSubmenu('seguridad')"
+    (mouseleave)="hideSubmenu('seguridad')" class="opciones">
+       <section class="btn_cd desplegable" routerLink="/buscar-ciudadano">
+           <p>
+              Seguridad
+           </p>
+   
+           <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+   
+       </section>
+       
+       @if(isSeguridadVisible){
+       <div id="submenu" (mouseenter)="showSubmenu('seguridad')"
+        (mouseleave)="hideSubmenu('seguridad')">
+           <section class="btnSubmenu" routerLink="/img-out">
+               <p>
+                  Usuarios
+               </p>
+               <img src="../../assets/img/chevron_right.svg" alt="ri" />
+       
+           </section>
+           <section class="btnSubmenu" routerLink="/img-out">
+            <p>
+               Roles
+            </p>
+            <img src="../../assets/img/chevron_right.svg" alt="ri" />
+    
+        </section>
+           <div (mouseenter)="showSubmenu('seguridadReportes')"
+           (mouseleave)="hideSubmenu('seguridadReportes')" class="contReporte">
+              <section class="btn_cd desplegable">
+                  <p>
+                      Trazas Seguridad
+                  </p>
+      
+                  <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
+              </section>
+
+           @if(isReporteSeguridadVisible){
+            <div id="submenu" (mouseenter)="showSubmenu('seguridadReportes')" 
+            (mouseleave)="hideSubmenu('seguridadReportes')">
+                <section class="btnSubmenu" routerLink="/report_ciudadanos">
+    
+                    <p>
+                       Inicios de sección
+                    </p>
+    
+                </section>
+                <section class="btnSubmenu" routerLink="report_historial_ciudadanos">
+    
+                    <p>
+                       Modificaciones por usuarios
+                    </p>
+    
+                </section>
+                <section class="btnSubmenu" routerLink="report_historial_fotos">
+    
+                    <p>
+                        Modificaciones por roles
+                    </p>
+    
+                </section>
+            </div>
+    
+            }
+           </div>
+       </div>
+    }
+    </div>
 </div>

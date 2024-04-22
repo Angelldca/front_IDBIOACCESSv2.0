@@ -4,6 +4,7 @@
 }
 
 nav{
+
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -11,28 +12,32 @@ nav{
     padding-top:20px;
     padding-right:5%;
     font-weight:bold;
-    background-color:rgb(241, 44, 24);
-    height: 100px;
-
-}
-
-h1{
-    color:rgb(255, 254, 254);
-    font-size:60px;
+    background-image: url('../../assets/img/header5.png');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center;
+    width: 100%;
+    color: rgb(246, 242, 242); 
+    padding: 10px 20px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    
+   
 }
 
 ul li{
     display: inline-block;
     padding: 0px 20px;
-    font-size:45px;
+    font-size:24px;
 }
 
 
-a{
+p{
     color:white;
     text-decoration:none;
+    margin: auto;
+    margin-right: 6px;
 }
 
-a:hover{
-    color: rgb(75, 71, 71);
+p:hover{
+    color: rgb(127, 124, 124);
 }

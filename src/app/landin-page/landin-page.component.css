@@ -4,55 +4,60 @@
     box-sizing:border-box;
 }
 
-html{
-    font-size:62.5%;
+
+section{
+   
+  
+    min-width: 50%;
 }
 
 .container{
-    background-color:rgb(232, 227, 227);
-    height:100vh;
+    background-color:rgb(255, 255, 255);
+    min-height: 90vh;
+    height: auto;
     width:100%;
     min-width:1200px;
     font-family:'Share Tech',sans-serif;
-    position: relative; 
-}
 
-header{
-    position:absolute;
-    bottom:30%;
-    padding:0 50px;
 }
-
-header h1{
-    font-size:7rem;
+.encabezado{
+    margin-bottom: 20px;
 }
+.info{
+    display: flex;
+    height: auto;
+    min-height: 60vh;
 
-header h2{
-    font-size:4rem;
-    margin-top:80px;
 }
-
-header p{
-    margin-bottom:20px;
-    margin-top:50px;
-    font-size:2rem;
+.infoText{
+    margin: auto;
+    padding: 20px;
 }
-
-.container .emp{
-    position:absolute;
-    height:90%;
-    width:50%;
-    right:7%;
-    bottom:0;
-    z-index:999;
+.containerImg{
+    position: relative; /* Asegura que las imágenes estén posicionadas relativas a este contenedor */
+    height: 90%; /* Altura del contenedor */
+    width: 100%; /* Ancho del contenedor */
+    overflow: hidden;
+    right: 50%;
+}
+.emp{
+    position: absolute; /* Posiciona la imagen de manera absoluta */
+    height: 100%; /* Toma el 100% de la altura del contenedor */
+    width: 50%; /* Toma el 50% del ancho del contenedor */
+    right: 7%; /* Ajusta la posición desde el lado derecho */
+    bottom: 0; /* Alinea la imagen al fondo del contenedor */
+    z-index: 1; 
     
 }
 
-.container .fondo{
-    position:absolute;
-    height:90%;
-    width:60%;
-    right:-7%;
-    bottom:0;
+.fondo{
+    position: absolute; /* Posiciona la imagen de manera absoluta */
+    height: 100%; /* Toma el 100% de la altura del contenedor */
+    width: 60%; /* Toma el 60% del ancho del contenedor */
+    right: -7%; /* Ajusta la posición desde el lado derecho */
+    bottom: 0; 
     
+}
+.footer{
+    margin-top: auto;
 }

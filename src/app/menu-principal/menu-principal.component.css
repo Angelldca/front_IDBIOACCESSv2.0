@@ -1,30 +1,105 @@
 
 .btn_cd{
-    background-color: #B5E2FA;
+    background-color: #f3f3f3;
     color: #444;
     min-width: 14%;
-    width: 100%;
+    width: auto;
     height: 40px;
     padding: 2px;
     text-align: center; /* Alinea el texto al centro */
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: flex-start;
     margin-right: 0px;
     margin-top: 0px;
-    margin-left: 0px;
+    margin-bottom: 10px;
+    margin-left: 10px;
     padding-top: 10px;
 }
 
-.container_opcion{
-    padding-top: 10px;
-    padding-right: 3px;
-    width: 200px;
-    background-color: #B5E2FA;
+.container_opcion{ 
+    width: 300px;
+    background-color: #f3f3f3;
     height: 100%;
+    min-height: 90vh;
 }
 
 .btn_cd:hover {
-    background-color: #a7d0e7;
+    background-color: #ccc;
     
+}
+
+.btnMenu{
+    display: flex;
+    border: 1px solid #ccc;
+    height: 44px;
+    align-items: center;
+    justify-content: space-between;
+}
+.btnMenu p{
+    margin-right: 20px;
+   color: #1d1c1c;
+}
+
+
+.btnMenu:hover{
+    background-color: #f3f3f3;
+    cursor: pointer;
+
+}
+.btnMenu:hover p{
+    text-shadow: 0 0 10px #444;
+}
+
+.rotateIcon {
+    transition: transform 0.3s ease; 
+}
+#rotateIconCaptura{
+    transition: transform 0.3s ease;
+}
+.desplegable:hover .rotateIcon{
+    transform: rotate(90deg);
+}
+.opciones:hover #rotateIconCaptura{
+    transform: rotate(90deg);
+}
+#submenu{
+    justify-items: end;
+    background-color: #f5f4f1;
+}
+.contReporte:hover .rotateIcon{
+    
+    transform: rotate(90deg);
+}
+.contReporte:hover #reporte{
+    background-color: #f3f3f3;
+}
+.btnSubmenu{
+    background-color: #f3f3f3;
+    color: #444;
+    min-width: 14%;
+    width: auto;
+    height: 40px;
+    padding: 2px;
+    text-align: center; /* Alinea el texto al centro */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.btnSubmenu p{
+    margin-right: 20px;
+   color: #1d1c1c;
+}
+.btnSubmenu:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.btnSubmenu:hover p{
+    color: #3b3c3d;
 }

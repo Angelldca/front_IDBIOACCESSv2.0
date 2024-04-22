@@ -1,12 +1,11 @@
-
 <div class="logincontainer">
     <div class="container">
         <div class="img">
             <img src="../../assets/img/undraw_team_up_re_84ok.svg">
         </div>
-    
+
         <div class="login-container">
-            <form action="index.html">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <img class="avatar" src="../../assets/img/undraw_male_avatar_g98d (1).svg">
                 <h2>Bienvenido</h2>
                 <div class="input-div one ">
@@ -15,27 +14,31 @@
                     </div>
                     <div>
                         @if (mostrarMensaje) {
-                            <h5>Nombre de usuario</h5>
+                        <h5>Nombre de usuario</h5>
                         }
-                       
-                        <input class="input" type="text" (input)="onInput1($event)">
+
+                        <input class="input" type="text" (input)="onInput1($event)" formControlName="username"
+                            autocomplete="username" required>
                     </div>
-                </div>    
+                </div>
                 <div class="input-div two">
                     <div class="i">
                         <i class="fas fa-lock"></i>
                     </div>
                     <div>
                         @if (mostrarContrasena) {
-                            <h5>Contraseña</h5>
+                        <h5>Contraseña</h5>
                         }
-                        <input class="input" type="password" (input)="onInput2($event)">
+                        <input class="input" type="password" (input)="onInput2($event)" formControlName="password"
+                            autocomplete="current-password" required>
                     </div>
                 </div>
-                <a href="#">Registrar Cuenta</a>
-                <input type="submit" class="btn" value="Iniciar Sesisón">
+                <a href="/registrar">Registrar Cuenta</a>
+                <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
+                    [disabled]="!userForm.valid">Iniciar Sesisón
+                </button>
             </form>
         </div>
     </div>
-    
+
 </div>

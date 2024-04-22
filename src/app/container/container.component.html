@@ -1,7 +1,13 @@
 
 
 <div class="container">
-    <router-outlet/>
-    <app-menu-cd class="menuContainer"/>
-    
+    <app-encabezado class="encabezado"/>
+
+    <div class="panelContenido">
+        <app-menu-principal/>
+        <div class="panelOperaciones">
+            <router-outlet/>
+        </div>
+    </div>
+    <app-pie-pagina class="footer"/>
 </div>

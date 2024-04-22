@@ -9,6 +9,7 @@ import { LandinPageComponent } from './landin-page/landin-page.component';
 import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { PiePaginaComponent } from './pie-pagina/pie-pagina.component';
 import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
+import { CiudadanoService } from './ciudadano-table/ciudadano.service';
 
 
 @Component({
@@ -27,9 +28,11 @@ import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
     PiePaginaComponent,
     CruUsuarioComponent,
   ],
+  providers:[CiudadanoService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'captura_datos';
+  constructor(private ciudadanoService: CiudadanoService){}
 }
