@@ -10,10 +10,11 @@ import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import { CiudadanoTableComponent } from '../ciudadano-table/ciudadano-table.component';
 import {MatIconModule} from '@angular/material/icon';
 import moment from 'moment';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { urlBack } from '../Finals';
 
 
 
@@ -93,7 +94,7 @@ export class ReportUserComponent {
       }
     }
     this.urlCiudadanos =
-    `http://127.0.0.1:8000/api/ciudadano/%7Bpk%7D/ciudadanos_rangoFecha/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`;
+    `${urlBack}ciudadano/ciudadanos_rangoFecha/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`;
     this.cdr.detectChanges();
     this.rango = true
   }
@@ -110,8 +111,14 @@ export class ReportUserComponent {
         return;
       }
     }
-    const url = `http://127.0.0.1:8000/api/ciudadanoscsv/%7Bpk%7D/ciudadanos_fecha_csv/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`
-    this.httpClient.get(url, { responseType: 'blob' })
+    const url = `${urlBack}ciudadanoscsv/ciudadanos_fecha_csv/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    
+    this.httpClient.get(url, { responseType: 'blob',headers: headers })
         .pipe(
             catchError((error: HttpErrorResponse) => {
                 console.error('Error en la solicitud:', error);
@@ -124,7 +131,7 @@ export class ReportUserComponent {
 
             const a = document.createElement('a');
             a.href = downloadUrl;
-            a.download = 'nombre-del-archivo.csv';
+            a.download = `ciudadanos${data.fecha_inicio} al ${data.fecha_fin}.csv`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);

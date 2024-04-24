@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(CiudadanoService)
   const router = inject(Router)
-  const requiredPermissions = route.data['expectedRole'] as string[];
+  const requiredPermissions = route.data['expectedRoles'] as string[];
 
   if (!authService.isAuthenticated()) {
     console.log("Usuario no autenticado")
@@ -15,7 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return false;
   }
   if(!authService.hasAllPermissions(requiredPermissions)){
-    console.log("Usuario no autorizado")
+   
     router.navigate(['/unauthorized']);
     return false;
   }

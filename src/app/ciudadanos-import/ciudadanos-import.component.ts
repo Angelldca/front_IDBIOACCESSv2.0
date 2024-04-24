@@ -8,6 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { urlBack } from '../Finals';
 @Component({
   selector: 'app-ciudadanos-import',
   standalone: true,
@@ -23,7 +25,7 @@ export class CiudadanosImportComponent implements AfterViewInit{
   file = new FormControl('');
   selectedFile: File | null = null;
   nameFile = 'Ningun archivo seleccionado'
-constructor(private ciudadanoService : CiudadanoService){}
+constructor(private ciudadanoService : CiudadanoService,private http: HttpClient){}
   onSubmit(){
     if (this.selectedFile) {
       this.uploadFile(this.selectedFile);
@@ -44,7 +46,7 @@ constructor(private ciudadanoService : CiudadanoService){}
     console.log('Subiendo archivo:', file);
     const formData = new FormData();
     formData.append('planilla_ciudadanos', file);
-    this.ciudadanoService.uploadFile('http://127.0.0.1:8000/api/ciudadanoscsv/',formData)
+    this.ciudadanoService.uploadFile(urlBack+'ciudadanoscsv/',formData)
     .subscribe({
       next: data => {
         console.log(data)
@@ -76,5 +78,34 @@ constructor(private ciudadanoService : CiudadanoService){}
     this.dataSource.paginator = this.paginator;
   }
 
+  descargarPlantilla(){
+    const token = localStorage.getItem('Token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+    });
 
+    const url = `${urlBack}ciudadanoscsv/descargar_csv/`;
+
+    // Realiza la solicitud HTTP con los encabezados
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(response => {
+      
+      const blob = new Blob([response], { type: 'text/csv' });
+      const urlBlob = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = urlBlob;
+      a.download = 'plantilla.csv';
+      document.body.appendChild(a);
+
+      
+      a.click();
+
+      // Libera recursos
+      window.URL.revokeObjectURL(urlBlob);
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el archivo:', error);
+    });
+    
+  }
 }

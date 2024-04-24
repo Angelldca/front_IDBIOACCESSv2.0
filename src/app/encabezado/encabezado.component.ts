@@ -28,7 +28,6 @@ logOut(){
   this.user=null;
   this.username =null;
   this.router.navigate(['']);
-  console.log("Click")
   this.ciudadanoService.logOut();
 }
 

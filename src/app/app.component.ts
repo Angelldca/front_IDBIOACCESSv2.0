@@ -28,11 +28,11 @@ import { CiudadanoService } from './ciudadano-table/ciudadano.service';
     PiePaginaComponent,
     CruUsuarioComponent,
   ],
-  providers:[CiudadanoService],
+  providers:[], //CiudadanoService
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'captura_datos';
-  constructor(private ciudadanoService: CiudadanoService){}
+  constructor(){}
 }

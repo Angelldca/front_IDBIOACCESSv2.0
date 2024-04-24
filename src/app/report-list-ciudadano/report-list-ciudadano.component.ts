@@ -5,6 +5,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import { BuscarCiudadanoComponent, Busqueda } from '../buscar-ciudadano/buscar-ciudadano.component';
 import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { urlBack } from '../Finals';
 @Component({
   selector: 'app-report-list-ciudadano',
   standalone: true,
@@ -14,7 +16,7 @@ import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
     TomarFotoComponent
   
   ],
-  providers: [CiudadanoService],
+  providers: [],
   templateUrl: './report-list-ciudadano.component.html',
   styleUrl: './report-list-ciudadano.component.css'
 })
@@ -24,7 +26,7 @@ export class ReportListCiudadanoComponent {
   }
   userID:string| undefined| null;
   search:string| undefined;
-  constructor(private ciudadanoService: CiudadanoService){}
+  constructor(private ciudadanoService: CiudadanoService, private http: HttpClient){}
   getBusqueda(value:Busqueda){
     this.search =  JSON.stringify(value)
   }
@@ -33,28 +35,33 @@ export class ReportListCiudadanoComponent {
 
   }
   donwloadListCiudadanos(){
-    const url = `http://127.0.0.1:8000/api/ciudadanoscsv/%7Bpk%7D/ciudadanos_entidad_csv/`
-    const a = document.createElement('a');
-    a.href = url
-    a.download = 'nombre-del-archivo.csv'; // Asigna un nombre al archivo
-    document.body.appendChild(a);
+    const token = localStorage.getItem('Token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+    });
 
-    // Inicia la descarga
-    a.click();
+    const url = `${urlBack}ciudadanoscsv/ciudadanos_entidad_csv/`;
 
-    // Libera recursos
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-    /*
-    this.ciudadanoService.donwloadCiudadanoList(this.user.entidad).subscribe({
-     next: data=>{
-       console.log(data)
-     },
-     error: error => console.log(error), 
-    })
-   
-    
-    */
+    // Realiza la solicitud HTTP con los encabezados
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(response => {
+      // Crea un objeto Blob con la respuesta y crea un enlace para descargar el archivo
+      const blob = new Blob([response], { type: 'text/csv' });
+      const urlBlob = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = urlBlob;
+      a.download = 'lista_ciudadanos.csv';
+      document.body.appendChild(a);
+
+      // Inicia la descarga
+      a.click();
+
+      // Libera recursos
+      window.URL.revokeObjectURL(urlBlob);
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el archivo:', error);
+    });
   }
 
 }

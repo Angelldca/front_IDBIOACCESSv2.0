@@ -10,6 +10,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import Swal from 'sweetalert2';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
+import { urlBack } from '../Finals';
 
 
 
@@ -107,6 +108,7 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
        
         }, 
         error: error => {
+          console.log(error)
           Swal.fire({
             title: 'Oops...',
             text: error,
@@ -277,7 +279,8 @@ export class TomarFotoComponent implements OnInit, AfterViewInit  {
   }
 
   saveImg(){
-      this.mediaDevicesService.createImage(this.userID,this.webcamImage?.imageAsDataUrl) .subscribe({
+      this.mediaDevicesService.createImage(this.userID,
+        this.webcamImage?.imageAsDataUrl,urlBack+'img/') .subscribe({
         next: data => {
           console.log(data)
           Swal.fire({

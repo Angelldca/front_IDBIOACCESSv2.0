@@ -1,5 +1,6 @@
 table {
     width: 100%;
+
    
 }
 
@@ -9,11 +10,12 @@ table {
     border: 2px solid #ccc;
     border-radius: 5px;
     height: 546px;
+   
 }
 
 .mat-mdc-header-row{
     height: 23px;
-    background-color:  #B5E2FA;
+    background-color:  #d3dbe3;
 }
 
 .inputInactive{

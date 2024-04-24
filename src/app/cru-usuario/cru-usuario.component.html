@@ -1,1 +1,51 @@
-<p>cru-usuario works!</p>
+
+<div class="table">
+    <div class="table-header">
+      <h2>Usuarios</h2>
+      <div class="buscar">
+              <input type="text" placeholder="Buscar Usuario" 
+              name="buscar_user" (keyup)="buscarUser($event)">
+              <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
+             
+      </div>
+    </div>
+    <div class="table-section">
+       <table>
+          <thead>
+              <tr>
+                  <th>Usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Correo</th>
+                  <th>Opciones</th>
+              </tr>
+          </thead>
+          <tbody>
+
+            @for (user of users; track user.id) {
+                <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <button class="nth-child"><img src="../../assets/img/edit (1).svg"></button>
+                        <button class="nth-child"><img src="../../assets/img/delete.svg"></button>
+                     </td>
+                </tr>
+
+            }
+          </tbody>
+         
+       </table>
+    </div>
+    <div class="pagination">
+
+    </div>
+        
+  </div>
+  
+<!---
+    <app-registrar/>
+
+-->

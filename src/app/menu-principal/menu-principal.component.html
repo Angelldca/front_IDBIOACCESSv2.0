@@ -13,6 +13,7 @@
     
         </section>
         @if(isCapturaDatosVisible){
+            
         <div id="submenu" (mouseenter)="showSubmenu('captura_datos')"
          (mouseleave)="hideSubmenu('captura_datos')">
          <section class="btnSubmenu" routerLink="ciudadanosbash">
@@ -79,11 +80,11 @@
         
                     </section>
                 </div>
-        
+               
                 }
             </div>
         </div>
-
+        <hr/>
         }
     </div>
     <!-----Seguridad------>
@@ -101,14 +102,14 @@
        @if(isSeguridadVisible){
        <div id="submenu" (mouseenter)="showSubmenu('seguridad')"
         (mouseleave)="hideSubmenu('seguridad')">
-           <section class="btnSubmenu" routerLink="/img-out">
+           <section class="btnSubmenu" routerLink="user">
                <p>
                   Usuarios
                </p>
                <img src="../../assets/img/chevron_right.svg" alt="ri" />
        
            </section>
-           <section class="btnSubmenu" routerLink="/img-out">
+           <section class="btnSubmenu" routerLink="rol">
             <p>
                Roles
             </p>
@@ -150,10 +151,11 @@
     
                 </section>
             </div>
-    
+           
             }
            </div>
        </div>
+       <hr/>
     }
     </div>
 </div>

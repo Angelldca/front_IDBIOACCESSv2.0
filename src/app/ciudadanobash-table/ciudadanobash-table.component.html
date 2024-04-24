@@ -127,7 +127,11 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     
-      <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="page_size" (page)="onPageFired($event)" class="paginator">
+      <mat-paginator 
+      [length]="count"
+       [pageIndex]="0" 
+       [pageSize]="page_size" 
+       (page)="onPageFired($event)" class="paginator">
     
       </mat-paginator>
     </div>

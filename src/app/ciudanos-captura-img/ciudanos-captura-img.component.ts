@@ -5,6 +5,8 @@ import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
+import { urlBack } from '../Finals';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-ciudanos-captura-img',
   standalone: true,
@@ -15,10 +17,10 @@ import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
   styleUrl: './ciudanos-captura-img.component.css'
 })
 export class CiudanosCapturaImgComponent {
-  
+  urlList = urlBack+'ciudadano/ciudadanos_sin_img/'
   userID:string| undefined| null;
   search:string| undefined;
-constructor(private ciudadanoService: CiudadanoService ){
+constructor(private ciudadanoService: CiudadanoService,private http: HttpClient ){
 
 }
   getBusqueda(value:Busqueda){
@@ -29,12 +31,33 @@ constructor(private ciudadanoService: CiudadanoService ){
 
   }
   exportCiudadanos_sin_img(){
-    this.ciudadanoService.exportCiudadanos('http://127.0.0.1:8000/api/ciudadanoscsv/') .subscribe({
-      next: data => {
-        console.log(data)
-      }, 
-      error: error => console.log(error), 
-    })
-    console.log("Export")
+    const token = localStorage.getItem('Token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+    });
+
+    const url = `${urlBack}ciudadanoscsv/ciudadanossinimg_csv/`;
+
+    // Realiza la solicitud HTTP con los encabezados
+    this.http.get(url, { headers, responseType: 'blob' }).subscribe(response => {
+      
+      const blob = new Blob([response], { type: 'text/csv' });
+      const urlBlob = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = urlBlob;
+      a.download = 'lista_ciudadanos_sin_img.csv';
+      document.body.appendChild(a);
+
+      
+      a.click();
+
+      // Libera recursos
+      window.URL.revokeObjectURL(urlBlob);
+      document.body.removeChild(a);
+    }, error => {
+      console.error('Error al descargar el archivo:', error);
+    });
+    
   }
 }

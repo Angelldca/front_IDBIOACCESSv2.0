@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { Observable, catchError, retry, throwError } from 'rxjs';
@@ -14,14 +14,18 @@ import { Observable, catchError, retry, throwError } from 'rxjs';
 export class CiudadanoService {
   ciudadanoUrl = 'http://127.0.0.1:8000/api/ciudadano/';
   userAuth: IUsuario | undefined = undefined;
-  
 
   constructor(private http: HttpClient) {
- 
-   }
 
+   }
+   
   getCiudadanos() {
-    return this.http.get<Ciudadano>(this.ciudadanoUrl)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<Ciudadano>(this.ciudadanoUrl,{headers})
       .pipe(
         retry(3), // retry a failed request up to 3 times
         catchError(this.handleError) // then handle the error
@@ -29,12 +33,22 @@ export class CiudadanoService {
   }
 
   getCiudadano_1(id: string | null) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
     if (id != null)
-      return this.http.get<Ciudadano[]>(this.ciudadanoUrl + `${id}/`);
+      return this.http.get<Ciudadano[]>(this.ciudadanoUrl + `${id}/`,{headers});
     return null
   }
   getCiudadano_pagination(url: string) {
-    return this.http.get<Pagination>(url);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<Pagination>(url,{headers});
   }
 
 
@@ -43,16 +57,31 @@ export class CiudadanoService {
   }
 
   getConfigResponse(): Observable<HttpResponse<Ciudadano[]>> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
     return this.http.get<Ciudadano[]>(
       this.ciudadanoUrl, { observe: 'response' });
   }
 
 
   deleteCiudadano(id: string) {
-    return this.http.delete<Ciudadano>(this.ciudadanoUrl + `${id}`)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.delete<Ciudadano>(this.ciudadanoUrl + `${id}`,{headers})
   }
   updateCiudadano(id: string, data: any) {
-    return this.http.put<Ciudadano>(this.ciudadanoUrl + `${id}/`, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.put<Ciudadano>(this.ciudadanoUrl + `${id}/`, data,{headers})
   }
   eliminarAtributosVacios(objeto: any): any {
     return Object.fromEntries(
@@ -61,31 +90,51 @@ export class CiudadanoService {
     );
   }
   createiudadano(data: any, id: any | undefined) {
-    console.log(id)
+   const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+
     if (id != undefined || id != null) {
       data = this.eliminarAtributosVacios(data)
-      console.log(data)
-      return this.http.patch<Ciudadano>(this.ciudadanoUrl + `${id}/`, data)
+     
+      return this.http.patch<Ciudadano>(this.ciudadanoUrl + `${id}/`, data, {headers})
 
     }
     else
-      return this.http.post<Ciudadano>(this.ciudadanoUrl, data)
+      return this.http.post<Ciudadano>(this.ciudadanoUrl, data, {headers})
 
   }
   exportCiudadanos(url: string) {
-    return this.http.get<any>(url)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    //'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<any>(url, {headers})
   }
 
   uploadFile(urlUploadFile: string, formData: FormData) {
-    return this.http.post<any[]>(urlUploadFile, formData);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    
+    'Authorization': `Token ${token}`
+  });
+    return this.http.post<any[]>(urlUploadFile, formData, {headers});
   }
-  donwloadCiudadanoList(entidad: string) {
-    return this.http.get(`http://127.0.0.1:8000/api/ciudadanos/%7Bpk%7D/ciudadanos_entidad_csv/?entidad=${entidad}`)
+  donwloadCiudadanoList() {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get(`http://127.0.0.1:8000/api/ciudadanos/%7Bpk%7D/ciudadanos_entidad_csv/`,{headers})
   }
 
   setUser(user:IUsuario){
     this.userAuth = user;
-    console.log(this.userAuth)
+    
   }
   // login user
   loginCiudadano(data: any, urlLog: string) {
@@ -109,6 +158,54 @@ export class CiudadanoService {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
+  ///Seguridad 
+  getAllPermissions(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<IPersmisos[]>(url,{headers});
+  }
+  getAllRol(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<IRol[]>(url,{headers});
+  }
+  getUserPermissons(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.get<any>(url,{headers});
+  }
+////crear rol
+  createRol(url: string, data: any, method: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+  if(method == 'POST')
+    return this.http.post<any>(url,data,{headers});
+  else
+    return this.http.put<any>(url,data,{headers});
+  }
+  ///Eliminar rol
+  deleteRol(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.delete<any>(url,{headers});
+
+  }
+
   public isAuthenticated() : boolean {
     const token = localStorage.getItem('Token');
     if(token){
@@ -126,11 +223,16 @@ export class CiudadanoService {
   getUserRoles(): string[] {
     return this.userAuth ? this.userAuth.roles.map((role: any) => role.name) : [];
   }
-  getAllPermissions(): string[] {
+  getUserAllPermissions(): string[] {
     let permissions: string[] = [];
+    const userLocal =   localStorage.getItem('user')
+    if(userLocal && !this.userAuth){
+      this.userAuth = JSON.parse(userLocal)
+     
+    }
     if (this.userAuth) {
       permissions = permissions.concat(this.userAuth.permissions);
-      console.log(this.userAuth)
+    
       if (this.userAuth.roles) {
         this.userAuth.roles.forEach((role: any) => {
           if (role.permissions) {
@@ -143,15 +245,34 @@ export class CiudadanoService {
   }
 
   hasAllPermissions(requiredPermissions: string[]): boolean {
-    const userPermissions = this.getAllPermissions();
-    console.log(this.userAuth);
-    console.log(userPermissions)
+    const userPermissions = this.getUserAllPermissions();
     return requiredPermissions.every(permission => userPermissions.includes(permission));
   }
-
+////Users
+getUsers(url: string) {
+  const token = localStorage.getItem('Token')
+  const headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  'Authorization': `Token ${token}`
+});
+  return this.http.get<any>(url,{headers});
+}
 }
 
-
+export interface IPersmisos{
+  
+    id: number,
+    name: string,
+    codename: string,
+    content_type: number,
+    detail: string
+  
+}
+export interface IRol{
+  id: number,
+  name: string,
+  permissions: []
+}
 
 export interface IUserLog {
   token: string,

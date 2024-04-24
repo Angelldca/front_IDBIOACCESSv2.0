@@ -135,14 +135,12 @@ export class CiudadanoComponent implements OnInit {
       data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
       
     }
-    console.log(this.idCiudadano)
-    
-
     this.createCiudadano(data)
   }
 
 
   createCiudadano(data: any){
+    
     this.ciudadanoService.createiudadano(data, this.idCiudadano).subscribe({
       next: data => {
         console.log(data)

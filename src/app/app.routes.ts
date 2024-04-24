@@ -12,6 +12,10 @@ import { LandinPageComponent } from './landin-page/landin-page.component';
 import { ContainerComponent } from './container/container.component';
 import { authGuard } from './guard/auth.guard';
 import { CiudadanoService } from './ciudadano-table/ciudadano.service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { RolComponent } from './rol/rol.component';
+import { RolListComponent } from './rol-list/rol-list.component';
+import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
 
 export const routes: Routes = [
 
@@ -19,46 +23,78 @@ export const routes: Routes = [
   { path: 'registrar', component: RegistrarComponent },
   { path: 'landingpage', component: LandinPageComponent },
   { path: 'home', component: ContainerComponent,
+  canActivate:[authGuard],
+  data: { expectedRoles: ['view_user']},
   children: [
     {
       path: 'ciudadanosbash',
-      providers:[CiudadanoService],
+      providers:[], //CiudadanoService
       canActivate:[authGuard],
-      data: { requiredPermissions: ['add_dimagenfacial', 'delete_user'] },
+      data: { expectedRoles: ['view_user']},
       component: PanelContenidoComponent, 
     },
     {
       path: 'ciudadano',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: CiudadanoComponent,
     },
     {
       path: 'ciudadano/:id',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: CiudadanoComponent,
     },
     {
       path: 'img_out',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: CiudanosCapturaImgComponent,
     },
     {
       path: 'ciudadanos_import',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: CiudadanosImportComponent,
     },
     {
       path: 'report_ciudadanos',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: ReportListCiudadanoComponent,
     },
     {
       path: 'report_historial_ciudadanos',
-     
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: ReportUserComponent,
     },
     {
       path: 'report_historial_fotos',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
       component: ReportFotosComponent,
+    }, {
+      path: 'user',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: CruUsuarioComponent,
+    },
+    {
+      path: 'rol',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: RolListComponent,
+    },
+    {
+      path: 'rol/create_rol',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: RolComponent,
     },
   
   ],
 },
-  ///{ path: '**', component: <h4> Usuario sin autorizacion <h4/>}
+  { path: 'unauthorized', component: UnauthorizedComponent}
  //{ path: '**', component: UnauthorizedComponent }
 ];

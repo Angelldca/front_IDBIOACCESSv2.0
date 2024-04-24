@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { urlBack } from '../Finals';
 
 @Injectable()
 export class MediaDevicesService {
@@ -33,18 +34,27 @@ export class MediaDevicesService {
     if(blobImagen){
       formData.append('img', blobImagen);
     }
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+   
+    'Authorization': `Token ${token}`
+  });
     
-    return this.http.post<ResponseImg>(this.url, formData);
+    return this.http.post<ResponseImg>(urlBack+'img/validate/validateimg/', formData,{headers});
   }
 
-  createImage(id: string | null , blobImagen: string| undefined){
+  createImage(id: string | null , blobImagen: string| undefined, url:string){
     const formData = new FormData();
     if(blobImagen && id){
       formData.append('foto', blobImagen);
       formData.append('idciudadano', id);
       formData.append('valida', 'true');
     }
-    return this.http.post<ImagenFacial>(this.url, formData);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Authorization': `Token ${token}`
+  });
+    return this.http.post<ImagenFacial>(url, formData,{headers});
     
   }
   updateImage(id: string | null , blobImagen: string| undefined){
@@ -53,12 +63,22 @@ export class MediaDevicesService {
       formData.append('foto', blobImagen);
       formData.append('idciudadano', id);
     }
-    return this.http.patch<ImagenFacial>(this.url, formData);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
+    return this.http.patch<ImagenFacial>(this.url, formData, {headers});
     
   }
   getImage(id: string|null) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+  });
     if(id != null)
-    return this.http.get<ImagenFacial[]>(this.url+`${id}/`);
+    return this.http.get<ImagenFacial[]>(this.url+`${id}/`,{headers});
     return null
   }
 

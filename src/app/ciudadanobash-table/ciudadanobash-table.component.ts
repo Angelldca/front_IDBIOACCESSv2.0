@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   imports: [MatTableModule, MatPaginatorModule,
     MatIconModule,MatButtonModule,
   ],
-  providers:[CiudadanoService],
+  providers:[],
   templateUrl: './ciudadanobash-table.component.html',
   styleUrl: './ciudadanobash-table.component.css'
 })
@@ -86,7 +86,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
     this.ciudadanoService.getCiudadano_pagination(url)
       .subscribe({
         next: data => {
-          console.log(data)
+         
           if(data.results.length> 0){
             this.ciudadanos = data.results
             this.ciudadanos.forEach(c => c.editMode = false)
@@ -101,7 +101,20 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
 
           }else this.ciudadanos = undefined
         }, 
-        error: error => this.error = error, 
+        error: error =>{
+           this.error = error;
+           Swal.fire({
+            title: 'Oops...',
+            text: error.error.detail,
+            icon: 'error',
+            footer: `${error.statusText} error ${error.status}`,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+              confirmButton: 'btn btn-success px-4',
+            },
+            buttonsStyling: true,
+            })
+          }, 
       })
       
       

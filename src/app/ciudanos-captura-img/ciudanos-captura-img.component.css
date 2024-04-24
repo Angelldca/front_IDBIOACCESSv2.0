@@ -1,19 +1,19 @@
 
 .ciudadano_capOff{
-    width: 100%;
+    width: 80%;
  
 }
 .btn_export{
  display: flex;
  align-items: baseline;
  justify-content: end;
-
+margin-bottom: 5px;
 }
 
 
 
- a{
-    display: flex;
+button{
+    
     align-items: center;
     padding: 6px;
     text-decoration: none;
@@ -28,11 +28,11 @@
     box-shadow: 0px 1px 2px #497388;
 }
 
-a:hover {
+button:hover {
     cursor: pointer;
     color: #444;
 }
-a:active {
+button:active {
     transform: scale(0.95);
 }
 

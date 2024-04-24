@@ -115,11 +115,11 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   onPageFired(event:any){
     if(event.previousPageIndex > event.pageIndex){
       this.showCiudadanos(this.urlPrevious)
-      console.log(this.urlPrevious)
+      
       
     }else{
       this.showCiudadanos(this.urlNext)
-      console.log(this.urlNext)
+     
     }
     
   }

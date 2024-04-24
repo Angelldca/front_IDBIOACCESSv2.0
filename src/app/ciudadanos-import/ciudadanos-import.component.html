@@ -24,8 +24,8 @@
         </form>
     
         <section class="btn_export">
-            <a href="http://127.0.0.1:8000/api/ciudadanoscsv/%7Bpk%7D/descargar_csv/" download>
-                <button mat-button  aria-label="download">
+            <a>
+                <button mat-button (click)="descargarPlantilla()" aria-label="download">
                     Descargar Planilla
                     <mat-icon>download</mat-icon>
                 </button>

@@ -13,7 +13,7 @@ table {
 
 .mat-mdc-header-row{
     height: 23px;
-    background-color:  #B5E2FA;
+    background-color:  #f6f9fc;
 }
 
 .inputInactive{
@@ -40,9 +40,9 @@ table {
     border: 1px solid #ccc;
   }
 .mat-mdc-row:hover .mat-mdc-cell{
-    background-color: #B5E2FA;
-    
+    color: #cf3c3c;
     cursor: pointer;
+    background-color: #ffd7d77a;
 }
 
 
@@ -65,4 +65,8 @@ table {
 }
 .newSearch h3 {
     color: #444;
+}
+
+.paginator{
+    background-color:  #f6f9fc;
 }

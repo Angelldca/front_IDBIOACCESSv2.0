@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule],
-  providers:[CiudadanoService],
+  providers:[],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent{
+export class LoginComponent implements OnInit{
   mostrarMensaje = true;
   mostrarContrasena=true;
 
@@ -21,11 +21,13 @@ export class LoginComponent{
     password : new FormControl('')
   });
 
-  constructor( private ciudadanoService: CiudadanoService, private router: Router ) {
+  constructor( private ciudadanoService: CiudadanoService, private router: Router )  {
 
   }
 
-
+  ngOnInit(): void {
+        
+  }
   
   onInput1(event: any) {
     if (event.target.value.trim() !== '') {
@@ -49,7 +51,8 @@ export class LoginComponent{
     this.ciudadanoService.loginCiudadano(data, urlBack+'seguridad/login/' ).subscribe({
       next: data => { 
         this.ciudadanoService.setUser(data.user) 
-        localStorage.setItem('Token', data.token);  
+        localStorage.setItem('Token', data.token);
+         
         if(data.user.permissions.length > 0 && data.user.roles.length > 0)
           this.router.navigate(['home'],{ state: { user: data.user } });
         else

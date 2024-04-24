@@ -7,9 +7,6 @@
         <h2>Exportar Lista de Ciudadanos de la Entidad</h2>
         <hr/>
         <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
-        <app-ciudadano-table buscar={{search}} (newUserIDEvent)="getUserID($event)"/>
-    
-        <hr />
         <section class="btn_export">
             <p>Exportar registro en csv</p>
     
@@ -22,6 +19,10 @@
     
     
         </section>
+        <app-ciudadano-table buscar={{search}} (newUserIDEvent)="getUserID($event)"/>
+    
+        <hr />
+    
 
     }
    
