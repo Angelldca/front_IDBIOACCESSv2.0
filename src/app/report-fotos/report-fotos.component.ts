@@ -45,7 +45,7 @@ const MY_DATE_FORMATS = {
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-Es' }, 
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    CiudadanoService,
+    
     HttpClient
   
   ],
@@ -116,7 +116,7 @@ export class ReportFotosComponent {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     const url = `${urlBack}ciudadanoscsv/ciudadanos_fecha_foto_csv/?fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`
     this.httpClient.get(url, { responseType: 'blob',headers:headers })

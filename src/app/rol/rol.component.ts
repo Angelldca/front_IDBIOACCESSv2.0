@@ -84,13 +84,12 @@ export class RolComponent implements OnInit{
     
   }
   removePermiso(){
-    console.log(this.opcionesSeleccionadasRol)
     this.opcionesRol = this.opcionesRol.filter(elemento => !this.opcionesSeleccionadasRol.includes(elemento));
     
     this.opcionesRolServer = this.opcionesRolServer.filter(elemento => !this.opcionesSeleccionadasRol.includes(elemento));
     if(this.permisos){
       this.permisos = this.permisos.concat(this.opcionesSeleccionadasRol)
-      //this.permisosServer.push(...this.permisos)
+      this.permisosServer.push(...this.permisos)
     }
     this.opcionesSeleccionadasRol = [];
   }
@@ -140,7 +139,7 @@ export class RolComponent implements OnInit{
             return this.rol_admin.permissions.some(id => id === permiso.id);
             return
         });
-        
+        this.opcionesRolServer= [...this.opcionesRol]
         this.permisosServer = this.permisosServer.filter(permiso => {
           return !this.opcionesRol.some(opcion => opcion.id === permiso.id);
       });
@@ -238,7 +237,7 @@ export class RolComponent implements OnInit{
   }
 
   deleteRol(){
-    this.ciudadanoService.deleteRol(urlBack+`seguridad/rol/${this.rol_admin?.id}/`).subscribe({
+    this.ciudadanoService.delete(urlBack+`seguridad/rol/${this.rol_admin?.id}/`).subscribe({
       next: data => {
         console.log(data)
         Swal.fire({

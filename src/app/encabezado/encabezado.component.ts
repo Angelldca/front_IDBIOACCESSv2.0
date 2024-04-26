@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, booleanAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 import { CiudadanoService, IUsuario } from '../ciudadano-table/ciudadano.service';
 @Component({
@@ -10,8 +10,9 @@ import { CiudadanoService, IUsuario } from '../ciudadano-table/ciudadano.service
   styleUrl: './encabezado.component.css'
 })
 export class EncabezadoComponent {
- username: string| null ="username"
+ username: string| null ="A"
  user: IUsuario|null = null
+ @Input({ transform: booleanAttribute }) isLoged: boolean | undefined;
  constructor(private ciudadanoService: CiudadanoService, private router: Router){
   const navigation = this.router.getCurrentNavigation();
   if (navigation && navigation.extras && navigation.extras.state) {

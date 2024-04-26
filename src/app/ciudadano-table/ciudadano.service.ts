@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { Observable, catchError, retry, throwError } from 'rxjs';
+import { urlBack } from '../Finals';
 
 
 
@@ -16,14 +17,19 @@ export class CiudadanoService {
   userAuth: IUsuario | undefined = undefined;
 
   constructor(private http: HttpClient) {
-
+    const userLocal = localStorage.getItem('user')
+    if(userLocal)
+    this.userAuth = JSON.parse(userLocal)
    }
+   validateToken(token: any){
    
+    return this.http.post<any>(urlBack+'seguridad/validatetoken/',{token})
+  }
   getCiudadanos() {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<Ciudadano>(this.ciudadanoUrl,{headers})
       .pipe(
@@ -36,7 +42,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     if (id != null)
       return this.http.get<Ciudadano[]>(this.ciudadanoUrl + `${id}/`,{headers});
@@ -46,7 +52,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<Pagination>(url,{headers});
   }
@@ -60,7 +66,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<Ciudadano[]>(
       this.ciudadanoUrl, { observe: 'response' });
@@ -71,7 +77,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.delete<Ciudadano>(this.ciudadanoUrl + `${id}`,{headers})
   }
@@ -79,7 +85,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.put<Ciudadano>(this.ciudadanoUrl + `${id}/`, data,{headers})
   }
@@ -93,7 +99,7 @@ export class CiudadanoService {
    const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
 
     if (id != undefined || id != null) {
@@ -110,7 +116,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     //'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<any>(url, {headers})
   }
@@ -119,7 +125,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.post<any[]>(urlUploadFile, formData, {headers});
   }
@@ -127,7 +133,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get(`http://127.0.0.1:8000/api/ciudadanos/%7Bpk%7D/ciudadanos_entidad_csv/`,{headers})
   }
@@ -163,7 +169,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<IPersmisos[]>(url,{headers});
   }
@@ -171,7 +177,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<IRol[]>(url,{headers});
   }
@@ -179,7 +185,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.get<any>(url,{headers});
   }
@@ -188,7 +194,7 @@ export class CiudadanoService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
   if(method == 'POST')
     return this.http.post<any>(url,data,{headers});
@@ -196,15 +202,16 @@ export class CiudadanoService {
     return this.http.put<any>(url,data,{headers});
   }
   ///Eliminar rol
-  deleteRol(url: string) {
+  delete(url: string) {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     return this.http.delete<any>(url,{headers});
 
   }
+
 
   public isAuthenticated() : boolean {
     const token = localStorage.getItem('Token');
@@ -253,7 +260,7 @@ getUsers(url: string) {
   const token = localStorage.getItem('Token')
   const headers = new HttpHeaders({
   'Content-Type': 'application/json',
-  'Authorization': `Token ${token}`
+  'Authorization': `Bearer ${token}`
 });
   return this.http.get<any>(url,{headers});
 }

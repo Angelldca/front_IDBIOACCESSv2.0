@@ -38,7 +38,7 @@ export class ReportListCiudadanoComponent {
     const token = localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`
+      'Authorization': `Bearer ${token}`
     });
 
     const url = `${urlBack}ciudadanoscsv/ciudadanos_entidad_csv/`;

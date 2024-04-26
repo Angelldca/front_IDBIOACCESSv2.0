@@ -8,6 +8,10 @@
               <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
              
       </div>
+      <button class="btn_add" routerLink="">
+        <span>Añadir nuevo usuario </span>
+        <img src="../../assets/img/add.svg"/>
+    </button>
     </div>
     <div class="table-section">
        <table>
@@ -29,8 +33,8 @@
                     <td>{{user.last_name}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <button class="nth-child"><img src="../../assets/img/edit (1).svg"></button>
-                        <button class="nth-child"><img src="../../assets/img/delete.svg"></button>
+                        <button class="nth-child" (click)="userEdit(user)"><img src="../../assets/img/person_edit.svg"></button>
+                        <button class="nth-child" (click)="userDelete(user)"><img src="../../assets/img/person_remove.svg"></button>
                      </td>
                 </tr>
 

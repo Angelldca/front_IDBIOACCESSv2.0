@@ -45,7 +45,7 @@ const MY_DATE_FORMATS = {
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-Es' }, 
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    CiudadanoService,HttpClient
+    HttpClient
   
   ],
   templateUrl: './report-user.component.html',
@@ -115,7 +115,7 @@ export class ReportUserComponent {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     
     this.httpClient.get(url, { responseType: 'blob',headers: headers })

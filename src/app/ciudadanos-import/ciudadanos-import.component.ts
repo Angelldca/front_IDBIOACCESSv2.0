@@ -16,7 +16,7 @@ import { urlBack } from '../Finals';
   imports: [CiudadanoTableComponent,MatInputModule,
     MatFormFieldModule,FormsModule,ReactiveFormsModule,
     MatIconModule,MatButtonModule,MatPaginatorModule,MatTableModule],
-  providers:[CiudadanoService],
+  providers:[],
   templateUrl: './ciudadanos-import.component.html',
   styleUrl: './ciudadanos-import.component.css'
 })
@@ -82,7 +82,7 @@ constructor(private ciudadanoService : CiudadanoService,private http: HttpClient
     const token = localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`
+      'Authorization': `Bearer ${token}`
     });
 
     const url = `${urlBack}ciudadanoscsv/descargar_csv/`;

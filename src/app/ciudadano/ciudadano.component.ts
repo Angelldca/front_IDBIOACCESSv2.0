@@ -38,7 +38,7 @@ const MY_DATE_FORMATS = {
     provideNativeDateAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: 'es-Es' }, 
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    CiudadanoService
+    
   ],
   templateUrl: './ciudadano.component.html',
   styleUrl: './ciudadano.component.css'

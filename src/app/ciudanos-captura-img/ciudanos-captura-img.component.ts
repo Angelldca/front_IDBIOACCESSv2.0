@@ -12,7 +12,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   standalone: true,
   imports: [CiudadanoTableComponent,BuscarCiudadanoComponent,
      TomarFotoComponent,MatIconModule,MatButtonModule],
-  providers:[CiudadanoService],
+  providers:[],
   templateUrl: './ciudanos-captura-img.component.html',
   styleUrl: './ciudanos-captura-img.component.css'
 })
@@ -34,7 +34,7 @@ constructor(private ciudadanoService: CiudadanoService,private http: HttpClient 
     const token = localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Token ${token}`
+      'Authorization': `Bearer ${token}`
     });
 
     const url = `${urlBack}ciudadanoscsv/ciudadanossinimg_csv/`;

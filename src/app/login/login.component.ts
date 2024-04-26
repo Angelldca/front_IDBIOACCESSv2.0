@@ -26,7 +26,24 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-        
+       const token = localStorage.getItem('Token')
+       const userLog = localStorage.getItem('user')
+       const route = this.router
+       if(userLog && token){
+        let userL = JSON.parse(userLog)
+           this.ciudadanoService.validateToken(token).subscribe({
+            next(data) {
+              if(userL.permissions.length > 0 || userL.roles.length > 0)
+              route.navigate(['home'],{ state: { user: userL } });
+             else
+              route.navigate([''],{ state: { user: userL } });
+            },
+            error(err) {
+              console.log("Token invalid or expired")
+            },
+          })
+        }
+
   }
   
   onInput1(event: any) {
@@ -47,16 +64,18 @@ export class LoginComponent implements OnInit{
   onSubmit(){
     this.loginCiudadano(this.userForm.value);
   }
+ 
   loginCiudadano(data: any){
     this.ciudadanoService.loginCiudadano(data, urlBack+'seguridad/login/' ).subscribe({
       next: data => { 
+        console.log(data)
         this.ciudadanoService.setUser(data.user) 
         localStorage.setItem('Token', data.token);
-         
+        localStorage.setItem('user', JSON.stringify(data.user));
         if(data.user.permissions.length > 0 && data.user.roles.length > 0)
           this.router.navigate(['home'],{ state: { user: data.user } });
         else
-          this.router.navigate(['landingpage'],{ state: { user: data.user } });
+          this.router.navigate([''],{ state: { user: data.user } });
         }, 
       error: (error) => {
         console.log(error)

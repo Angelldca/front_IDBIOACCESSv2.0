@@ -12,11 +12,11 @@ nav{
     padding-top:20px;
     padding-right:5%;
     font-weight:bold;
-    background-image: url('../../assets/img/header5.png');
-    background-size: cover;
+    background-image: url('../../assets/img/grafica.jpg');
+    
     background-repeat: no-repeat; 
-    background-position: center;
-    width: 100%;
+    
+   
     color: rgb(246, 242, 242); 
     padding: 10px 20px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
@@ -24,20 +24,59 @@ nav{
    
 }
 
-ul li{
-    display: inline-block;
-    padding: 0px 20px;
-    font-size:24px;
+.cont_info{
+    display: flex;
+    align-items: center;
+    width: 14%;
+    justify-content: flex-end;
 }
 
 
 p{
-    color:white;
+    margin: 0px;
+    color:#fff;
     text-decoration:none;
-    margin: auto;
-    margin-right: 6px;
+   
+    
 }
 
 p:hover{
-    color: rgb(127, 124, 124);
+   cursor: pointer;
+}
+
+img{
+    margin-left: 207px;
+}
+
+.cont_username{
+    overflow: hidden;
+    border: 1px solid rgb(70, 97, 247);
+    background-color: rgb(70, 97, 247);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.btn_active{
+    display: none;
+    margin-right: 13px;
+    background-color: #fff;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #d2464b;
+    color: #d2464b;
+    padding: 2px;
+}
+.btn_active:hover{
+    background-color: #d2464b;
+    cursor: pointer;
+    color: #fff;
+    
+}
+
+
+.cont_info:hover .btn_active{
+    display: block;
 }

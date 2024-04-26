@@ -37,7 +37,7 @@ export class MediaDevicesService {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
    
-    'Authorization': `Token ${token}`
+    'Authorization': `Bearer ${token}`
   });
     
     return this.http.post<ResponseImg>(urlBack+'img/validate/validateimg/', formData,{headers});

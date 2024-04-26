@@ -1,9 +1,20 @@
 
 
         <nav>
-            <h3>LOGO</h3>
-            <ul>
-                <li><button (click)="logOut()">Cerrar Sesion</button></li>
-                <li><p>{{username}}</p></li> 
-            </ul>
+            <img  src="../../assets/img/idbioaccess.png"/>
+            <div class="cont_info">
+                @if(isLoged){
+                <button (click)="logOut()"
+                class="btn_active animate__animated animate__fadeInLeft"
+                >
+                    Cerrar sesion
+                  </button>
+                    <div class="cont_username">
+                        <p>
+                            {{username?.charAt(0)?.toUpperCase()}}
+                        </p>
+                    </div>
+
+                }
+            </div>
         </nav>

@@ -16,12 +16,13 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { RolComponent } from './rol/rol.component';
 import { RolListComponent } from './rol-list/rol-list.component';
 import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
+import { UsermanageComponent } from './usermanage/usermanage.component';
 
 export const routes: Routes = [
 
-  { path: '', component: LoginComponent },
+  { path: '', component: LandinPageComponent },
   { path: 'registrar', component: RegistrarComponent },
-  { path: 'landingpage', component: LandinPageComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: ContainerComponent,
   canActivate:[authGuard],
   data: { expectedRoles: ['view_user']},
@@ -79,6 +80,12 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: CruUsuarioComponent,
+    },
+    {
+      path: 'useredit/:id',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: UsermanageComponent,
     },
     {
       path: 'rol',
