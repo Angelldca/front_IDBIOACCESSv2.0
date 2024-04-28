@@ -143,7 +143,7 @@ export class CiudadanoComponent implements OnInit {
     
     this.ciudadanoService.createiudadano(data, this.idCiudadano).subscribe({
       next: data => {
-        console.log(data)
+        
         Swal.fire({
           title: "Ciudadano creado correctamente",
           text: `ciudadano: ${data.primernombre} ${data.primerapellido}`,

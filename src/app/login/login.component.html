@@ -1,13 +1,11 @@
 <div class="logincontainer">
     <div class="container">
-        <div class="img">
-            <img src="../../assets/img/undraw_team_up_re_84ok.svg">
-        </div>
+    
 
         <div class="login-container">
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-                <img class="avatar" src="../../assets/img/undraw_male_avatar_g98d (1).svg">
-                <h2>Bienvenido</h2>
+               
+                <h2>Iniciar Sesión </h2>
                 <div class="input-div one ">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -33,9 +31,9 @@
                             autocomplete="current-password" required>
                     </div>
                 </div>
-                <a href="/registrar">Registrar Cuenta</a>
+               
                 <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
-                    [disabled]="!userForm.valid">Iniciar Sesisón
+                    [disabled]="!userForm.valid">Entrar
                 </button>
             </form>
         </div>

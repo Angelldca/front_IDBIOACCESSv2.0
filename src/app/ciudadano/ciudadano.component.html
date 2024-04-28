@@ -1,109 +1,88 @@
 <div class="ciudadano_create">
-
+    <form [formGroup]="ciudadanoForm" (ngSubmit)="onSubmit(ciudadanoForm)">
     <h2>Crear/Modificar Ciudadano</h2>
-    <hr />
+
     <div class="formContainer">
-        <form [formGroup]="ciudadanoForm" (ngSubmit)="onSubmit(ciudadanoForm)">
-            <mat-form-field>
-                <mat-label>Primer nombre </mat-label>
+            <div class="input-box">
+                <label>Primer nombre </label>
                 <input matInput [formControl]="primernombre" required >
-                @if (primernombre.invalid) {
-                    <mat-error>{{getErrorMessage(primernombre)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Segundo nombre </mat-label>
+              
+            </div>
+            <div class="input-box">
+                <label>Segundo nombre </label>
                 <input matInput [formControl]="segundonombre"  >
-                @if (segundonombre.invalid) {
-                    <mat-error>{{getErrorMessage(segundonombre)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Primer apellido</mat-label>
+              
+                </div>
+                <div class="input-box">
+                <label>Primer apellido</label>
                 <input matInput [formControl]="primerapellido">
-                @if (primerapellido.invalid) {
-                    <mat-error>{{getErrorMessage(primerapellido)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Segundo apellido</mat-label>
+               
+                </div>
+                <div class="input-box">
+                <label>Segundo apellido</label>
                 <input matInput [formControl]="segundoapellido">
-                @if (segundoapellido.invalid) {
-                    <mat-error>{{getErrorMessage(segundoapellido)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Carnet de Identidad</mat-label>
+               
+                </div>
+                <div class="input-box">
+                <label>Carnet de Identidad</label>
                 <input matInput [formControl]="dni">
-                @if (dni.invalid) {
-                    <mat-error>{{getErrorMessage(dni)}}</mat-error>
-                  }
-            </mat-form-field>
+               
+                </div>
 
-            <mat-form-field>
-                <mat-label>Expediente</mat-label>
+                <div class="input-box">
+                <label>Expediente</label>
                 <input matInput [formControl]="expediente">
-                @if (expediente.invalid) {
-                    <mat-error>{{getErrorMessage(expediente)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Rol Institucional</mat-label>
+               
+                </div>
+                <div class="input-box">
+                <label>Rol Institucional</label>
                 <input matInput [formControl]="rolInst">
-                @if (rolInst.invalid) {
-                    <mat-error>{{getErrorMessage(rolInst)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Area</mat-label>
+              
+                </div>
+                <div class="input-box">
+                <label>Area</label>
                 <input matInput [formControl]="area">
-                @if (area.invalid) {
-                    <mat-error>{{getErrorMessage(area)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Sexo</mat-label>
+             
+                </div>
+                <div class="input-box">
+                <label>Sexo</label>
                 <input matInput [formControl]="sexo">
-                @if (sexo.invalid) {
-                    <mat-error>{{getErrorMessage(sexo)}}</mat-error>
-                  }
-            </mat-form-field>
+               
+                </div>
 
-            <mat-form-field>
-                <mat-label>Residente</mat-label>
-                <mat-select [formControl]='residente' >
-                  <mat-option value={{true}}>SI</mat-option>
-                  <mat-option value={{false}}>No</mat-option>
+                <div class="input-box">
+                <label>Residente</label>
+                <mat-select [formControl]='residente' class="residente" >
+                  <mat-option class="residente" value={{true}}>Si</mat-option>
+                  <mat-option class="residente" value={{false}}>No</mat-option>
                 </mat-select>
-                @if (residente.invalid) {
-                    <mat-error>{{getErrorMessage(residente)}}</mat-error>
-                  }
-            </mat-form-field>
+                
+                </div>
 
-            <mat-form-field>
-                <mat-label>Provincia</mat-label>
+                <div class="input-box">
+                <label>Provincia</label>
                 <input matInput [formControl]="provincia">
-                @if (provincia.invalid) {
-                    <mat-error>{{getErrorMessage(provincia)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Municipio</mat-label>
+                
+                </div>
+                <div class="input-box">
+                <label>Municipio</label>
                 <input matInput [formControl]="municipio">
-                @if (municipio.invalid) {
-                    <mat-error>{{getErrorMessage(municipio)}}</mat-error>
-                  }
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Fecha de Nacimiento</mat-label>
-                <input  matInput [matDatepicker]="picker" [formControl]="fecha">
-                <mat-hint>DD/MM/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <button mat-button type="submit" id="sendUser">Registrar</button>
-            
-        </form>
-    </div>
+                </div>
 
+             <div class="fecha" >
+                    <label>Fecha de Nacimiento</label>
+                    <input  matInput 
+                    [matDatepicker]="picker" 
+                    placeholder="DD/MM/YYYY"
+                    [formControl]="fecha">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+             </div>
+           
+            <div class="button-container">
+            <button mat-button type="submit" id="sendUser">Enviar</button>
+            </div>
+        
+    </div>
+ </form>
 </div>

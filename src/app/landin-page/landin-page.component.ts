@@ -3,11 +3,12 @@ import { EncabezadoComponent } from '../encabezado/encabezado.component';
 import { PiePaginaComponent } from '../pie-pagina/pie-pagina.component';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import { Router } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-landin-page',
   standalone: true,
-  imports: [EncabezadoComponent,PiePaginaComponent],
+  imports: [EncabezadoComponent,PiePaginaComponent, LoginComponent],
   templateUrl: './landin-page.component.html',
   styleUrl: './landin-page.component.css'
 })

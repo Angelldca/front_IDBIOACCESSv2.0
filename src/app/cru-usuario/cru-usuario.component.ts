@@ -3,12 +3,12 @@ import { RegistrarComponent } from '../registrar/registrar.component';
 import { CiudadanoService, IUsuario } from '../ciudadano-table/ciudadano.service';
 import { urlBack } from '../Finals';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { state } from '@angular/animations';
 @Component({
   selector: 'app-cru-usuario',
   standalone: true,
-  imports: [RegistrarComponent],
+  imports: [RegistrarComponent,RouterLink],
   templateUrl: './cru-usuario.component.html',
   styleUrl: './cru-usuario.component.css'
 })
@@ -101,6 +101,8 @@ userDelete(user: IUsuario){
 userEdit(user:IUsuario){
   this.router.navigate([`/home/useredit/${user.id}`],{state:{user}});
  }
-
+ userRegistrer(){
+  this.router.navigate([`/home/registrar/`]);
+ }
 
 }

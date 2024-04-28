@@ -74,8 +74,20 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('user', JSON.stringify(data.user));
         if(data.user.permissions.length > 0 && data.user.roles.length > 0)
           this.router.navigate(['home'],{ state: { user: data.user } });
-        else
-          this.router.navigate([''],{ state: { user: data.user } });
+        else{
+          //this.router.navigate([''],{ state: { user: data.user } });
+          Swal.fire({
+            title: 'Oops...',
+            text: "Usuario sin autorización",
+            icon: 'info',
+            footer: `Póngase en contacto con el administrador`,
+            confirmButtonText: 'Aceptar',
+            customClass: {
+              confirmButton: 'btn btn-success px-4',
+            },
+            buttonsStyling: true,
+            })
+        }
         }, 
       error: (error) => {
         console.log(error)

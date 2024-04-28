@@ -80,3 +80,24 @@ img{
 .cont_info:hover .btn_active{
     display: block;
 }
+
+.login{
+    padding: 0px;
+    padding-left: 7px;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid rgb(21, 2, 163);
+    background-color: rgb(164, 181, 244);
+}
+.login:hover{
+    cursor: pointer;
+    background-color: #0c0066de;
+    border: 1px solid rgb(212, 218, 255);
+    color: rgb(0, 0, 0);
+    margin: 0px;
+    color: #fff;
+}

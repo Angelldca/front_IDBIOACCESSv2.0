@@ -6,8 +6,6 @@
 
 
 section{
-   
-  
     min-width: 50%;
 }
 
@@ -17,8 +15,16 @@ section{
     height: auto;
     width:100%;
     min-width:1200px;
-    font-family:'Share Tech',sans-serif;
+    font-family:'Poppins', Times, serif;
 
+}
+h1{
+    color: rgb(156, 0, 0);
+    font-family:'Poppins';
+    font-size: 3em;
+}
+p{
+    font-size: 1.5em;
 }
 .encabezado{
     margin-bottom: 20px;
@@ -26,38 +32,17 @@ section{
 .info{
     display: flex;
     height: auto;
-    min-height: 60vh;
+    min-height: 80vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
 
 }
 .infoText{
-    margin: auto;
     padding: 20px;
 }
-.containerImg{
-    position: relative; /* Asegura que las imágenes estén posicionadas relativas a este contenedor */
-    height: 90%; /* Altura del contenedor */
-    width: 100%; /* Ancho del contenedor */
-    overflow: hidden;
-    right: 50%;
-}
-.emp{
-    position: absolute; /* Posiciona la imagen de manera absoluta */
-    height: 100%; /* Toma el 100% de la altura del contenedor */
-    width: 50%; /* Toma el 50% del ancho del contenedor */
-    right: 7%; /* Ajusta la posición desde el lado derecho */
-    bottom: 0; /* Alinea la imagen al fondo del contenedor */
-    z-index: 1; 
-    
+
+.footer{
+  
 }
 
-.fondo{
-    position: absolute; /* Posiciona la imagen de manera absoluta */
-    height: 100%; /* Toma el 100% de la altura del contenedor */
-    width: 60%; /* Toma el 60% del ancho del contenedor */
-    right: -7%; /* Ajusta la posición desde el lado derecho */
-    bottom: 0; 
-    
-}
-.footer{
-    margin-top: auto;
-}

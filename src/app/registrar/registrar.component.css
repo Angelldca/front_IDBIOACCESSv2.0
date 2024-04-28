@@ -13,8 +13,6 @@
     position: relative;
   top: 50%;
   transform: translateY(-50%);
-    
-    
   
 }
 
@@ -77,7 +75,6 @@ h2{
 
 .button-container button{
     width:100%;
-   
     margin-top:10px;
     padding:10px;
     display:block;
@@ -101,8 +98,8 @@ h2{
         overflow:auto;
     }
     .input-box{
-        margin-bottom:12px,
-        width:100%;
+        margin-bottom:12px;
+        width: 100%;
     }
     .input-box:nth-child(2n){
         justify-content:space-between;
@@ -113,3 +110,4 @@ h2{
         width:60%;
     }
 }
+

@@ -1,36 +1,117 @@
-h2{
-    margin-bottom: 12px 
-}
-
 .ciudadano_create{
-    width: 100%;
+    max-width:1000px;
+    padding:30px;
+    margin: auto;
+    box-shadow: 0 15px 20px #ABB2B9;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
 }
 
-
-mat-form-field {
-    margin-left: 40px;
-}
-
-
-#sendUser{
-    background-color: #71c4ef;
-    border: none;
-    width: 70px;
-    height:35px;
-    border-radius: 5px;
-    margin-left: 80px;
-    box-shadow: 0px 1px 2px #497388;
-}
-
-#sendUser:hover {
-    cursor: pointer;
-    color: #444;
-}
-#sendUser:active {
-    transform: scale(0.95);
+h2{
+    font-size:26px;
+    font-weight:600;
+    text-align: left;
+    color: #900;
+    padding-bottom:8px;
+    border-bottom:1px solid silver;
 }
 
 .formContainer{
-    margin: 5%;
-    margin-top: 10%;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    padding:20px 0;
 }
+
+
+.input-box{
+    display:flex;
+    flex-wrap:wrap;
+    width:50%;
+    padding-bottom:15px;
+}
+
+.input-box:nth-child(2n){
+    justify-content:end;
+}
+
+.input-box label, .gender-title{
+    width:95%;
+    color:#2f4f4f;
+    font-weight: bold;
+    margin:5px 0;
+}
+.fecha{
+    display: flex;
+    align-items: center;
+}
+
+.gender-title{
+    font-size:16px;
+}
+
+.input-box input{
+    height:40px;
+    width:95%;
+    padding:0 10px;
+    border-radius:5px;
+    border:1px solid #700;
+    outline:none;
+}
+
+.input-box input:is(:focus,:valid){
+    box-shadow:0 3px 6px rgba(0,0,0.0.2);
+}
+.residente{
+    height:40px;
+    width:95%;
+    padding:0 10px;
+    border-radius:5px;
+    border:1px solid #700;
+    outline:none;
+}
+.button-container{
+    margin:15px 0;
+    margin: 0 auto;
+    width: 20%;
+}
+
+.button-container button{
+    width:100%;
+    margin-top:10px;
+    padding:10px;
+    display:block;
+    font-size:20px;
+    color: #fff;
+    border:none;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #900 ,#700);
+}
+
+.button-container button:hover{
+    background-image: linear-gradient(to right,#700,#900 );
+}
+
+@media(max-width: 600px){
+    .container{
+        min-width:280px;
+    }
+    .content{
+        max-height:380px;
+        overflow:auto;
+    }
+    .input-box{
+        margin-bottom:12px;
+        width: 100%;
+    }
+    .input-box:nth-child(2n){
+        justify-content:space-between;
+    }
+    .gender-category{
+        display:flex;
+        justify-content:space-between;
+        width:60%;
+    }
+}
+

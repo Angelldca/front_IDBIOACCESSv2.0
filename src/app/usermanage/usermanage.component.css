@@ -1,0 +1,74 @@
+.sectionBuscar{
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 4px;
+}
+
+.rp_container{
+   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel_edit{
+    min-height: 320px;
+    width: 300px;
+    border: 1px solid #444;
+    background-color: #d3dbe3;
+    border-radius: 5px;
+    text-align: center;
+    padding-bottom: 2px;
+}
+
+select{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    border-radius: 0 0 4px 4px;
+    width: 300px;
+    height: 17.2em;
+    flex: 1 0 auto;
+}
+
+option{
+    line-height: initial !important;
+    font-weight: normal;
+    display: block;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+    white-space: nowrap;
+}
+.btn_section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+
+
+.btn_all{
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #58d75a;
+    border: 1px solid #c3ffb5;
+    border-radius: 25px;
+  }
+  
+.btn_all:hover{
+      cursor: pointer;
+      border: 3px solid rgb(38, 195, 7);
+      color: rgb(0, 0, 0);
+      background-color: #80f1846f;   
+      border-radius: 20px; 
+}

@@ -1,4 +1,5 @@
 
+
 .search_elements{
     display: flex;
     justify-content: space-around;
@@ -39,8 +40,7 @@ button{
 .buscarb{
     padding: 3px;
     border-radius: 30%;
-    background-color: #9b0000;
- 
+    background-color: #efefef;
  
  }
  .buscarb img{
@@ -49,7 +49,6 @@ button{
  }
 
 input{
-    
     outline: none;
     border: none ;
     border-radius: 6px;

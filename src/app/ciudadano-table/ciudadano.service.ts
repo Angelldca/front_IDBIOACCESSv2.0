@@ -150,8 +150,39 @@ export class CiudadanoService {
     localStorage.removeItem('Token');
     this.userAuth = undefined
    }
+   updatePassword(url: string, data: any) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.patch<any>(url, data,{headers})
+  }
+  updateUser(url: string, data: any) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
   
-
+    return this.http.patch<any>(url, data,{headers})
+  }
+  createUser(url: string, data: any) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data,{headers})
+  }
+  deleteUser(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.delete<any>(url,{headers})
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -311,8 +342,26 @@ export interface IUsuario {
   is_active: boolean,
   date_joined: Date,
   roles: [],
-  permissions: []
-}
+  permissions: [],
+
+}//  user_permissions: [],
+  //groups:[],
+
+  export interface IUsuarioBack {
+    id: number,
+    username: string,
+    last_login: Date,
+    is_superuser: boolean,
+    first_name: string,
+    last_name: string,
+    email: string,
+    is_staff: boolean,
+    is_active: boolean,
+    date_joined: Date,
+    user_permissions: [],
+    groups:[],
+  
+  }
 export interface IResp {
   detail: string
 }

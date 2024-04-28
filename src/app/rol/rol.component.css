@@ -99,7 +99,7 @@ li:hover{
     border: 1px solid #c3ffb5;
     color: #fff;
     border-radius: 5px;
-    
+  
 }
 .rol_create_btn:hover{
     cursor: pointer;
@@ -161,5 +161,5 @@ li:hover{
 }
 .span{
     display: inline;
-    color: darkred;
+    color: rgb(255, 237, 237);
 }
