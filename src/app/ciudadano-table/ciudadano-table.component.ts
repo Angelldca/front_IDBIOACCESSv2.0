@@ -148,7 +148,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   editarElemento(e:any){
     e.editMode = !e.editMode
     this.edicionActivada =  !this.edicionActivada
-    this.router.navigate(['home/ciudadano', e.idciudadano]);
+    this.router.navigate([`home/ciudadano/${e.idciudadano}`],{ state: { user: e } });
   }
 
 

@@ -21,7 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
   styleUrl: './buscar-ciudadano.component.css'
 })
 export class BuscarCiudadanoComponent {
-  control = new FormControl('dni');
+  control = new FormControl('carnetidentidad');
   @Output() newSearchEvent = new EventEmitter<Busqueda>();
   busqueda :string = ''
   data:Busqueda = {

@@ -6,10 +6,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {FormControl, Validators, FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
-import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
+import { Ciudadano, CiudadanoService, IUsuario } from '../ciudadano-table/ciudadano.service';
 import moment  from 'moment';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 const MY_DATE_FORMATS = {
@@ -44,14 +44,38 @@ const MY_DATE_FORMATS = {
   styleUrl: './ciudadano.component.css'
 })
 export class CiudadanoComponent implements OnInit {
-  constructor(private ciudadanoService :CiudadanoService,private route: ActivatedRoute){
-    
+
+  user: Ciudadano|null = null
+  
+  constructor(private ciudadanoService :CiudadanoService,
+    private route: ActivatedRoute, private router: Router){
+
   }
   idCiudadano: string = '';
   ngOnInit(): void {
+    
     this.route.params.subscribe(params => {
       this.idCiudadano = params['id'];
     });
+    this.user = history.state.user;
+    if(this.user){
+      this.primernombre.setValue(this.user.primernombre)
+      this.segundonombre.setValue(this.user.segundonombre)
+      this.primerapellido.setValue(this.user.primerapellido)
+      this.segundoapellido.setValue(this.user.segundoapellido)
+      this.dni.setValue(this.user.carnetidentidad)
+      this.expediente.setValue(this.user.idexpediente)
+      this.area.setValue(this.user.area)
+      this.rolInst.setValue(this.user.roluniversitario)
+      this.sexo.setValue(this.user.sexo)
+      this.provincia.setValue(this.user.provincia)
+      this.municipio.setValue(this.user.municipio)
+      this.residente.setValue(this.user.residente)
+      this.fecha.setValue(this.user.fechanacimiento)
+      
+      
+    }
+    
   }
 
   isLoggedIn=true;
@@ -94,7 +118,7 @@ export class CiudadanoComponent implements OnInit {
   ]);
   sexo = new FormControl('', [Validators.required, 
   ]);
-  residente = new FormControl('', [Validators.required, 
+  residente = new FormControl(false, [Validators.required, 
   ]);
   ciudadanoForm = new FormGroup({
     primernombre:this.primernombre,
@@ -123,19 +147,24 @@ export class CiudadanoComponent implements OnInit {
       return 'Longitud incorrecta';
     }
 
-    return element.hasError('pattern') ? `el contenido no es válido` : '';
+    return element.hasError('pattern') ? `El contenido no es válido "${element.value}"` : '';
   }
 
   onSubmit(form: FormGroup){
-   
-    let data  = {
-      ...form.value,
+   if(form.valid){
+     let data  = {
+       ...form.value,
+      }
+      console.log(data)
+     if(data.fechanacimiento){
+       data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
+       
      }
-    if(data.fechanacimiento){
-      data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
-      
-    }
-    this.createCiudadano(data)
+     this.createCiudadano(data)
+
+   }else{
+    console.log(form.getError)
+   }
   }
 
 
@@ -158,7 +187,7 @@ export class CiudadanoComponent implements OnInit {
           
           },
           }).then(data=>{
-            this.limpiarInputs();
+            //this.limpiarInputs();
           })
       }, // success path
       error: error => {
