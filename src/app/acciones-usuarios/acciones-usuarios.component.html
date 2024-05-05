@@ -1,0 +1,95 @@
+
+
+@if (usuario == null) {
+    <div class="table">
+        <div class="table-header">
+          <h2>Selecciona un usuario</h2>
+          <div class="buscar">
+                  <input type="text" placeholder="Buscar Usuario" 
+                  name="buscar_user" (keyup)="buscarUser($event)">
+                  <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
+                 
+          </div>
+        </div>
+        <div class="table-section">
+           <table>
+              <thead>
+                  <tr>
+                      <th>Usuario</th>
+                      <th>Correo</th>                 
+                      <th>Nombre</th>
+                      <th>Apellidos</th>
+                  </tr>
+              </thead>
+              <tbody>
+    
+                @for (user of users; track user.id) {
+                    <tr (click)="viewAcciones(user)">
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                    </tr>
+    
+                }
+              </tbody>
+             
+           </table>
+        </div>
+        <div class="pagination">
+    
+        </div>
+            
+      </div>
+      
+    
+}@else {
+    <div class="table">
+        <div class="table-header">
+            <button class="btn_add" (click)="undo()">
+                <span>Regresar</span>
+                
+            </button>
+          <h2>{{logs[0].user_username}}</h2>
+          <button class="btn_add" (click)="donwloadListLogs(logs[0].user)">
+            <span>Descarcar csv</span>
+            
+        </button>
+        </div>
+        <div class="table-section">
+           <table>
+              <thead>
+                  <tr>
+                      <th>fecha</th>
+                      <th>Modelo modificado</th>                 
+                      <th>elemento modificado </th>
+                      <th>acción</th>
+                  </tr>
+              </thead>
+              <tbody>
+    
+                @for (log of logs; track log.id) {
+                    <tr>
+                        <td>{{log.action_time}}</td>
+                        @if(log.content_type_name== "group"){
+                            <td>Rol</td>
+                        }@else {
+                            <td>{{log.content_type_name}}</td>
+                        }
+                        <td>{{log.object_repr}}</td>
+                        <td>{{log.action_description}}</td>
+                    </tr>
+    
+                }
+              </tbody>
+             
+           </table>
+        </div>
+        <div class="pagination">
+    
+        </div>
+            
+      </div>
+      
+    
+}

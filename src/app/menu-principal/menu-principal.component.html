@@ -90,7 +90,7 @@
     <!-----Seguridad------>
     <div (mouseenter)="showSubmenu('seguridad')"
     (mouseleave)="hideSubmenu('seguridad')" class="opciones">
-       <section class="btn_cd desplegable" routerLink="/buscar-ciudadano">
+       <section class="btn_cd desplegable" >
            <p>
               Seguridad
            </p>
@@ -129,24 +129,17 @@
            @if(isReporteSeguridadVisible){
             <div id="submenu" (mouseenter)="showSubmenu('seguridadReportes')" 
             (mouseleave)="hideSubmenu('seguridadReportes')">
-                <section class="btnSubmenu" routerLink="/report_ciudadanos">
+                <section class="btnSubmenu" routerLink="trazas/seccion">
     
                     <p>
                        Inicios de sección
                     </p>
     
                 </section>
-                <section class="btnSubmenu" routerLink="report_historial_ciudadanos">
+                <section class="btnSubmenu" routerLink="trazas/accionesusuarios">
     
                     <p>
                        Modificaciones por usuarios
-                    </p>
-    
-                </section>
-                <section class="btnSubmenu" routerLink="report_historial_fotos">
-    
-                    <p>
-                        Modificaciones por roles
                     </p>
     
                 </section>
