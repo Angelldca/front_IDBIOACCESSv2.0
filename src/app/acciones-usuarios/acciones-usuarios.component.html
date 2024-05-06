@@ -50,8 +50,8 @@
                 <span>Regresar</span>
                 
             </button>
-          <h2>{{logs[0].user_username}}</h2>
-          <button class="btn_add" (click)="donwloadListLogs(logs[0].user)">
+          <h2>{{usuario.username}}</h2>
+          <button class="btn_add" (click)="donwloadListLogs(usuario.id)">
             <span>Descarcar csv</span>
             
         </button>
@@ -61,8 +61,8 @@
               <thead>
                   <tr>
                       <th>fecha</th>
-                      <th>Modelo modificado</th>                 
-                      <th>elemento modificado </th>
+                      <th>Modelo</th>                 
+                      <th>elemento</th>
                       <th>acción</th>
                   </tr>
               </thead>
