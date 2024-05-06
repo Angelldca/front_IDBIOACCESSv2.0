@@ -18,6 +18,8 @@ import { RolListComponent } from './rol-list/rol-list.component';
 import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
 import { UsermanageComponent } from './usermanage/usermanage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { FechaAutenticacionComponent } from './fecha-autenticacion/fecha-autenticacion.component';
+import { AccionesUsuariosComponent } from './acciones-usuarios/acciones-usuarios.component';
 
 export const routes: Routes = [
 
@@ -26,7 +28,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'home', component: ContainerComponent,
   canActivate:[authGuard],
-  data: { expectedRoles: ['view_user']},
+  data: { expectedRoles: []},
   children: [
     {
       path: 'ciudadanosbash',
@@ -106,6 +108,18 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: RolComponent,
+    },
+    {
+      path: 'trazas/seccion',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: FechaAutenticacionComponent,
+    },
+    {
+      path: 'trazas/accionesusuarios',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: AccionesUsuariosComponent,
     },
   
   ],

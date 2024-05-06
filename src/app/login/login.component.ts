@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit{
         let userL = JSON.parse(userLog)
            this.ciudadanoService.validateToken(token).subscribe({
             next(data) {
-              if(userL.permissions.length > 0 || userL.roles.length > 0)
+              if(userL.permissions.length > 0 || userL.roles.length > 0 || userL.is_superuser)
               route.navigate(['home'],{ state: { user: userL } });
              else
               route.navigate([''],{ state: { user: userL } });
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit{
         this.ciudadanoService.setUser(data.user) 
         localStorage.setItem('Token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        if(data.user.permissions.length > 0 && data.user.roles.length > 0)
+        if(data.user.permissions.length > 0 || data.user.roles.length > 0 || data.user.is_superuser)
           this.router.navigate(['home'],{ state: { user: data.user } });
         else{
           //this.router.navigate([''],{ state: { user: data.user } });
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit{
         console.log(error)
         Swal.fire({
           title: 'Oops...',
-          text: error.error.error,
+          text: error.error.non_field_errors[0],
           icon: 'error',
           footer: `${error.statusText} error ${error.status}`,
           confirmButtonText: 'Aceptar',

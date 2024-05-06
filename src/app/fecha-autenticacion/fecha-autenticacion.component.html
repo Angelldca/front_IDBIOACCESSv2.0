@@ -8,8 +8,8 @@
               <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
              
       </div>
-      <button class="btn_add"(click)="userRegistrer()">
-        <span>Añadir usuario </span>
+      <button class="btn_add" (click)="donwloadListCiudadanos()">
+        <span>Descarcar csv</span>
         
     </button>
     </div>
@@ -18,10 +18,10 @@
           <thead>
               <tr>
                   <th>Usuario</th>
+                  <th>Ultimo inicio de sección</th>
                   <th>Nombre</th>
                   <th>Apellidos</th>
                   <th>Correo</th>
-                  <th>Opciones</th>
               </tr>
           </thead>
           <tbody>
@@ -29,13 +29,10 @@
             @for (user of users; track user.id) {
                 <tr>
                     <td>{{user.username}}</td>
+                    <td>{{user.last_login}}</td>
                     <td>{{user.first_name}}</td>
                     <td>{{user.last_name}}</td>
                     <td>{{user.email}}</td>
-                    <td>
-                        <button class="nth-child" (click)="userEdit(user)"><img src="../../assets/img/person_edit.svg"></button>
-                        <button class="nth-child" (click)="userDelete(user)"><img src="../../assets/img/person_remove.svg"></button>
-                     </td>
                 </tr>
 
             }

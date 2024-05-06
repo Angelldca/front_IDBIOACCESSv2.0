@@ -89,43 +89,58 @@ ngOnInit(): void {
   }
 }
 deleteUser(){
-  this.ciudadanoService.deleteUser(urlBack+`seguridad/user/${this.user?.id}/`).subscribe({
-    next: data => {
-      
-      Swal.fire({
-        title: "Contraseña actualizada correctamente",
-        text: `Usuario: ${this.user?.username}`,
-        icon: 'success',
-        showCancelButton: false,
-        confirmButtonText: 'Aceptar',
-        buttonsStyling: false,
+  if(this.user?.id === this.ciudadanoService.userAuth?.id){
+    Swal.fire({
+      title: 'Oops...',
+      text: "El usuario autenticado no puede eliminarse",
+      icon: 'error',
+      footer: `Eliminar usuario`,
+      confirmButtonText: 'Aceptar',
+      customClass: {
+          confirmButton: 'btn btn-primary px-4'
+      },
+      buttonsStyling: false,
+      })
+  }else{
+    this.ciudadanoService.deleteUser(urlBack+`seguridad/user/${this.user?.id}/`).subscribe({
+      next: data => {
         
-        customClass: {
-            confirmButton: 'btn btn-primary px-4',
-            cancelButton: 'btn btn-danger ms-2 px-4',
-        
-        },
-        }).then(data=>{
-          this.router.navigate(['/home']);
-        })
-    }, // success path
-    error: error => {
- console.log(error)
-  
-      Swal.fire({
-        title: 'Oops...',
-        text: error,
-        icon: 'error',
-        footer: `${error.statusText} error ${error.status}`,
-        confirmButtonText: 'Aceptar',
-        customClass: {
-            confirmButton: 'btn btn-primary px-4'
-        },
-        buttonsStyling: false,
-        })
-     
-    }, // error path
-  })
+        Swal.fire({
+          title: "Contraseña actualizada correctamente",
+          text: `Usuario: ${this.user?.username}`,
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonText: 'Aceptar',
+          buttonsStyling: false,
+          
+          customClass: {
+              confirmButton: 'btn btn-primary px-4',
+              cancelButton: 'btn btn-danger ms-2 px-4',
+          
+          },
+          }).then(data=>{
+            this.router.navigate(['/home']);
+          })
+      }, // success path
+      error: error => {
+   console.log(error)
+    
+        Swal.fire({
+          title: 'Oops...',
+          text: error,
+          icon: 'error',
+          footer: `${error.statusText} error ${error.status}`,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+              confirmButton: 'btn btn-primary px-4'
+          },
+          buttonsStyling: false,
+          })
+       
+      }, // error path
+    })
+
+  }
  
 
 }
@@ -158,11 +173,14 @@ onSubmitCredenciales(form: FormGroup){
           })
       }, // success path
       error: error => {
-   console.log(error)
-    
+   let err = error.error
+   let erroresConvertidos = "";
+Object.keys(err).forEach(key => {
+    erroresConvertidos += key + ": "+ err[key] + "\n";
+})
         Swal.fire({
           title: 'Oops...',
-          text: error,
+          text: erroresConvertidos,
           icon: 'error',
           footer: `${error.statusText} error ${error.status}`,
           confirmButtonText: 'Aceptar',
@@ -192,7 +210,7 @@ onSubmitInformations(form: FormGroup){
       next: data => {
         console.log(data)
         Swal.fire({
-          title: "Contraseña actualizada correctamente",
+          title: "Usuario actualizado correctamente",
           text: `Usuario: ${this.user?.username}`,
           icon: 'success',
           showCancelButton: false,
