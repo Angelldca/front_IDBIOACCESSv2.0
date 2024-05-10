@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuComponent } from '../menu/menu.component';
+
 import { PanelContenidoComponent } from '../panel-contenido/panel-contenido.component';
 import { RouterOutlet } from '@angular/router';
 import { EncabezadoComponent } from '../encabezado/encabezado.component';
@@ -9,7 +9,7 @@ import { MenuPrincipalComponent } from '../menu-principal/menu-principal.compone
 @Component({
   selector: 'app-containerCD',
   standalone: true,
-  imports: [MenuComponent,
+  imports: [
     PanelContenidoComponent,
     RouterOutlet,EncabezadoComponent,
     PiePaginaComponent, MenuPrincipalComponent],

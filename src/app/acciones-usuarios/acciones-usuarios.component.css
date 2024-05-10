@@ -16,9 +16,14 @@ thead{
     flex-wrap: wrap;
     padding: 20px;
     background-color:  #d3dbe3;
-    height: 30px;
+    height: 70px;
+    
 
 }
+.example-form-field {
+    margin-right: 20px;
+    width: 300px;
+  }
 
 .table-header h2{
     color :#a00000;;
@@ -69,14 +74,6 @@ td button:nth-child(2){
 .buscarb img{
     margin: auto;
     vertical-align: middle; /* Centra la imagen */
-}
-input{
-padding: 10px 20px;
-outline: none;
-border: none ;
-border-radius: 6px;
-color: #9e0000;
-background:  #f7f9fcce;
 }
 
 ::placeholder{
