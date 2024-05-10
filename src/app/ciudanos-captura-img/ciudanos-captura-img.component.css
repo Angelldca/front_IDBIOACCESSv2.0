@@ -1,13 +1,13 @@
 
 .ciudadano_capOff{
-    width: 78%;
+    width: 80%;
  
 }
 .btn_export{
  display: flex;
  align-items: baseline;
  justify-content: end;
-margin-bottom: 5px;
+ margin-bottom: 5px;
 }
 
 
@@ -21,7 +21,7 @@ button{
     background-color: #71c4ef;
     border: none;
     width: 115px;
-    height:35px;
+    height:45px;
     border-radius: 5px;
     margin-left: 10px;
     margin-right: 10px;

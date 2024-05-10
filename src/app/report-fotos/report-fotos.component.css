@@ -6,7 +6,10 @@
     margin-right: 20px;
     width: 300px;
   }
-
+.formContainer{
+    display: flex;
+    justify-content: space-between;
+  }
 
   
 .btn_export{

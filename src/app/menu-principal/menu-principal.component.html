@@ -2,8 +2,8 @@
 
     <h4>Menú</h4>
     <hr/>
-    <div (mouseenter)="showSubmenu('captura_datos')"
-     (mouseleave)="hideSubmenu('captura_datos')" class="opciones">
+    <div (click)="showSubmenu('captura_datos')"
+      class="opciones">
         <section class="btn_cd desplegable">
             <p>
                Captura de datos
@@ -14,27 +14,27 @@
         </section>
         @if(isCapturaDatosVisible){
             
-        <div id="submenu" (mouseenter)="showSubmenu('captura_datos')"
-         (mouseleave)="hideSubmenu('captura_datos')">
+        <div id="submenu" (click)="showSubmenu('captura_datos')"
+         >
          <section class="btnSubmenu" routerLink="ciudadanosbash">
             <p>
-                Buscar Ciudadano
+                Capturar Imagen
             </p>
-            <img src="../../assets/img/chevron_right.svg" alt="ri" />
+            
     
         </section>
         <section class="btnSubmenu" routerLink="ciudadano">
             <p>
                 Crear Ciudadano
             </p>
-            <img src="../../assets/img/chevron_right.svg" alt="ri" />
+          
     
         </section>
             <section class="btnSubmenu" routerLink="img_out">
                 <p>
                     Ciudadanos sin captura de Imagen
                 </p>
-                <img src="../../assets/img/chevron_right.svg" alt="ri" />
+               
         
             </section>
          
@@ -44,10 +44,10 @@
                     Importar Ciudadanos
                 </p>
         
-                <img src="../../assets/img/chevron_right.svg" alt="ri" />
+               
             </section>
-            <div (mouseenter)="showSubmenu('reporte_captura_datos')"
-             (mouseleave)="hideSubmenu('reporte_captura_datos')" class="contReporte">
+            <div (click)="showSubmenu('reporte_captura_datos')"
+              class="contReporte">
                 <section class="btn_cd desplegable">
                     <p>
                         Reportes Captura de datos
@@ -56,8 +56,8 @@
                     <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
                 </section>
                 @if(isReportesCapturaVisible){
-                <div id="submenu" (mouseenter)="showSubmenu('reporte_captura_datos')" 
-                (mouseleave)="hideSubmenu('reporte_captura_datos')">
+                <div id="submenu" (click)="showSubmenu('reporte_captura_datos')" 
+                >
                     <section class="btnSubmenu" routerLink="report_ciudadanos">
         
                         <p>
@@ -88,8 +88,8 @@
         }
     </div>
     <!-----Seguridad------>
-    <div (mouseenter)="showSubmenu('seguridad')"
-    (mouseleave)="hideSubmenu('seguridad')" class="opciones">
+    <div (click)="showSubmenu('seguridad')"
+     class="opciones">
        <section class="btn_cd desplegable" >
            <p>
               Seguridad
@@ -100,24 +100,23 @@
        </section>
        
        @if(isSeguridadVisible){
-       <div id="submenu" (mouseenter)="showSubmenu('seguridad')"
-        (mouseleave)="hideSubmenu('seguridad')">
+       <div id="submenu" (click)="showSubmenu('seguridad')"
+        >
            <section class="btnSubmenu" routerLink="user">
                <p>
                   Usuarios
                </p>
-               <img src="../../assets/img/chevron_right.svg" alt="ri" />
+              
        
            </section>
            <section class="btnSubmenu" routerLink="rol">
             <p>
                Roles
             </p>
-            <img src="../../assets/img/chevron_right.svg" alt="ri" />
-    
+          
         </section>
-           <div (mouseenter)="showSubmenu('seguridadReportes')"
-           (mouseleave)="hideSubmenu('seguridadReportes')" class="contReporte">
+           <div (click)="showSubmenu('seguridadReportes')"
+            class="contReporte">
               <section class="btn_cd desplegable">
                   <p>
                       Trazas Seguridad
@@ -127,8 +126,8 @@
               </section>
 
            @if(isReporteSeguridadVisible){
-            <div id="submenu" (mouseenter)="showSubmenu('seguridadReportes')" 
-            (mouseleave)="hideSubmenu('seguridadReportes')">
+            <div id="submenu" (click)="showSubmenu('seguridadReportes')" 
+            >
                 <section class="btnSubmenu" routerLink="trazas/seccion">
     
                     <p>

@@ -1,4 +1,7 @@
-<div class="search_elements animate__animated animate__fadeIn animate__faster">
+<form 
+class="search_elements animate__animated animate__fadeIn animate__faster"
+[formGroup]="userForm" (ngSubmit)="find()"
+>
     <mat-form-field class="filtrar">
         <mat-label>Filtrar</mat-label>
         <mat-select [formControl]='control' >
@@ -12,15 +15,16 @@
             <input 
             matInput 
             placeholder="Buscar..."
-            [(ngModel)]="busqueda"
+            [formControl]="busqueda"
             class="inputSearch"
             >
             <button 
             aria-label="buscar" 
             class="buscarb"
-            (click)="find()"
+            type="submit"
+           
             >
             <img src="../../assets/img/search.svg"/>
             </button>
         </div>
-</div>
+</form>

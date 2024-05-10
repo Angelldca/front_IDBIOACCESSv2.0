@@ -74,12 +74,10 @@
                 <div class="input-box">
                 <label>Residente</label>
                 <mat-select [formControl]='residente'
-                 class="residente" 
-                 [value]="residente"
-                 
+                 class="residente"
                  >
-                  <mat-option class="residente" value={{true}}>Si</mat-option>
-                  <mat-option class="residente" value={{false}}>No</mat-option>
+                  <mat-option class="residente" value="true">Si</mat-option>
+                  <mat-option class="residente" value="false">No</mat-option>
                 </mat-select>
                 @if(residente.errors){
                   <span class="errorInput">{{getErrorMessage(residente)}}</span>

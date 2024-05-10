@@ -1,17 +1,32 @@
-<div class="animate__animated animate__fadeIn animate__fast">
+<form 
+class="animate__animated animate__fadeIn animate__fast containe"
+[formGroup]="deleteForm" (ngSubmit)="onAceptarClick(deleteForm)"
+>
   <h1 mat-dialog-title>Delete file</h1>
        <div mat-dialog-content>
-         Estas seguro de eliminar ?
+        ¿ Estás seguro de eliminar ?
        </div>
+       <span>Ingrese el motivo</span>
+       <section class="sectionText">
+          <section>
+            <textarea [formControl]="descripcion" [value]="descripcion"></textarea>
+
+          </section>
+         @if(descripcion.errors){
+           <span class="errorInput">{{getErrorMessage(descripcion)}}</span>
+         }
+       </section>
+     
        <div mat-dialog-actions>
          <button mat-button mat-dialog-close (click)="onEliminarClick()">Cancelar</button>
-         <button 
+         <button
+         type="submit" 
          mat-button
           mat-dialog-close 
           cdkFocusInitial
-          (click)="onAceptarClick()"
           color="warn"
+          [disabled]="!deleteForm.valid"
            >Aceptar</button>
        </div>
 
-</div>
+      </form>

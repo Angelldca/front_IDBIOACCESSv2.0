@@ -4,7 +4,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {
   MatDialog,
 } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   selector: 'app-ciudadanobash-table',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule,
-    MatIconModule,MatButtonModule,
+    MatIconModule,MatButtonModule,MatTooltipModule,
   ],
   providers:[],
   templateUrl: './ciudadanobash-table.component.html',
@@ -44,20 +44,14 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
          break;
         }
       }
-      if( this.urlCiudadanos !== undefined){
-        const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
-        this.showCiudadanos(urlFind)
-      }else{
         const urlFind = `http://127.0.0.1:8000/api/ciudadanobash/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
-
-      }
+        
     }
   }
 
   displayedColumns: string[] = ['id',
-  'opciones','primernombre','segundonombre', 'primerapellido','segundoapellido',
-  'idestado', 'identificadorarea', 
+  'opciones','primernombre','segundonombre', 'primerapellido','segundoapellido', 'identificadorarea', 
   'identificadorroluni', 'carnetidentidad','solapin','provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];
   ciudadanos: Ciudadano[] | undefined;
@@ -83,6 +77,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
   showCiudadanos(url:string) {
+   
     this.ciudadanoService.getCiudadano_pagination(url)
       .subscribe({
         next: data => {
@@ -134,7 +129,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
   }
   
   ngOnInit(): void {
-    // Lógica que deseas ejecutar al renderizar el componente
+    
     if(this.urlCiudadanos != undefined){
       if(this.urlCiudadanos.includes('?')){
         this.showCiudadanos(`${this.urlCiudadanos}`);
@@ -157,24 +152,26 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
   editarElemento(e:any){
     e.editMode = !e.editMode
     this.edicionActivada =  !this.edicionActivada
-    this.router.navigate(['ciudadano', e.idciudadano]);
+    console.log(e)
+    this.router.navigate([`home/ciudadano/${e.idpersona}`],{ state: { user: e } });
   }
 
 
   deleteCiudadano(e:any){
     this.openDialogDelete('0ms', '0ms',e)
-    console.log("delete", e.idciudadano)
+    console.log("delete", e.idpersona)
   }
 
   openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
     const dialogRef =  this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '500px',
+  
       enterAnimationDuration,
       exitAnimationDuration,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.ciudadanoService.deleteCiudadano(e.idciudadano)
+      if(result.delete){
+        this.ciudadanoService.makeInactive(e.idpersona, result)
         .subscribe({
         next: data => {
           Swal.fire({
@@ -199,11 +196,12 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
           
         }, // success path
         error: error => {
+          console.log(error)
           Swal.fire({
             title: 'Oops...',
             text: error,
             icon: 'error',
-            footer: `${error.statusText} error ${error.status}`,
+            footer: ``,
             confirmButtonText: 'Aceptar',
             customClass: {
                 confirmButton: 'btn btn-primary px-4'
@@ -217,15 +215,22 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
     })
     
   }
-  capturarImg(element:any){
-   
-    this.ciudadanoService.createiudadano(element, null).subscribe({
+  capturarImg(element:Ciudadano){
+    element = {
+      ...element,
+      area: element.identificadorarea,
+      roluniversitario: element.identificadorroluni,
+     
+    }
+    
+    this.ciudadanoService.createCiudadano(element, null).subscribe({
       next: data => {
-        console.log(data)
+        
         this.addNewUserID(data.idciudadano);
       }, // success path
       error: error => {
         let errorText =''
+        console.log(error)
         for (const field in error.error) {
           if (error.error.hasOwnProperty(field)) {
             errorText += `${field}: ${error.error[field][0]}\n `;
@@ -236,7 +241,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
           title: 'Oops...',
           text: errorText,
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: `Error`,
           confirmButtonText: 'Aceptar',
           customClass: {
               confirmButton: 'btn btn-primary px-4'

@@ -10,6 +10,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { urlBack } from '../Finals';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-ciudadanos-import',
   standalone: true,
@@ -36,7 +37,7 @@ constructor(private ciudadanoService : CiudadanoService,private http: HttpClient
     }
   }
   onFileSelected(event:any){
-    this.selectedFile = event.target.files?.[0] || null;
+    this.selectedFile = event.target.files?.[0];
     this.nameFile = event.target.files[0].name
 
     
@@ -55,18 +56,30 @@ constructor(private ciudadanoService : CiudadanoService,private http: HttpClient
         this.dataSource.paginator = this.paginator;
         this.nameFile='Ningun archivo seleccionado'
         this.importsCiudadanos = true
+
       }, // success path
       error: error => {
-        console.log(error)
+        
+          Swal.fire({
+          title: 'Oops...',
+          text: error.error.error,
+          icon: 'error',
+          footer: `Error`,
+          confirmButtonText: 'Aceptar',
+          customClass: {
+              confirmButton: 'btn btn-primary px-4'
+          },
+          buttonsStyling: false,
+          })
         this.nameFile='Ningun archivo seleccionado'
       }, // error path
       
     }
     
     )
-    this.nameFile='Ningun archivo seleccionado'
+    
   }
-  displayedColumns: string[] = ['id','img','primernombre','segundonombre', 
+  displayedColumns: string[] = ['id','primernombre','segundonombre', 
   'primerapellido','segundoapellido', 'area', 
   'roluniversitario', 'carnetidentidad','solapin','provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];

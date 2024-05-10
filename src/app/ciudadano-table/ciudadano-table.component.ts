@@ -159,12 +159,12 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
 
   openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
     const dialogRef =  this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '500px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if(result.delete){
         this.ciudadanoService.deleteCiudadano(e.idciudadano)
         .subscribe({
         next: data => {

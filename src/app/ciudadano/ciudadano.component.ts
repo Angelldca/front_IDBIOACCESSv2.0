@@ -51,26 +51,27 @@ export class CiudadanoComponent implements OnInit {
     private route: ActivatedRoute, private router: Router){
 
   }
-  idCiudadano: string = '';
+  idpersona: string = '';
   ngOnInit(): void {
     
     this.route.params.subscribe(params => {
-      this.idCiudadano = params['id'];
+      this.idpersona = params['id'];
     });
     this.user = history.state.user;
     if(this.user){
+      console.log(this.user)
       this.primernombre.setValue(this.user.primernombre)
       this.segundonombre.setValue(this.user.segundonombre)
       this.primerapellido.setValue(this.user.primerapellido)
       this.segundoapellido.setValue(this.user.segundoapellido)
       this.dni.setValue(this.user.carnetidentidad)
       this.expediente.setValue(this.user.idexpediente)
-      this.area.setValue(this.user.area)
-      this.rolInst.setValue(this.user.roluniversitario)
+      this.area.setValue(this.user.identificadorarea)
+      this.rolInst.setValue(this.user.identificadorroluni)
       this.sexo.setValue(this.user.sexo)
       this.provincia.setValue(this.user.provincia)
       this.municipio.setValue(this.user.municipio)
-      this.residente.setValue(this.user.residente)
+      this.residente.setValue(`${this.user.residente}`)
       this.fecha.setValue(this.user.fechanacimiento)
       
       
@@ -118,7 +119,7 @@ export class CiudadanoComponent implements OnInit {
   ]);
   sexo = new FormControl('', [Validators.required, 
   ]);
-  residente = new FormControl(false, [Validators.required, 
+  residente = new FormControl("false", [Validators.required, 
   ]);
   ciudadanoForm = new FormGroup({
     primernombre:this.primernombre,
@@ -128,15 +129,13 @@ export class CiudadanoComponent implements OnInit {
     carnetidentidad:this.dni,
     //solapin:this.solapin,
     idexpediente:this.expediente,
-    area:this.area,
+    identificadorarea:this.area,
     fechanacimiento:this.fecha,
-    roluniversitario:this.rolInst,
+    identificadorroluni:this.rolInst,
     provincia: this.provincia,
     municipio: this.municipio,
     sexo : this.sexo,
     residente: this.residente,
-
-
   });
   
   getErrorMessage(element:FormControl) {
@@ -155,7 +154,7 @@ export class CiudadanoComponent implements OnInit {
      let data  = {
        ...form.value,
       }
-      console.log(data)
+     
      if(data.fechanacimiento){
        data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
        
@@ -169,12 +168,12 @@ export class CiudadanoComponent implements OnInit {
 
 
   createCiudadano(data: any){
-    
-    this.ciudadanoService.createiudadano(data, this.idCiudadano).subscribe({
+
+    this.ciudadanoService.createiudadano(data, this.idpersona).subscribe({
       next: data => {
         
         Swal.fire({
-          title: "Ciudadano creado correctamente",
+          title: "Ciudadano creado/modificado correctamente",
           text: `ciudadano: ${data.primernombre} ${data.primerapellido}`,
           icon: 'success',
           showCancelButton: false,
@@ -188,9 +187,11 @@ export class CiudadanoComponent implements OnInit {
           },
           }).then(data=>{
             //this.limpiarInputs();
+            this.router.navigate([`home/ciudadanosbash/`]);
           })
       }, // success path
       error: error => {
+        console.log(error)
         let errorText =''
         for (const field in error.error) {
           if (error.error.hasOwnProperty(field)) {
@@ -200,7 +201,7 @@ export class CiudadanoComponent implements OnInit {
         }
         Swal.fire({
           title: 'Oops...',
-          text: errorText,
+          text: error.error,
           icon: 'error',
           footer: `${error.statusText} error ${error.status}`,
           confirmButtonText: 'Aceptar',

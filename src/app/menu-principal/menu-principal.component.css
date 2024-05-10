@@ -1,6 +1,6 @@
 
 .btn_cd{
-    background-color: #f3f3f3;
+    background-color: #ffff;
     color: #444;
     min-width: 14%;
     width: auto;
@@ -19,9 +19,11 @@
 
 .container_opcion{ 
     width: 300px;
-    background-color: #f3f3f3;
-    height: 100%;
+    background-color: #ffff;
     min-height: 90vh;
+    max-height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .btn_cd:hover {
@@ -63,9 +65,12 @@
 .opciones:hover #rotateIconCaptura{
     transform: rotate(90deg);
 }
+.opciones:hover{
+    cursor: pointer;
+}
 #submenu{
     justify-items: end;
-    background-color: #f5f4f1;
+    background-color: #ffff;
 }
 .contReporte:hover .rotateIcon{
     
@@ -75,7 +80,7 @@
     background-color: #f3f3f3;
 }
 .btnSubmenu{
-    background-color: #f3f3f3;
+    background-color: #ffff;
     color: #444;
     min-width: 14%;
     width: auto;
@@ -83,11 +88,11 @@
     padding: 2px;
     text-align: center; /* Alinea el texto al centro */
     display: flex;
-    justify-content: space-between;
+   
     align-items: flex-start;
     margin-right: 0px;
     margin-top: 0px;
-    margin-left: 10px;
+    margin-left: 20px;
     padding-top: 10px;
 }
 

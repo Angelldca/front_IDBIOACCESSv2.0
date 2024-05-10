@@ -37,7 +37,7 @@
         <span (click)="donwloadListCiudadanos(ciudadanoForm)">
             Descargar
             <button mat-button color="primary" aria-label="download">
-                <mat-icon>download</mat-icon>
+              <img src="../../assets/img/download.svg"/>
             </button>
         </span>
 
@@ -45,6 +45,15 @@
     </section>
     
     @if(rango){
-        <app-ciudadano-table [urlCiudadanos]="urlCiudadanos"/>
+      @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID={{userID}} (newEmitterUserIDChange)="getUserID($event)" />
+    
+        }@else {
+          <app-ciudadano-table 
+          [urlCiudadanos]="urlCiudadanos"
+          (newUserIDEvent)="getUserID($event)"
+          />
+
+        }
     }
 </div>

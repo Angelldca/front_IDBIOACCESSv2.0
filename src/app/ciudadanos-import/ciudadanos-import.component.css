@@ -3,6 +3,10 @@
 }
 
 
+form{
+    display: flex;
+}
+
 .btn_export{
     display: flex;
     align-items: baseline;
@@ -17,7 +21,7 @@ a{
     color: #050505;
     background-color: #71c4ef;
     border: none;
-    width: 200px;
+    
     height:25px;
     border-radius: 5px;
     margin-left: 10px;
@@ -46,8 +50,14 @@ mat-icon {
 }
 .upload{
     background-color: #71c4ef;
+    border: 1px solid #71c4ef;
+    border-radius: 5px;
     height:35px;
     margin: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-family: "Quicksand", sans-serif;
 }
 
 
