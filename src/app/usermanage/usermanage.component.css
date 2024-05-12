@@ -182,3 +182,6 @@ option{
 .input-box:is(:focus,:valid){
     box-shadow:0 3px 6px rgba(0,0,0.0.2);
 }
+.errorInput{
+    color: #900;
+}

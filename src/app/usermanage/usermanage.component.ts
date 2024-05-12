@@ -44,11 +44,11 @@ email = new FormControl('', [Validators.required, Validators.email]);
 is_active = new FormControl(false, [Validators.required, ]);
 is_staff = new FormControl(false, [Validators.required, ]);
 is_superuser = new FormControl(false, [Validators.required, ]);
-username = new FormControl('', [Validators.required, 
+username = new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/) 
 ]);
-password = new FormControl('', [Validators.required,
+password = new FormControl('', [Validators.required, Validators.minLength(8),
 ])
-confirm_password = new FormControl('', [Validators.required, 
+confirm_password = new FormControl('', [Validators.required, Validators.minLength(8),
 ])
 formInfoPersonal = new FormGroup({
   first_name:this.nombre,
@@ -64,7 +64,20 @@ formCredenciales = new FormGroup({
   password:this.password,
   confirm_password:this.confirm_password,
 });
+getErrorMessage(element:FormControl) {
+  
+  if (element.hasError('required')) {
+    return 'El campo es obligatorio';
+  }
+  if (element.hasError('maxlength') || element.hasError('minlength') ) {
+    return 'Longitud incorrecta';
+  }
+  if (element.hasError('email')) {
+    return 'El correo no es válido';
+  }
 
+  return element.hasError('pattern') ? `El contenido no es válido "${element.value}"` : '';
+}
 ngOnInit(): void {
   // Retrieving user from the state object
   this.user = history.state.user;
@@ -106,7 +119,7 @@ deleteUser(){
       next: data => {
         
         Swal.fire({
-          title: "Contraseña actualizada correctamente",
+          title: "Usuario eliminado",
           text: `Usuario: ${this.user?.username}`,
           icon: 'success',
           showCancelButton: false,
@@ -149,8 +162,20 @@ onSubmitCredenciales(form: FormGroup){
   let data  = {
     ...form.value,
    }
-   if(data.password !== data.confirm_password)
-   console.log("las contrasenas no coinciden")
+   if(data.password !== data.confirm_password){
+    Swal.fire({
+      title: 'Oops...',
+      text: "Las contraseñas deben coincidir",
+      icon: 'error',
+      footer: ``,
+      confirmButtonText: 'Aceptar',
+      customClass: {
+          confirmButton: 'btn btn-primary px-4'
+      },
+      buttonsStyling: false,
+      })
+   }
+   
    else{
     this.ciudadanoService.updatePassword(urlBack+`seguridad/user/${this.user?.id}/`,data).subscribe({
       next: data => {

@@ -24,7 +24,7 @@ export class LandinPageComponent implements OnInit{
      let userL = JSON.parse(userLog)
         this.ciudadanoService.validateToken(token).subscribe({
          next(data) {
-           if(userL.permissions.length > 0 || userL.roles.length > 0)
+           if(userL.permissions.length > 0 || userL.roles.length > 0 || userL.is_superuser)
            route.navigate(['home'],{ state: { user: userL } });
           else
            route.navigate([''],{ state: { user: userL } });

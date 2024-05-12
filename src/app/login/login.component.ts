@@ -109,4 +109,8 @@ export class LoginComponent implements OnInit{
   limpiarInputs(){
     console.log("Acuerdate de limpiar los inputs")
   }
+
+  loginCass(){
+    window.location.href = 'http://localhost:8000/accounts/login'
+  }
 }

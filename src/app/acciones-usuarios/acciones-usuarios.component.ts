@@ -145,8 +145,13 @@ export class AccionesUsuariosComponent implements OnInit {
   }
 
   donwloadListLogs(id: any){
+    const data = {
+      ...this.ciudadanoForm.value,
+      fecha_inicio: moment(this.ciudadanoForm.value.fecha_inicio).format('YYYY-MM-DD'),
+      fecha_fin: moment(this.ciudadanoForm.value.fecha_fin).format('YYYY-MM-DD')
+    }
     
-    const url = `${urlBack}seguridad/trazas/historial_usuario/?userid=${id}`
+    const url = `${urlBack}seguridad/trazas/historial_usuario_csv/?userid=${id}&fecha_inicio=${data.fecha_inicio}&fecha_fin=${data.fecha_fin}`
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',

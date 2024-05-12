@@ -15,12 +15,18 @@
                 <div class="nombres">
                     <label>Contraseña: </label>
                     <input class="input-box" type="text" name="name_rol" [formControl]="password" [value]="password" />
+                    @if(password.errors){
+                        <span class="errorInput">{{getErrorMessage(password)}}</span>
+                      }
                 </div>
 
                 <div class="nombres">
                     <label>Confirmar Contraseña: </label>
                     <input class="input-box" type="text" name="name_rol" [formControl]="confirm_password"
                         [value]="confirm_password" />
+                        @if(confirm_password.errors){
+                            <span class="errorInput">{{getErrorMessage(confirm_password)}}</span>
+                          }
                 </div>
             </section>
 
@@ -41,13 +47,24 @@
                     <section>
                         <label>Nombre: </label>
                         <input class="input-box" type="text" name="name_rol" [formControl]="nombre"
-                            [value]="username" />
+                            [value]="nombre" />
+                            @if(nombre.errors){
+                                <span class="errorInput">{{getErrorMessage(nombre)}}</span>
+                              }
+                              <br/>
                         <label>Apellidos: </label>
 
                         <input class="input-box" type="text" name="name_rol" [formControl]="apellido"
                             [value]="apellido" />
+                            @if(apellido.errors){
+                                <span class="errorInput">{{getErrorMessage(apellido)}}</span>
+                              }
+                              <br/>
                         <label>Correo electrónico </label>
                         <input class="input-box" type="text" name="name_rol" [formControl]="email" [value]="email" />
+                        @if(email.errors){
+                            <span class="errorInput">{{getErrorMessage(email)}}</span>
+                          }
                     </section>
                     <div class="btn_cont-guardar">
                         <button class="rol_create_btn" type="submit">Guardar Cambios</button>

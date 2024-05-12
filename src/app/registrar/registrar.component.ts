@@ -22,11 +22,11 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
   ]);
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  username = new FormControl('', [Validators.required, 
+  username = new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)
   ]);
-  password = new FormControl('', [Validators.required,
+  password = new FormControl('', [Validators.required,Validators.minLength(8)
   ])
-  confirm_password = new FormControl('', [Validators.required, 
+  confirm_password = new FormControl('', [Validators.required, Validators.minLength(8)
   ])
   formInfoPersonal = new FormGroup({
     first_name:this.nombre,
@@ -35,12 +35,25 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
     email: this.email,
     password: this.password,
   });
-
+  getErrorMessage(element:FormControl) {
+  
+    if (element.hasError('required')) {
+      return 'El campo es obligatorio';
+    }
+    if (element.hasError('email')) {
+      return 'El correo no es válido';
+    }
+    if (element.hasError('maxlength') || element.hasError('minlength') ) {
+      return 'Longitud incorrecta';
+    }
+  
+    return element.hasError('pattern') ? `El contenido no es válido "${element.value}"` : '';
+  }
   onSubmitInformations(form: FormGroup){
     let data  = {
       ...form.value,
      }
-     console.log(data)
+ 
      if(data.password !== this.confirm_password.value){
       Swal.fire({
         title: 'Oops...',
