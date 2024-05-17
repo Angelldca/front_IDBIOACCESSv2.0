@@ -194,7 +194,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
             title: 'Oops...',
             text: error,
             icon: 'error',
-            footer: `${error.statusText} error ${error.status}`,
+            footer: ``,
             confirmButtonText: 'Aceptar',
             customClass: {
                 confirmButton: 'btn btn-primary px-4'

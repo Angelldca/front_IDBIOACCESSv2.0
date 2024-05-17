@@ -94,7 +94,7 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
             title: 'Oops...',
             text: error,
             icon: 'error',
-            footer: `${error.statusText} error ${error.status}`,
+            footer: ``,
             confirmButtonText: 'Aceptar',
             customClass: {
                 confirmButton: 'btn btn-primary px-4'

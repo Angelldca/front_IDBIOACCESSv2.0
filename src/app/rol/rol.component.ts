@@ -151,7 +151,7 @@ export class RolComponent implements OnInit{
           title: 'Oops...',
           text: error.error.error,
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
             confirmButton: 'btn btn-success px-4',
@@ -206,9 +206,9 @@ export class RolComponent implements OnInit{
           console.log(error)
           Swal.fire({
             title: 'Oops...',
-            text: error,
+            text: error.error.detail,
             icon: 'error',
-            footer: `${error.error.name} error ${error.status}`,
+            footer: ``,
             confirmButtonText: 'Aceptar',
             customClass: {
                 confirmButton: 'btn btn-primary px-4'
@@ -262,7 +262,7 @@ export class RolComponent implements OnInit{
           title: 'Oops...',
           text: error,
           icon: 'error',
-          footer: `${error.error.name} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
               confirmButton: 'btn btn-primary px-4'

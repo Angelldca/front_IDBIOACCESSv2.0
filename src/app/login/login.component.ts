@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit{
           title: 'Oops...',
           text: error.error.non_field_errors[0],
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
             confirmButton: 'btn btn-success px-4',

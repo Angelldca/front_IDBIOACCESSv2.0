@@ -95,7 +95,7 @@ userDelete(user: IUsuario){
               title: 'Oops...',
               text: error,
               icon: 'error',
-              footer: `${error.error.name} error ${error.status}`,
+              footer: ``,
               confirmButtonText: 'Aceptar',
               customClass: {
                   confirmButton: 'btn btn-primary px-4'

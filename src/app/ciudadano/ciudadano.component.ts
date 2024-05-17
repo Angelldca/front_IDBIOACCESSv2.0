@@ -81,17 +81,18 @@ export class CiudadanoComponent implements OnInit {
 
   isLoggedIn=true;
  
-  primernombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-Z][a-zA-Z\s]*$/)]);
-  segundonombre = new FormControl('', [ Validators.pattern(/^[A-Z][a-zA-Z\s]*$/)]);
+  primernombre = new FormControl('', [Validators.required, 
+    Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
+  segundonombre = new FormControl('', [ Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
   primerapellido = new FormControl('', [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   segundoapellido = new FormControl('', [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   rolInst = new FormControl('', 
    [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   area = new FormControl('', 
   [Validators.required, 
@@ -203,7 +204,7 @@ export class CiudadanoComponent implements OnInit {
           title: 'Oops...',
           text: error.error,
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
               confirmButton: 'btn btn-primary px-4'
