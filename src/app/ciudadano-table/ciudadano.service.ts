@@ -303,6 +303,13 @@ createCiudadano(data: any, id: any | undefined) {
   }
 
   hasAllPermissions(requiredPermissions: string[]): boolean {
+    const userLocal =   localStorage.getItem('user')
+    if(userLocal && !this.userAuth){
+      this.userAuth = JSON.parse(userLocal)
+     
+    }
+    if (this.userAuth?.is_superuser)
+    return true
     const userPermissions = this.getUserAllPermissions();
     return requiredPermissions.every(permission => userPermissions.includes(permission));
   }

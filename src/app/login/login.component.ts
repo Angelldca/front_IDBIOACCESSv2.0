@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit{
               if(userL.permissions.length > 0 || userL.roles.length > 0 || userL.is_superuser)
               route.navigate(['home'],{ state: { user: userL } });
              else
-              route.navigate([''],{ state: { user: userL } });
+              route.navigate(['bienvenido'],{ state: { user: userL } });
             },
             error(err) {
               console.log("Token invalid or expired")
@@ -75,18 +75,7 @@ export class LoginComponent implements OnInit{
         if(data.user.permissions.length > 0 || data.user.roles.length > 0 || data.user.is_superuser)
           this.router.navigate(['home'],{ state: { user: data.user } });
         else{
-          //this.router.navigate([''],{ state: { user: data.user } });
-          Swal.fire({
-            title: 'Oops...',
-            text: "Usuario sin autorización",
-            icon: 'info',
-            footer: `Póngase en contacto con el administrador`,
-            confirmButtonText: 'Aceptar',
-            customClass: {
-              confirmButton: 'btn btn-success px-4',
-            },
-            buttonsStyling: true,
-            })
+          this.router.navigate(['bienvenido'],{ state: { user: data.user } });
         }
         }, 
       error: (error) => {

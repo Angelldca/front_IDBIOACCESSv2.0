@@ -16,9 +16,9 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
 
 }
 
-  nombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-Z][a-zA-Z\s]*$/)]);
+  nombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
   apellido = new FormControl('', [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   email = new FormControl('', [Validators.required, Validators.email]);
 

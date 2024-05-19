@@ -21,10 +21,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FechaAutenticacionComponent } from './fecha-autenticacion/fecha-autenticacion.component';
 import { AccionesUsuariosComponent } from './acciones-usuarios/acciones-usuarios.component';
 import { CasComponent } from './cas/cas.component';
+import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landin-page-not-permisos.component';
 
 export const routes: Routes = [
 
   { path: '', component: LandinPageComponent },
+  { path: 'bienvenido', component: LandinPageNotPermisosComponent },
   { path: 'cas', component: CasComponent },
   { path: 'cas/:token', component: CasComponent },
   { path: 'login', component: LoginComponent },

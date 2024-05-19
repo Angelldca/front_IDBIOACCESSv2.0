@@ -42,7 +42,11 @@ p{
     padding: 20px;
 }
 
-.footer{
-  
+
+.copyright{
+    cursor: pointer;
+    
+    font-size: 18px;
+    opacity: 0.9;
 }
 
