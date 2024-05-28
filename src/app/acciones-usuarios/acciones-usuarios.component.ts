@@ -116,7 +116,7 @@ export class AccionesUsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = null;
-    this.ciudadanoService.getUsers(urlBack+'seguridad/user/user_autenticados/').subscribe({
+    this.ciudadanoService.getUsers(urlBack+'seguridad/user/').subscribe({
       next: data => {
         
         this.users = data
