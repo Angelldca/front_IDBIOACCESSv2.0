@@ -37,6 +37,8 @@ h2{
     flex-wrap:wrap;
     width:50%;
     padding-bottom:15px;
+    height: 72px;
+    margin-bottom: 45px
 }
 
 .input-box:nth-child(2n){
@@ -61,6 +63,8 @@ h2{
     border-radius:5px;
     border:1px solid #700;
     outline:none;
+   
+   
 }
 
 .input-box input:is(:focus,:valid){

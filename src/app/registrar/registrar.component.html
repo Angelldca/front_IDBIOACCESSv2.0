@@ -12,7 +12,7 @@
             [value]="nombre"
             required>
             @if(nombre.errors){
-                <span class="errorInput">{{getErrorMessage(nombre)}}</span>
+                <span class="errorInput">{{getErrorMessage(nombre, 'nombre')}}</span>
               }
         </div>
 
@@ -27,7 +27,7 @@
             >
 
             @if(apellido.errors){
-                <span class="errorInput">{{getErrorMessage(apellido)}}</span>
+                <span class="errorInput">{{getErrorMessage(apellido,'apellido')}}</span>
               }
         </div>
 
@@ -41,7 +41,7 @@
              [value]="username"
              >
              @if(username.errors){
-                <span class="errorInput">{{getErrorMessage(username)}}</span>
+                <span class="errorInput">{{getErrorMessage(username, 'username')}}</span>
               }
         </div>
 
@@ -55,7 +55,7 @@
             [value]="email"
             >
             @if(email.errors){
-                <span class="errorInput">{{getErrorMessage(email)}}</span>
+                <span class="errorInput">{{getErrorMessage(email, 'email')}}</span>
               }
         </div>
 
@@ -69,7 +69,7 @@
             [value]="password"
             >
             @if(password.errors){
-                <span class="errorInput">{{getErrorMessage(password)}}</span>
+                <span class="errorInput">{{getErrorMessage(password, 'password')}}</span>
               }
         </div>
 
@@ -82,7 +82,7 @@
             [value]="confirm_password"
             >
             @if(confirm_password.errors){
-                <span class="errorInput">{{getErrorMessage(confirm_password)}}</span>
+                <span class="errorInput">{{getErrorMessage(confirm_password, 'password')}}</span>
               }
         </div>
 

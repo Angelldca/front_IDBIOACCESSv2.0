@@ -3,11 +3,12 @@ import { CiudadanoService, IPersmisos, IRol } from '../ciudadano-table/ciudadano
 import {urlBack} from '../Finals'
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rol',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './rol.component.html',
   styleUrl: './rol.component.css'
 })
@@ -21,7 +22,8 @@ export class RolComponent implements OnInit{
  opcionesRol: IPersmisos[] = [];
  textoBusqueda: string = '';
  textoBusquedaRol: string = '';
- nameInput: string = ''
+ nameInput  = new FormControl('', [Validators.required, 
+  Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ]+([a-zA-ZáéíóúÁÉÍÓÚ]*\s*)*$/)]);
  rol_admin: IRol | null = null
  constructor(private ciudadanoService: CiudadanoService, private router: Router){
   const navigation = this.router.getCurrentNavigation();
@@ -32,10 +34,31 @@ export class RolComponent implements OnInit{
 
   ngOnInit(): void {
     if(this.rol_admin){
-      this.nameInput = this.rol_admin.name
+      console.log(this.rol_admin.name)
+      this.nameInput.setValue(this.rol_admin.name)
     }
     this.getPermisos();
    
+  }
+  getErrorMessage(element:FormControl, fieldName: string) {
+  
+    if (element.hasError('required')) {
+      return 'El campo es obligatorio';
+    }
+    if (element.hasError('email')) {
+      return 'El correo no es válido';
+    }
+    if (element.hasError('maxlength') || element.hasError('minlength') ) {
+      return 'Longitud incorrecta';
+    }
+  
+    if (element.hasError('pattern')) {
+      if (fieldName === 'password') {
+        return 'La contraseña debe tener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
+      }
+      return `El contenido no es válido "${element.value}"`;
+    }
+    return `El contenido no es válido "${element.value}"`;
   }
 
   toggleSeleccion(opcion: IPersmisos, event: MouseEvent) {
@@ -167,18 +190,18 @@ export class RolComponent implements OnInit{
   }   
   //Crear rol
   guardarRol(){
-   if(this.nameInput.trim().length > 0 && this.opcionesRol.length > 0){
+    if(this.nameInput.value && this.nameInput.valid)
+   if(this.nameInput.value.trim().length > 0 && this.opcionesRol.length > 0){
    let ids = this.opcionesRol.map(objeto => objeto.id);
    
      const data = {
-      name: this.nameInput,
+      name: this.nameInput.value,
       permissions: ids
       }
       let url = urlBack+ 'seguridad/rol/';
       let method = 'POST'
 
       if(this.rol_admin){
-        
           url += `${this.rol_admin.id}/`
           method = 'PUT'
       }

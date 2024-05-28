@@ -256,9 +256,9 @@ onSubmitInformations(form: FormGroup){
     
         Swal.fire({
           title: 'Oops...',
-          text: error,
+          text: "Verifique que el correo sea único",
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
               confirmButton: 'btn btn-primary px-4'

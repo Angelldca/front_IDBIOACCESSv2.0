@@ -16,17 +16,21 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
 
 }
 
-  nombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
+  nombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*(\s[A-ZÁÉÍÓÚ][a-záéíóú]*)*$/)]);
   apellido = new FormControl('', [Validators.required, 
     Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   email = new FormControl('', [Validators.required, Validators.email]);
 
-  username = new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)
+  username = new FormControl('', [Validators.required,Validators.pattern(/^[a-z]+$/)
   ]);
-  password = new FormControl('', [Validators.required,Validators.minLength(8)
+  password = new FormControl('', 
+  [Validators.required,Validators.minLength(8),
+    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
   ])
-  confirm_password = new FormControl('', [Validators.required, Validators.minLength(8)
+  confirm_password = new FormControl('', [Validators.required, 
+    Validators.minLength(8),
+    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
   ])
   formInfoPersonal = new FormGroup({
     first_name:this.nombre,
@@ -35,7 +39,7 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
     email: this.email,
     password: this.password,
   });
-  getErrorMessage(element:FormControl) {
+  getErrorMessage(element:FormControl, fieldName: string) {
   
     if (element.hasError('required')) {
       return 'El campo es obligatorio';
@@ -47,7 +51,13 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
       return 'Longitud incorrecta';
     }
   
-    return element.hasError('pattern') ? `El contenido no es válido "${element.value}"` : '';
+    if (element.hasError('pattern')) {
+      if (fieldName === 'password') {
+        return 'La contraseña debe tener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
+      }
+      return `El contenido no es válido "${element.value}"`;
+    }
+    return `El contenido no es válido "${element.value}"`;
   }
   onSubmitInformations(form: FormGroup){
     let data  = {
@@ -88,11 +98,17 @@ constructor(private router: Router, private ciudadanoService: CiudadanoService){
             })
         }, // success path
         error: error => {
-     console.log(error)
-      
+        console.log(error)
+        let errorText =''
+        for (const field in error.error) {
+          if (error.error.hasOwnProperty(field)) {
+            errorText += `${field}: ${error.error[field][0]}\n `;
+            
+          }
+        }
           Swal.fire({
             title: 'Oops...',
-            text: error,
+            text: errorText,
             icon: 'error',
             footer: ``,
             confirmButtonText: 'Aceptar',
