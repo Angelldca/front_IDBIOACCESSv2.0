@@ -11,14 +11,14 @@
         <span>Exportar registro en csv</span>
             <button mat-button 
             color="primary" 
-            (click)="exportCiudadanos_sin_img()"
+            (click)="exportCiudadanos_sin_huella()"
             aria-label="download">
                 Descargar
                 <img src="../../assets/img/download.svg"/>
             </button>
     </section>
 
-    <app-ciudadano-table buscar={{search}}
+    <app-ciudadano-huella-table buscar={{search}}
         urlCiudadanos= {{urlList}}
         (newUserIDEvent)="getUserID($event)" />
 

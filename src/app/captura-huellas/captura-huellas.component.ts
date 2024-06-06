@@ -7,16 +7,17 @@ import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CiudadanoHuellaTableComponent } from '../ciudadano-huella-table/ciudadano-huella-table.component';
 @Component({
   selector: 'app-captura-huellas',
   standalone: true,
-  imports: [CiudadanoTableComponent,BuscarCiudadanoComponent,
+  imports: [CiudadanoHuellaTableComponent,BuscarCiudadanoComponent,
     TomarFotoComponent,MatIconModule,MatButtonModule],
   templateUrl: './captura-huellas.component.html',
   styleUrl: './captura-huellas.component.css'
 })
 export class CapturaHuellasComponent {
-  urlList = urlBack+'ciudadano/ciudadanos_sin_img/'
+  urlList = urlBack+'ciudadano/ciudadanos_sin_huella/'
   userID:string| undefined| null;
   search:string| undefined;
 constructor(private ciudadanoService: CiudadanoService,private http: HttpClient ){
@@ -29,14 +30,14 @@ constructor(private ciudadanoService: CiudadanoService,private http: HttpClient 
      this.userID = value;
 
   }
-  exportCiudadanos_sin_img(){
+  exportCiudadanos_sin_huella(){
     const token = localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
 
-    const url = `${urlBack}ciudadanoscsv/ciudadanossinimg_csv/`;
+    const url = `${urlBack}ciudadanoscsv/ciudadanossinhuellas_csv/`;
 
     // Realiza la solicitud HTTP con los encabezados
     this.http.get(url, { headers, responseType: 'blob' }).subscribe(response => {
@@ -45,7 +46,7 @@ constructor(private ciudadanoService: CiudadanoService,private http: HttpClient 
       const urlBlob = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = urlBlob;
-      a.download = 'lista_ciudadanos_sin_img.csv';
+      a.download = 'lista_ciudadanos_sin_huella.csv';
       document.body.appendChild(a);
 
       
