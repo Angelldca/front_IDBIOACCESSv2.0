@@ -1,0 +1,23 @@
+
+<div class="panel">
+
+
+    <!--
+        <app-ciudadano-table buscar = {{search}} (newUserIDEvent)="getUserID($event)" />
+
+    -->
+    @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
+        
+    } @else {
+        <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+        <app-ciudadanobash-table
+        urlCiudadanos= {{urlList}}
+         buscar = {{search}} 
+         (newUserIDEvent)="getUserID($event)"/>
+
+    }
+  
+    
+</div>
+

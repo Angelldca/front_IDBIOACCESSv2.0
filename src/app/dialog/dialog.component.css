@@ -1,0 +1,19 @@
+
+
+textarea{
+    width: 100%;
+    height: 80px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+.sectionText{
+    width: 90%;
+}
+.errorInput{
+    color: #900;
+}
+.containe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

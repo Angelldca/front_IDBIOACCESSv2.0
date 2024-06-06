@@ -1,0 +1,174 @@
+<div class="container_opcion">
+
+    <h4>Menú</h4>
+    <hr/>
+    <div (click)="showSubmenu('captura_datos')"
+      class="opciones">
+        <section class="btn_cd desplegable">
+            <p>
+               Captura de datos
+            </p>
+    
+            <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+    
+        </section>
+        @if(isCapturaDatosVisible){
+            
+        <div id="submenu" (click)="showSubmenu('captura_datos')"
+         >
+         <section class="btnSubmenu" routerLink="ciudadanosbash">
+            <p>
+                Capturar Imagen
+            </p>
+            
+    
+        </section>
+        <section class="btnSubmenu" routerLink="ciudadano">
+            <p>
+                Crear Ciudadano
+            </p>
+          
+    
+        </section>
+            <section class="btnSubmenu" routerLink="img_out">
+                <p>
+                    Ciudadanos sin captura de Imagen
+                </p>
+               
+        
+            </section>
+         
+
+            <section class="btnSubmenu" routerLink="ciudadanos_import">
+                <p>
+                    Importar Ciudadanos
+                </p>
+        
+               
+            </section>
+            <div (click)="showSubmenu('reporte_captura_datos')"
+              class="contReporte">
+                <section class="btn_cd desplegable">
+                    <p>
+                        Reportes Captura de datos
+                    </p>
+        
+                    <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
+                </section>
+                @if(isReportesCapturaVisible){
+                <div id="submenu" (click)="showSubmenu('reporte_captura_datos')" 
+                >
+                    <section class="btnSubmenu" routerLink="report_ciudadanos">
+        
+                        <p>
+                            Listar Ciudadanos
+                        </p>
+        
+                    </section>
+                    <section class="btnSubmenu" routerLink="report_historial_ciudadanos">
+        
+                        <p>
+                            Historial de ciudadanos
+                        </p>
+        
+                    </section>
+                    <section class="btnSubmenu" routerLink="report_historial_fotos">
+        
+                        <p>
+                            Historial de fotos capturadas
+                        </p>
+        
+                    </section>
+                </div>
+               
+                }
+            </div>
+        </div>
+        <hr/>
+        }
+    </div>
+
+    <!-----Seguridad------>
+    <div (click)="showSubmenu('seguridad')"
+     class="opciones">
+       <section class="btn_cd desplegable" >
+           <p>
+              Seguridad
+           </p>
+   
+           <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+   
+       </section>
+       
+       @if(isSeguridadVisible){
+       <div id="submenu" (click)="showSubmenu('seguridad')"
+        >
+           <section class="btnSubmenu" routerLink="user">
+               <p>
+                  Usuarios
+               </p>
+              
+       
+           </section>
+           <section class="btnSubmenu" routerLink="rol">
+            <p>
+               Roles
+            </p>
+          
+        </section>
+           <div (click)="showSubmenu('seguridadReportes')"
+            class="contReporte">
+              <section class="btn_cd desplegable">
+                  <p>
+                      Trazas Seguridad
+                  </p>
+      
+                  <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
+              </section>
+
+           @if(isReporteSeguridadVisible){
+            <div id="submenu" (click)="showSubmenu('seguridadReportes')" 
+            >
+                <section class="btnSubmenu" routerLink="trazas/seccion">
+    
+                    <p>
+                       Inicios de sesión
+                    </p>
+    
+                </section>
+                <section class="btnSubmenu" routerLink="trazas/accionesusuarios">
+    
+                    <p>
+                       Modificaciones por usuarios
+                    </p>
+    
+                </section>
+            </div>
+           
+            }
+           </div>
+       </div>
+       <hr/>
+    }
+    </div>
+
+    <!-- Gestion Solapines-->
+    <div (click)="showSubmenu('gestion_solapin')" class="opciones">
+        <section class="btn_cd desplegable">
+            <p>Gestión de solapín</p>
+            <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+        </section>
+
+        @if(isGestionSolapinVisible){
+            <div id="submenu" (click)="showSubmenu('gestion_solapin')">
+
+                <section class="btnSubmenu" routerLink="report_ciudadanos">
+                    <p>Ciudadanos sin solapín</p>
+                </section>
+
+                </div>
+            <hr/>
+         }
+    <!--fin-->
+    </div>
+</div>

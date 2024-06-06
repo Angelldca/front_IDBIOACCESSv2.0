@@ -1,0 +1,245 @@
+<div class="container">
+    <div>
+        <h3>Modificar usuario</h3>
+    </div>
+
+    <div>
+        <h4>Credenciales del Usuario</h4>
+        <form class="primerbloque" [formGroup]="formCredenciales" (ngSubmit)="onSubmitCredenciales(formCredenciales)">
+            <section class="primerbloque">
+                <div class="nombres">
+                    <label> Nombre de Usuario: </label>
+                    <input class="input-box" type="text" name="name_rol" [formControl]="username" [value]="username" />
+                </div>
+
+                <div class="nombres">
+                    <label>Contraseña: </label>
+                    <input class="input-box" type="text" name="name_rol" [formControl]="password" [value]="password" />
+                    @if(password.errors){
+                        <span class="errorInput">{{getErrorMessage(password)}}</span>
+                      }
+                </div>
+
+                <div class="nombres">
+                    <label>Confirmar Contraseña: </label>
+                    <input class="input-box" type="text" name="name_rol" [formControl]="confirm_password"
+                        [value]="confirm_password" />
+                        @if(confirm_password.errors){
+                            <span class="errorInput">{{getErrorMessage(confirm_password)}}</span>
+                          }
+                </div>
+            </section>
+
+            <div class="btn_cont">
+                <button type="submit" class="rol_create_btn">Actualizar Credenciales</button>
+            </div>
+
+        </form>
+        <div>
+            <div class="InformP">
+                <h4>Información Personal</h4>
+            </div>
+
+            <form [formGroup]="formInfoPersonal" (ngSubmit)="onSubmitInformations(formInfoPersonal)">
+                <div class="containerPersonalInfo">
+
+
+                    <section>
+                        <label>Nombre: </label>
+                        <input class="input-box" type="text" name="name_rol" [formControl]="nombre"
+                            [value]="nombre" />
+                            @if(nombre.errors){
+                                <span class="errorInput">{{getErrorMessage(nombre)}}</span>
+                              }
+                              <br/>
+                        <label>Apellidos: </label>
+
+                        <input class="input-box" type="text" name="name_rol" [formControl]="apellido"
+                            [value]="apellido" />
+                            @if(apellido.errors){
+                                <span class="errorInput">{{getErrorMessage(apellido)}}</span>
+                              }
+                              <br/>
+                        <label>Correo electrónico </label>
+                        <input class="input-box" type="text" name="name_rol" [formControl]="email" [value]="email" />
+                        @if(email.errors){
+                            <span class="errorInput">{{getErrorMessage(email)}}</span>
+                          }
+                    </section>
+                    <div class="btn_cont-guardar">
+                        <button class="rol_create_btn" type="submit">Guardar Cambios</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4>Permisos</h4>
+                </div>
+                <section>
+                    <div>
+                        <div>
+                            <div>
+                                <input type="checkbox" name="is_active" id="id_is_active" [checked]="is_active"
+                                    [formControl]="is_active">
+                                <label class="" for="id_is_active">Activo</label>
+                            </div>
+                            <div class="" id="id_is_active_helptext">
+                                <div>Indica si el usuario debe ser tratado como activo. Desmarque esta opción en lugar
+                                    de borrar
+                                    la cuenta.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row field-is_staff">
+                        <div>
+                            <div class="flex-container checkbox-row">
+                                <input type="checkbox" name="is_staff" id="id_is_staff" [checked]="is_staff"
+                                    [formControl]="is_staff">
+                                <label class="vCheckboxLabel" for="id_is_staff">Es staff</label>
+                            </div>
+                            <div class="help" id="id_is_staff_helptext">
+                                <div>Indica si el usuario puede entrar en al panel de administración de Django</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row field-is_superuser">
+                        <div>
+                            <div class="flex-container checkbox-row">
+                                <input type="checkbox" name="is_superuser" id="id_is_superuser" [checked]="is_superuser"
+                                    [formControl]="is_superuser">
+                                <label class="vCheckboxLabel" for="id_is_superuser">Estado de superusuario</label>
+                            </div>
+                            <div class="help" id="id_is_superuser_helptext">
+                                <div>Indica que este usuario tiene todos los permisos sin asignárselos explícitamente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </form>
+
+            <h4>Roles</h4>
+            <section class="rp_container">
+                <div class="panel_edit">
+                    <span>Roles disponibles</span>
+                    <section class="sectionBuscar">
+                        <img src="../../assets/img/search.svg" alt="find" />
+                        <input type="text" placeholder="Filtrar" name="filtrar_all_permisos" [value]="searchRolDisp"
+                            (keyup)="buscarRolesDisponible($event)" />
+                    </section>
+
+                    <select multiple [(ngModel)]="rolSelect">
+                        @for (rol of rolesDisponibles; track rol.id) {
+                        <option value={{rol.id}} title={{rol.name}}>
+                            {{rol.name}}
+                        </option>
+
+                        }
+                    </select>
+
+
+
+
+
+                    <section class="btn_section">
+                        <button class="btn_all">
+                            <img src="../../assets/img/arrow_forward.svg" alt="find" />
+                            <span>Adicionar todos</span>
+
+                        </button>
+                    </section>
+                </div>
+                <div>
+                    <img src="../../assets/img/arrow_forward.svg" (click)="addRol()" />
+                    <br />
+                    <img src="../../assets/img/arrow_back.svg" (click)="removeRol()" />
+                </div>
+
+                <div class="panel_edit">
+                    <span>Roles seleccionados</span>
+                    <section class="sectionBuscar">
+                        <img src="../../assets/img/search.svg" alt="find" />
+                        <input type="text" placeholder="Filtrar" name="filtrar_all_permisos" [value]="searchRolUser"
+                            (keyup)="buscarRolesUser($event)" />
+                    </section>
+                    <select multiple [(ngModel)]="rolSelectRemove">
+                        @for (rol of rolesUsuario; track rol.id) {
+                        <option value={{rol.id}} title={{rol.name}}>
+                            {{rol.name}}
+                        </option>
+
+                        }
+                    </select>
+                    <section class="btn_section">
+                        <button class="btn_all">
+                            <img src="../../assets/img/arrow_back.svg" alt="find" />
+                            <span>Eliminar todos</span>
+
+                        </button>
+                    </section>
+                </div>
+
+            </section>
+
+            <h4>Permisos de Usuario</h4>
+            <section class="rp_container">
+                <div class="panel_edit">
+                    <span>Permisos disponibles</span>
+                    <section class="sectionBuscar">
+                        <img src="../../assets/img/search.svg" alt="find" />
+                        <input type="text" placeholder="Filtrar" name="filtrar_all_permisos" [value]="searchPerDisp"
+                            (keyup)="buscarPermisosDisponible($event)" />
+                    </section>
+                    <select multiple [(ngModel)]="permisoSelect">
+                        @for (permiso of permisosDisponibles; track permiso.id) {
+                        <option value={{permiso.id}} title={{permiso.name}}>
+                            {{permiso.codename}}
+                        </option>
+
+                        }
+                    </select>
+                    <section class="btn_section">
+                        <button class="btn_all">
+                            <img src="../../assets/img/arrow_forward.svg" alt="find" />
+                            <span>Adicionar todos</span>
+
+                        </button>
+                    </section>
+
+                </div>
+                <div>
+                    <img src="../../assets/img/arrow_forward.svg" (click)="addPermiso()" />
+                    <br />
+                    <img src="../../assets/img/arrow_back.svg" (click)="removePermiso()" />
+                </div>
+                <div class="panel_edit">
+                    <span>Permisos seleccionados</span>
+                    <section class="sectionBuscar">
+                        <img src="../../assets/img/search.svg" alt="find" />
+                        <input type="text" placeholder="Filtrar" name="filtrar_all_permisos" [value]="searchPerUser"
+                            (keyup)="buscarPermisosUser($event)" />
+                    </section>
+                    <select multiple [(ngModel)]="permisoSelectRemove">
+                        @for (permiso of permisosUsuario; track permiso.id) {
+                        <option value={{permiso.id}} title={{permiso.name}}>
+                            {{permiso.codename}}
+                        </option>
+
+                        }
+                    </select>
+                    <section class="btn_section">
+                        <button class="btn_all">
+                            <img src="../../assets/img/arrow_back.svg" alt="find" />
+                            <span>Eliminar todos</span>
+
+                        </button>
+                    </section>
+                </div>
+
+
+            </section>
+            <hr />
+        </div>
+    </div>

@@ -1,0 +1,123 @@
+
+
+@if (usuario == null) {
+    <div class="table">
+        <div class="table-header">
+          <h2>Selecciona un usuario</h2>
+          <div class="buscar">
+                  <input type="text" placeholder="Buscar Usuario" 
+                  name="buscar_user" class="inputSearch" (keyup)="buscarUser($event)">
+                  <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
+                 
+          </div>
+        </div>
+        <div class="table-section">
+           <table>
+              <thead>
+                  <tr>
+                      <th>Usuario</th>
+                      <th>Correo</th>                 
+                      <th>Nombre</th>
+                      <th>Apellidos</th>
+                  </tr>
+              </thead>
+              <tbody>
+    
+                @for (user of users; track user.id) {
+                    <tr (click)="viewAcciones(user)">
+                        <td>{{user.username}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                    </tr>
+    
+                }
+              </tbody>
+             
+           </table>
+        </div>
+        <div class="pagination">
+    
+        </div>
+            
+      </div>
+      
+    
+}@else {
+    <div class="table">
+        <div class="table-header">
+            <button class="btn_add" (click)="undo()">
+                <span>Regresar</span>
+                
+            </button>
+
+            <mat-form-field class="example-form-field">
+                <mat-label>Proporciona un rango de fecha</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="Fecha de inicio" [formControl]="fecha_inicio">
+                  @if (fecha_inicio.invalid) {
+                    <mat-error>{{getErrorMessage(fecha_inicio)}}</mat-error>
+                  }
+                  <input matEndDate placeholder="Fecha Final" [formControl]="fecha_final">
+                  @if (fecha_final.invalid) {
+                    <mat-error>{{getErrorMessage(fecha_final)}}</mat-error>
+                  }
+                </mat-date-range-input>
+                <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancelar</button>
+                    <button mat-raised-button color="primary"
+                     matDateRangePickerApply 
+                     (click)="onSubmit(ciudadanoForm)"
+                     >Aplicar</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
+          <h2>{{usuario.username}}</h2>
+          <button class="btn_add" (click)="donwloadListLogs(usuario.id)">
+            <span>Descarcar csv</span>
+        </button>
+        </div>
+        <div class="table-section">
+          @if(rango){
+
+            <table>
+               <thead>
+                   <tr>
+                       <th>fecha</th>
+                       <th>Modelo</th>                 
+                       <th>elemento</th>
+                       <th>acción</th>
+                   </tr>
+               </thead>
+               <tbody>
+     
+                 @for (log of logs; track log.id) {
+                     <tr>
+                         <td>{{log.action_time}}</td>
+                         @if(log.content_type_name== "group"){
+                             <td>Rol</td>
+                         }@else {
+                             <td>{{log.content_type_name}}</td>
+                         }
+                         <td>{{log.object_repr}}</td>
+                         <td>{{log.action_description}}</td>
+                        
+                     </tr>
+     
+                 }
+               </tbody>
+              
+            </table>
+          }
+        </div>
+        <div class="pagination">
+    
+        </div>
+            
+      </div>
+      
+    
+}

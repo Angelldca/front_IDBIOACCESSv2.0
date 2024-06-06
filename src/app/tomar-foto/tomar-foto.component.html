@@ -1,0 +1,65 @@
+<!----showWebcam-->
+@if(videoDevices && showWebcam && webcamImage === null){
+<div class="webcam-container animate__animated animate__fadeIn animate__faster">
+    <webcam #webcam class="webcam" [height]="500" [width]="500" [trigger]="trigger" [id]="deviceId" [imageQuality]="1"
+        [switchCamera]="nextWebcamObservable" [allowCameraSwitch]="allowCameraSwitch"
+        (imageCapture)="handleImage($event)" (cameraSwitched)="cameraWasSwitched($event)"
+        (initError)="handleInitError($event)" [videoOptions]="{ facingMode: 'user' }">
+    </webcam>
+    <canvas #canvas id="canvas"></canvas>
+</div>
+<div class="btnsContainer">
+    <!--
+            <button (click)="showWebcamToggle()">Mostrar/ocultar webcam</button>
+        -->
+        <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undo()">
+            <img src="../../assets/img/undo (2).svg"/>
+        </button> 
+    <button mat-raised-button color="primary" (click)="showNextWebcam(true);"
+        [disabled]="!multiplesCamarasDisponibles">Cambiar cámara</button>
+
+    <section>
+        <mat-checkbox  
+        matTooltip="Validar imagen con IA" 
+        class="example-margin"
+        (change)="getValidate($event.checked)"
+        >Validar Imagen</mat-checkbox>
+
+    </section>
+    <div class="example-button-container" >
+        <button
+        mat-fab color="primary" 
+        aria-label="button-image"
+        [style.view-transition-name] = "'transition_img'"
+        (click)="triggerCaptura()">
+            <img src="../../assets/img/photo.svg"/>
+        </button>
+
+    </div>
+
+</div>
+}
+<!--<canvas id="canvaImg"></canvas>-->
+@if (webcamImage) {
+    <div class="animate__animated animate__fadeIn animate__faster">
+        <div id="imageContainer"
+         [class.imgValid]="imgValid" 
+         [class.imgInValid]="!imgValid"
+         >
+            <img [src]="webcamImage.imageAsDataUrl " alt="foto capturada" />
+
+           
+        </div>
+        <div class="btnsContainer">
+            <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undoCapture()">
+                <img src="../../assets/img/undo (2).svg"/>
+            </button>
+            <button 
+            mat-raised-button color="warn"
+            [disabled]="!imgValid"
+             (click)="saveImg()" >Guardar</button>
+        
+        </div>
+
+    </div>
+}

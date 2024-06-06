@@ -1,0 +1,68 @@
+
+
+.webcam-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+#canvas{
+width: 370px;
+height: 248px;
+position: absolute;
+top: 100px;
+    
+}
+
+  
+  .face-overlay {
+     /*position: absolute; */
+    border: 2px solid red; /* Color y estilo del marco */
+    border-radius: 49%;
+    box-sizing: border-box;
+    width: 20%; /* Ancho del marco en relación al contenedor */
+    height: 50%;
+    
+    top: 20%; /* Ajusta según tus necesidades */
+    left: 50%; /* Ajusta según tus necesidades */
+    pointer-events: none;
+  }
+
+
+#imageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    margin: auto;
+    text-align: center; 
+    padding-top: 0px;
+   
+   
+}
+img{
+    width: 100%;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+
+
+.btnsContainer{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+}
+
+.imgValid{
+  border:5px solid #00c851;
+}
+
+.imgInValid{
+  border:5px solid #ff4444;
+}

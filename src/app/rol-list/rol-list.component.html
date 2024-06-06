@@ -1,0 +1,36 @@
+<div class="table">
+    <div class="table-header">
+        
+        <div class="buscar">
+            <input type="text" placeholder="Buscar rol" name="buscar_rol" (keyup)="buscarRoll($event)">
+            <button class="buscarb" type="submit"><img src="../../assets/img/search.svg" /></button>
+
+        </div>
+        <button class="btn_add" routerLink="create_rol">
+            <span>Añadir Rol </span>
+            <img src="../../assets/img/add.svg"/>
+        </button>
+    </div>
+    <div class="table-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (rol of roles; track rol.id) {
+                    <tr>
+                        <td (click)="manageRol(rol)">{{rol.name}}</td>
+                    </tr>
+                }
+                
+            </tbody>
+
+        </table>
+    </div>
+    <div class="pagination">
+    
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+
+
+.search_elements{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    background-color: #d3dbe3;
+    padding-top: 20px;
+   
+}
+.filtrar{
+    height: 75px;
+}
+button{
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px;
+    color: #ffffff;
+}
+
+.buscar_section{
+    width: 30%;
+    height: 40px
+}
+.buscar{
+    background-color: #fffafa;
+    width: auto;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    border: 2px solid  #cf3c3c;
+  
+}
+
+.buscarb{
+    padding: 3px;
+    border-radius: 30%;
+    background-color: #efefef;
+ 
+ }
+ .buscarb img{
+     margin: auto;
+     vertical-align: middle; /* Centra la imagen */
+ }
+
+input{
+    outline: none;
+    border: none ;
+    border-radius: 6px;
+    color: #9e0000;
+    background:  #f7f9fcce;
+    }
+    
+    ::placeholder{
+        color: #890000;
+    }

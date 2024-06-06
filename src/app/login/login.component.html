@@ -1,0 +1,50 @@
+<div class="logincontainer">
+    <div class="container">
+    
+
+        <div class="login-container">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+               
+                <h2>Iniciar Sesión </h2>
+                <div class="input-div one ">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        @if (mostrarMensaje) {
+                        <h5>Nombre de usuario</h5>
+                        }
+
+                        <input class="input" type="text" (input)="onInput1($event)" formControlName="username"
+                            autocomplete="username" required>
+                    </div>
+                </div>
+                <div class="input-div two">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        @if (mostrarContrasena) {
+                        <h5>Contraseña</h5>
+                        }
+                        <input class="input" type="password" (input)="onInput2($event)" formControlName="password"
+                            autocomplete="current-password" required>
+                    </div>
+                </div>
+               <section>
+                   <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
+                       [disabled]="!userForm.valid">Entrar
+                   </button>
+                   <button  class="btnCas" (click)="loginCass()">
+                    
+                    <p> Autenticación por CAS</p>
+                      
+                 </button>
+
+               </section>
+            </form>
+        </div>
+      
+    </div>
+
+</div>

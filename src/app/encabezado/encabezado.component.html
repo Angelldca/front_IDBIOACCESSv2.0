@@ -1,0 +1,21 @@
+
+
+<nav>
+    <img  src="../../assets/img/idbioaccess.png"/>
+    <div class="cont_info">
+        @if(isLoged){
+        <button (click)="logOut()"
+        class="btn_active animate__animated animate__fadeInLeft"
+        >
+            Cerrar sesión
+          </button>
+            <div class="cont_username">
+                <p>
+                    {{username?.charAt(0)?.toUpperCase()}}
+                </p>
+            </div>
+
+        }
+        
+    </div>
+</nav>

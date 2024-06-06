@@ -1,0 +1,72 @@
+table {
+    width: 100%;
+   
+}
+
+.tabla_div{
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    height: 546px;
+}
+
+.mat-mdc-header-row{
+    height: 23px;
+    background-color:  #f6f9fc;
+}
+
+.inputInactive{
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    
+}
+.inputActive{
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #444;
+    margin: 0px;
+    padding: 0px;
+}
+
+.opcion{
+    display: flex;
+    padding: 2px;
+    height: 100%;
+}
+.mat-mdc-row .mat-mdc-cell {
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+.mat-mdc-row:hover .mat-mdc-cell{
+    color: #cf3c3c;
+    cursor: pointer;
+    background-color: #ffd7d77a;
+}
+
+
+
+.imgTable{
+    width: 50px;
+}
+
+.imgBusqueda{
+    width: 500px;
+}
+.newSearch{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newSearch p {
+    color: #686868;
+}
+.newSearch h3 {
+    color: #444;
+}
+
+.paginator{
+    background-color:  #f6f9fc;
+}

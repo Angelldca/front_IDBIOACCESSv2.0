@@ -1,0 +1,62 @@
+
+
+<div class="report_Container">
+    <h2>Historial de fotos por fecha</h2>
+  
+    <form [formGroup]="ciudadanoForm">
+   <div class="formContainer">
+
+     <mat-form-field class="example-form-field">
+         <mat-label>Proporciona un rango de fecha</mat-label>
+         <mat-date-range-input [rangePicker]="rangePicker">
+           <input matStartDate placeholder="Fecha de inicio" [formControl]="fecha_inicio">
+           @if (fecha_inicio.invalid) {
+             <mat-error>{{getErrorMessage(fecha_inicio)}}</mat-error>
+           }
+           <input matEndDate placeholder="Fecha Final" [formControl]="fecha_final">
+           @if (fecha_final.invalid) {
+             <mat-error>{{getErrorMessage(fecha_final)}}</mat-error>
+           }
+         </mat-date-range-input>
+         <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+         <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+         <mat-date-range-picker #rangePicker>
+           <mat-date-range-picker-actions>
+             <button mat-button matDateRangePickerCancel>Cancelar</button>
+             <button mat-raised-button color="primary"
+              matDateRangePickerApply 
+              (click)="onSubmit(ciudadanoForm)"
+              >Aplicar</button>
+           </mat-date-range-picker-actions>
+         </mat-date-range-picker>
+       </mat-form-field>
+       <section class="btn_export">
+           <p>Exportar registro en csv</p>
+   
+           <span (click)="donwloadListCiudadanos(ciudadanoForm)">
+               Descargar
+               <button mat-button color="primary" aria-label="download">
+                <img src="../../assets/img/download.svg"/>
+               </button>
+           </span>
+   
+   
+       </section>
+   </div>
+    </form>
+ 
+    
+    @if(rango){
+      @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID={{userID}} (newEmitterUserIDChange)="getUserID($event)" />
+    
+        }@else {
+          <app-ciudadano-table 
+          [urlCiudadanos]="urlCiudadanos"
+          (newUserIDEvent)="getUserID($event)"
+          />
+
+        }
+    }
+ 
+</div>

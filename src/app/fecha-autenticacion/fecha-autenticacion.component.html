@@ -1,0 +1,52 @@
+
+<div class="table">
+    <div class="table-header">
+      <h2>Usuarios</h2>
+      <div class="buscar">
+              <input type="text" placeholder="Buscar Usuario" 
+              name="buscar_user" (keyup)="buscarUser($event)">
+              <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
+             
+      </div>
+      <button class="btn_add" (click)="donwloadListCiudadanos()">
+        <span>Descarcar csv</span>
+        
+    </button>
+    </div>
+    <div class="table-section">
+       <table>
+          <thead>
+              <tr>
+                  <th>Usuario</th>
+                  <th>Último inicio de sesión</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Correo</th>
+              </tr>
+          </thead>
+          <tbody>
+
+            @for (user of users; track user.id) {
+                <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.last_login}}</td>
+                    <td>{{user.first_name}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                </tr>
+
+            }
+          </tbody>
+         
+       </table>
+    </div>
+    <div class="pagination">
+
+    </div>
+        
+  </div>
+  
+<!---
+    <app-registrar/>
+
+-->

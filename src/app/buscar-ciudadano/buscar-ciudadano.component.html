@@ -1,0 +1,30 @@
+<form 
+class="search_elements animate__animated animate__fadeIn animate__faster"
+[formGroup]="userForm" (ngSubmit)="find()"
+>
+    <mat-form-field class="filtrar">
+        <mat-label>Filtrar</mat-label>
+        <mat-select [formControl]='control' >
+          <mat-option value="carnetidentidad">No. carnet</mat-option>
+          <mat-option value="nombre_apellidos">Nombre y apellidos</mat-option>
+          <mat-option value="solapin">Solapín</mat-option>
+          <mat-option value="idexpediente">No. Expediente</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div class="buscar">
+            <input 
+            matInput 
+            placeholder="Buscar..."
+            [formControl]="busqueda"
+            class="inputSearch"
+            >
+            <button 
+            aria-label="buscar" 
+            class="buscarb"
+            type="submit"
+           
+            >
+            <img src="../../assets/img/search.svg"/>
+            </button>
+        </div>
+</form>

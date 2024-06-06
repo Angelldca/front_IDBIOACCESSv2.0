@@ -1,0 +1,22 @@
+.contenedorerror{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    height: 100%; /* Ocupa toda la pantalla */
+}
+
+
+h1 {
+    font-size:40px;
+    font-weight:600;
+    text-align: left;
+    color: #900;
+    padding-bottom:8px;
+    border-bottom:1px solid silver;
+   
+}
+
+.imagen-404 img {
+    max-width: 100%; /* Ajusta el ancho de la imagen */
+}

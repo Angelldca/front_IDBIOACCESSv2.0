@@ -1,0 +1,10 @@
+.noautorizate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    height: 100%; /* Ocupa toda la pantalla */
+}
+.noautorizate img {
+    max-width: 100%; /* Ajusta el ancho de la imagen */
+}

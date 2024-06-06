@@ -1,0 +1,14 @@
+
+
+.panel{
+    height: 100%;
+    padding-top: 50px;
+    overflow: hidden;
+    width: 81%;
+    min-height: 100%;
+}
+
+p{
+    font-size: 16px;
+    
+}

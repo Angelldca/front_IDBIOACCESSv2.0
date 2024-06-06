@@ -1,0 +1,169 @@
+
+.rolPanel{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.rolPanel label{
+    margin-right: 20px;
+}
+.crearRol{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.add-remove{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container_permiso{
+    width: 300px;
+    min-height: 450px;
+    border: 1px solid #d3dbe3;
+    border-radius: 5px;
+}
+
+.permisoslist{
+    max-height: 350px;
+    min-height: 350px;
+    width: 300px;
+    overflow-y: scroll;
+
+}
+.permisoslist ul {
+    margin-top: 0px;
+}
+.sectionBuscar{
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 4px;
+}
+.container_permiso p{
+    text-align: center;
+    margin: 0px;
+    background-color: #d3dbe3;
+}
+
+li:hover{
+    background-color:  #b1cbe4b4;
+    cursor: pointer;
+}
+.seleccionado {
+    background-color: #b1cbe4b4;
+    color: #fff;
+   
+}
+
+.btn_section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+}
+.btn_all{
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #58d75a;
+  border: 1px solid #c3ffb5;
+  border-radius: 25px;
+}
+
+.btn_all:hover{
+    cursor: pointer;
+    border: 3px solid rgb(38, 195, 7);
+    color: rgb(0, 0, 0);
+    background-color: #80f1846f;   
+    border-radius: 20px; 
+   }
+.boton:active {
+    transform: translateY(1px);
+}
+
+.sectionBuscar input{
+    width: 77%;
+}
+
+.rol_create_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #42ac44;
+    border: 1px solid #c3ffb5;
+    color: #fff;
+    border-radius: 5px;
+  
+}
+.rol_create_btn:hover{
+    cursor: pointer;
+    background-color: #82f66dde;
+    border: 3px solid rgb(38, 195, 7);
+    color: rgb(0, 0, 0);
+   }
+.rol_create_btn:active {
+    transform: scale(0.95);
+}
+
+.rol_delete_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #bd0404;
+    border: 1px solid #ffa2a2;
+    color: #fff;
+    border-radius: 5px;
+    
+}
+.rol_delete_btn:hover{
+    cursor: pointer;
+    background-color: #be1111c0;
+    border: 3px solid #ee4b4b;
+   
+   }
+.rol_delete_btn:active {
+    transform: scale(0.95);
+}
+
+.btn_cont{
+ margin: 0px;
+ padding: 0px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.cont_btn_rol{
+    background-color: #d3dbe3;
+    padding: 5px;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.name_send{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.spandiv{
+    text-align: center;
+}
+.spandiv:hover{
+   color: gray;
+    cursor: help;
+}
+.span{
+    display: inline;
+    color: rgb(255, 237, 237);
+}
+
+.errorInput{
+    color: #900;
+}

@@ -1,0 +1,114 @@
+@if (permisosServer) {
+<div class="rolPanel">
+
+    <div class="cont_btn_rol">
+        <h3>Añadir Rol</h3>
+        <div class="name_send">
+            <section>
+                <label>Nombre: </label>
+                <input type="text" name="name_rol"
+                  
+                 [formControl]="nameInput"
+                 [value]="nameInput"
+                />
+                @if(nameInput.errors){
+                    <span class="errorInput">{{getErrorMessage(nameInput, 'nameInput')}}</span>
+                  }
+            </section>
+            <div class="btn_cont">
+                <button class="rol_create_btn" (click)="guardarRol()">Guardar</button>
+
+                @if(rol_admin){
+                    <button class="rol_delete_btn" (click)="deleteRol()">Eliminar</button>
+
+                }
+
+            </div>
+
+        </div>
+        <hr />
+
+    </div>
+    <div class="crearRol">
+
+        <div>
+            <div class="container_permiso">
+                <p>Permisos disponibles</p>
+
+                <section class="sectionBuscar">
+                    <img src="../../assets/img/search.svg" alt="find" />
+                    <input type="text" placeholder="Filtrar" name="filtrar_all_permisos" [value]="textoBusqueda"
+                        (keyup)="buscarPermisos($event)" />
+                </section>
+                <hr />
+                <div class="permisoslist">
+                    <ul>
+                        @for (permiso of permisos; track permiso.id) {
+                        <li (click)="toggleSeleccion(permiso ,$event)" [class]="{'seleccionado': isSelected(permiso)}">
+                            {{ permiso.codename }}
+                        </li>
+
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+            <section class="btn_section">
+                <button class="btn_all" (click)="addAllPermisos()">
+                    <img src="../../assets/img/arrow_forward.svg" alt="find" />
+                    <span>Adicionar todos</span>
+
+                </button>
+            </section>
+        </div>
+        <section class="add-remove">
+            <img src="../../assets/img/arrow_forward.svg" alt="find" (click)="addPermiso()" />
+            <img src="../../assets/img/arrow_back.svg" alt="find" (click)="removePermiso()" />
+        </section>
+
+        <div>
+            <div class="container_permiso">
+                <p>Permisos seleccionados</p>
+
+                <section class="sectionBuscar">
+                    <img src="../../assets/img/search.svg" alt="find" />
+                    <input type="text" placeholder="Filtrar" name="filtrar_permisos_rol" [value]="textoBusquedaRol"
+                        (keyup)="buscarPermisosRoll($event)" />
+                </section>
+                <hr />
+                <div class="permisoslist">
+                    <ul>
+                        @for (permiso of opcionesRol; track permiso.id) {
+                        <li (click)="toggleSeleccionRol(permiso ,$event)"
+                            [class]="{'seleccionado': isSelectedRol(permiso)}">
+                            {{ permiso.codename }}
+                        </li>
+
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+            <section class="btn_section">
+                <button class="btn_all" (click)="removeAllPermisos()">
+                    <img src="../../assets/img/arrow_back.svg" alt="find" />
+                    <span>Eliminar todos</span>
+
+                </button>
+            </section>
+        </div>
+    </div>
+    <div class="spandiv">
+    <span class="span">Mantenga presionado "Control" o "Comando" en una Mac, para seleccionar más de uno.</span>
+    </div>
+    <hr />
+
+
+</div>
+
+
+}@else {
+<p>No existen permisos en la base de datos</p>
+}
