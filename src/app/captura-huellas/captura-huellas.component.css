@@ -1,0 +1,41 @@
+
+.ciudadano_capOff{
+    width: 80%;
+ 
+}
+.btn_export{
+ display: flex;
+ align-items: baseline;
+ justify-content: end;
+ margin-bottom: 5px;
+}
+
+
+
+button{
+    
+    align-items: center;
+    padding: 6px;
+    text-decoration: none;
+    color: #444;
+    background-color: #71c4ef;
+    border: none;
+    width: 115px;
+    height:45px;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0px 1px 2px #497388;
+}
+
+button:hover {
+    cursor: pointer;
+    color: #444;
+}
+button:active {
+    transform: scale(0.95);
+}
+
+mat-icon {
+ color: #444;
+}

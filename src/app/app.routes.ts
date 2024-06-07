@@ -22,6 +22,7 @@ import { FechaAutenticacionComponent } from './fecha-autenticacion/fecha-autenti
 import { AccionesUsuariosComponent } from './acciones-usuarios/acciones-usuarios.component';
 import { CasComponent } from './cas/cas.component';
 import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landin-page-not-permisos.component';
+import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.component';
 
 export const routes: Routes = [
 
@@ -58,6 +59,12 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: CiudanosCapturaImgComponent,
+    },
+    {
+      path: 'huella_out',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: CapturaHuellasComponent,
     },
     {
       path: 'ciudadanos_import',

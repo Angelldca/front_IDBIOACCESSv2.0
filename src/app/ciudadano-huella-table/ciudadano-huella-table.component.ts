@@ -3,7 +3,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { CiudadanoService,Ciudadano } from './ciudadano.service';
+
 
 import {
   MatDialog,
@@ -11,23 +11,19 @@ import {
 import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
-
 @Component({
-  selector: 'app-ciudadano-table',
+  selector: 'app-ciudadano-huella-table',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
-    MatIconModule,MatButtonModule,
-  ],
-  providers:[CiudadanoService],
-  templateUrl: './ciudadano-table.component.html',
-  styleUrl: './ciudadano-table.component.css'
+  imports: [MatTableModule, MatPaginatorModule,MatTooltipModule,
+    MatIconModule,MatButtonModule,],
+  templateUrl: './ciudadano-huella-table.component.html',
+  styleUrl: './ciudadano-huella-table.component.css'
 })
-
-
-export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class CiudadanoHuellaTableComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
@@ -146,72 +142,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
 
   }
   edicionActivada:boolean = false
-  editarElemento(e:any){
-    e.editMode = !e.editMode
-    this.edicionActivada =  !this.edicionActivada
-    this.router.navigate([`home/ciudadano/${e.idciudadano}`],{ state: { user: e } });
-  }
-
-
-  deleteCiudadano(e:any){
-    this.openDialogDelete('0ms', '0ms',e)
-    console.log("delete", e.idciudadano)
-  }
-
-  openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
-    const dialogRef =  this.dialog.open(DialogComponent, {
-      width: '500px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if(result.delete){
-        this.ciudadanoService.deleteCiudadano(e.idciudadano)
-        .subscribe({
-        next: data => {
-          Swal.fire({
-            title: 'Exito',
-            text: `ciudadano eliminado`,
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar',
-            buttonsStyling: false,
-            
-            customClass: {
-                confirmButton: 'btn btn-primary px-4',
-                cancelButton: 'btn btn-danger ms-2 px-4',
-            
-            },
-            });
-          this.showCiudadanos(this.url)
-          if(this.error){
-            this.showCiudadanos(this.urlPrevious)
-            this.clear
-          }
-          
-        }, // success path
-        error: error => {
-          Swal.fire({
-            title: 'Oops...',
-            text: error,
-            icon: 'error',
-            footer: ``,
-            confirmButtonText: 'Aceptar',
-            customClass: {
-                confirmButton: 'btn btn-primary px-4'
-            },
-            buttonsStyling: false,
-            })
-        }, // error path
-      })
-      }
-
-    })
-    
-  }
-  capturarImg(element:any){
+  capturarHuella(element:any){
     console.log(element.idciudadano)
-    this.addNewUserID(element.idciudadano);
+   
       
   }
 }

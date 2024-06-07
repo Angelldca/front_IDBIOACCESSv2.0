@@ -25,7 +25,7 @@
         </section>
         <section class="btnSubmenu" routerLink="ciudadano">
             <p>
-                Crear Ciudadano
+                Registrar Ciudadano
             </p>
           
     
@@ -33,6 +33,13 @@
             <section class="btnSubmenu" routerLink="img_out">
                 <p>
                     Ciudadanos sin captura de Imagen
+                </p>
+               
+        
+            </section>
+            <section class="btnSubmenu" routerLink="huella_out">
+                <p>
+                    Ciudadanos sin captura de Huella
                 </p>
                
         
@@ -87,7 +94,6 @@
         <hr/>
         }
     </div>
-
     <!-----Seguridad------>
     <div (click)="showSubmenu('seguridad')"
      class="opciones">
@@ -150,25 +156,5 @@
        </div>
        <hr/>
     }
-    </div>
-
-    <!-- Gestion Solapines-->
-    <div (click)="showSubmenu('gestion_solapin')" class="opciones">
-        <section class="btn_cd desplegable">
-            <p>Gestión de solapín</p>
-            <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
-        </section>
-
-        @if(isGestionSolapinVisible){
-            <div id="submenu" (click)="showSubmenu('gestion_solapin')">
-
-                <section class="btnSubmenu" routerLink="report_ciudadanos">
-                    <p>Ciudadanos sin solapín</p>
-                </section>
-
-                </div>
-            <hr/>
-         }
-    <!--fin-->
     </div>
 </div>

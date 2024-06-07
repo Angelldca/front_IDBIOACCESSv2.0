@@ -59,10 +59,20 @@ constructor(private ciudadanoService : CiudadanoService,private http: HttpClient
 
       }, // success path
       error: error => {
-        
-          Swal.fire({
+        console.log(error.error)
+        let errorText =''
+        const firstError = error.error[0];
+        for (const field in firstError) {
+          if (firstError.hasOwnProperty(field)) {
+            errorText += `${field}: ${firstError[field][0]}\n`;
+          }
+        }
+        if (errorText.length < 1){
+          errorText = error.error.error
+        }
+        Swal.fire({
           title: 'Oops...',
-          text: error.error.error,
+          text: errorText,
           icon: 'error',
           footer: `Error`,
           confirmButtonText: 'Aceptar',

@@ -1,0 +1,28 @@
+<div class="ciudadano_capOff">
+    <h2>Ciudadanos sin Captura de Imagen</h2>
+    <hr />
+    @if(userID !== undefined && userID !== null){
+    <app-tomar-foto userID={{userID}} (newEmitterUserIDChange)="getUserID($event)" />
+
+    } @else {
+    <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)" />
+    <hr />
+    <section class="btn_export">
+        <span>Exportar registro en csv</span>
+            <button mat-button 
+            color="primary" 
+            (click)="exportCiudadanos_sin_huella()"
+            aria-label="download">
+                Descargar
+                <img src="../../assets/img/download.svg"/>
+            </button>
+    </section>
+
+    <app-ciudadano-huella-table buscar={{search}}
+        urlCiudadanos= {{urlList}}
+        (newUserIDEvent)="getUserID($event)" />
+
+    }
+  
+
+</div>
