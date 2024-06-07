@@ -26,16 +26,16 @@ export class MenuPrincipalComponent {
   showSubmenu(elements: string) {
     switch (elements){
       case 'captura_datos':
-        this.isCapturaDatosVisible = true;
+        this.isCapturaDatosVisible = !this.isCapturaDatosVisible;
         break;
       case 'reporte_captura_datos':
-        this.isReportesCapturaVisible = true;
+        this.isReportesCapturaVisible = !this.isReportesCapturaVisible;
         break;
       case 'seguridad':
-        this.isSeguridadVisible = true;
+        this.isSeguridadVisible = !this.isSeguridadVisible;
         break;
       case 'seguridadReportes':
-          this.isReporteSeguridadVisible = true;
+          this.isReporteSeguridadVisible = !this.isReporteSeguridadVisible;
           break;
 
     }

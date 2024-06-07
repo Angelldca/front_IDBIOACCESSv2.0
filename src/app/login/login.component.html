@@ -31,16 +31,31 @@
                             autocomplete="current-password" required>
                     </div>
                 </div>
+<<<<<<< HEAD
                
                 <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
                     [disabled]="!userForm.valid">Entrar
                 </button>
              
+=======
+               <section>
+                   <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
+                       [disabled]="!userForm.valid">Entrar
+                   </button>
+                   <button  class="btnCas" (click)="loginCass()">
+                    
+                    <p> Autenticación por CAS</p>
+                      
+                 </button>
+
+               </section>
+>>>>>>> 90fb62b4ba86f8412e22f074e9083bc889ced08d
             </form>
             <button  class="btn" (click)="loginCass()">
                 Autenticarse via CAS
           </button>
         </div>
+      
     </div>
 
 </div>

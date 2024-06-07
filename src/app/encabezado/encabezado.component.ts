@@ -28,9 +28,15 @@ export class EncabezadoComponent {
 logOut(){
   this.user=null;
   this.username =null;
+<<<<<<< HEAD
   this.ciudadanoService.logOut();
   window.location.href = 'http://localhost:8000/accounts/logout'
   //this.router.navigate(['']);
+=======
+  //this.router.navigate(['']);
+  this.ciudadanoService.logOut();
+  window.location.href = 'http://localhost:8000/accounts/logout'
+>>>>>>> 90fb62b4ba86f8412e22f074e9083bc889ced08d
 }
 
 }

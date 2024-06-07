@@ -21,11 +21,15 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { FechaAutenticacionComponent } from './fecha-autenticacion/fecha-autenticacion.component';
 import { AccionesUsuariosComponent } from './acciones-usuarios/acciones-usuarios.component';
 import { CasComponent } from './cas/cas.component';
+import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landin-page-not-permisos.component';
+import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.component';
 
 export const routes: Routes = [
 
   { path: '', component: LandinPageComponent },
- 
+  { path: 'bienvenido', component: LandinPageNotPermisosComponent },
+  { path: 'cas', component: CasComponent },
+  { path: 'cas/:token', component: CasComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cas', component: CasComponent },
   { path: 'cas/:token', component: CasComponent },
@@ -57,6 +61,12 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: CiudanosCapturaImgComponent,
+    },
+    {
+      path: 'huella_out',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: CapturaHuellasComponent,
     },
     {
       path: 'ciudadanos_import',

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormsModule,FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {ThemePalette} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -21,9 +21,10 @@ import {MatSelectModule} from '@angular/material/select';
   styleUrl: './buscar-ciudadano.component.css'
 })
 export class BuscarCiudadanoComponent {
-  control = new FormControl('dni');
+  control = new FormControl('carnetidentidad');
+  busqueda = new FormControl('');
   @Output() newSearchEvent = new EventEmitter<Busqueda>();
-  busqueda :string = ''
+   
   data:Busqueda = {
     carnetidentidad:'',
     solapin:'',
@@ -31,6 +32,11 @@ export class BuscarCiudadanoComponent {
     nombre_apellidos:'',
     
   };
+  userForm = new FormGroup({
+    control: this.control,
+    busqueda: this.busqueda
+  });
+
   addNewSearch(value: Busqueda) {
     this.newSearchEvent.emit(value);
   }
@@ -38,9 +44,13 @@ export class BuscarCiudadanoComponent {
 
   find(){
     this.clear()
-    if(this.busqueda.trim().length>0 && this.control.value !== null){
+    
+    if(this.busqueda.value && this.control.value !== null){
+      console.log(this.busqueda.value)
+      console.log(this.control.value)
       let tipo = this.control.value
-      this.data[tipo]= this.busqueda.trim()
+      this.data[tipo]= this.busqueda.value.trim()
+      console.log(this.data)
       this.addNewSearch(this.data)
     }
   }

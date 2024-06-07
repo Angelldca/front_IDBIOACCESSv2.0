@@ -6,10 +6,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {FormControl, Validators, FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
-import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
+import { Ciudadano, CiudadanoService, IUsuario } from '../ciudadano-table/ciudadano.service';
 import moment  from 'moment';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 const MY_DATE_FORMATS = {
@@ -44,29 +44,55 @@ const MY_DATE_FORMATS = {
   styleUrl: './ciudadano.component.css'
 })
 export class CiudadanoComponent implements OnInit {
-  constructor(private ciudadanoService :CiudadanoService,private route: ActivatedRoute){
-    
+
+  user: Ciudadano|null = null
+  
+  constructor(private ciudadanoService :CiudadanoService,
+    private route: ActivatedRoute, private router: Router){
+
   }
-  idCiudadano: string = '';
+  idpersona: string = '';
   ngOnInit(): void {
+    
     this.route.params.subscribe(params => {
-      this.idCiudadano = params['id'];
+      this.idpersona = params['id'];
     });
+    this.user = history.state.user;
+    if(this.user){
+      console.log(this.user)
+      this.primernombre.setValue(this.user.primernombre)
+      this.segundonombre.setValue(this.user.segundonombre)
+      this.primerapellido.setValue(this.user.primerapellido)
+      this.segundoapellido.setValue(this.user.segundoapellido)
+      this.dni.setValue(this.user.carnetidentidad)
+      this.expediente.setValue(this.user.idexpediente)
+      this.area.setValue(this.user.identificadorarea)
+      this.rolInst.setValue(this.user.identificadorroluni)
+      this.sexo.setValue(this.user.sexo)
+      this.provincia.setValue(this.user.provincia)
+      this.municipio.setValue(this.user.municipio)
+      this.residente.setValue(`${this.user.residente}`)
+      this.fecha.setValue(this.user.fechanacimiento)
+      
+      
+    }
+    
   }
 
   isLoggedIn=true;
  
-  primernombre = new FormControl('', [Validators.required, Validators.pattern(/^[A-Z][a-zA-Z\s]*$/)]);
-  segundonombre = new FormControl('', [ Validators.pattern(/^[A-Z][a-zA-Z\s]*$/)]);
+  primernombre = new FormControl('', [Validators.required, 
+    Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
+  segundonombre = new FormControl('', [ Validators.pattern(/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/)]);
   primerapellido = new FormControl('', [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   segundoapellido = new FormControl('', [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   rolInst = new FormControl('', 
    [Validators.required, 
-    Validators.pattern(/^[a-zA-Z\s]+$/), 
+    Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚ\s]+$/), 
   ]);
   area = new FormControl('', 
   [Validators.required, 
@@ -94,7 +120,7 @@ export class CiudadanoComponent implements OnInit {
   ]);
   sexo = new FormControl('', [Validators.required, 
   ]);
-  residente = new FormControl('', [Validators.required, 
+  residente = new FormControl("false", [Validators.required, 
   ]);
   ciudadanoForm = new FormGroup({
     primernombre:this.primernombre,
@@ -104,15 +130,13 @@ export class CiudadanoComponent implements OnInit {
     carnetidentidad:this.dni,
     //solapin:this.solapin,
     idexpediente:this.expediente,
-    area:this.area,
+    identificadorarea:this.area,
     fechanacimiento:this.fecha,
-    roluniversitario:this.rolInst,
+    identificadorroluni:this.rolInst,
     provincia: this.provincia,
     municipio: this.municipio,
     sexo : this.sexo,
     residente: this.residente,
-
-
   });
   
   getErrorMessage(element:FormControl) {
@@ -123,29 +147,34 @@ export class CiudadanoComponent implements OnInit {
       return 'Longitud incorrecta';
     }
 
-    return element.hasError('pattern') ? `el contenido no es válido` : '';
+    return element.hasError('pattern') ? `El contenido no es válido "${element.value}"` : '';
   }
 
   onSubmit(form: FormGroup){
-   
-    let data  = {
-      ...form.value,
+   if(form.valid){
+     let data  = {
+       ...form.value,
+      }
+     
+     if(data.fechanacimiento){
+       data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
+       
      }
-    if(data.fechanacimiento){
-      data.fechanacimiento= moment(form.value.fechanacimiento).format('YYYY-MM-DD')
-      
-    }
-    this.createCiudadano(data)
+     this.createCiudadano(data)
+
+   }else{
+    console.log(form.getError)
+   }
   }
 
 
   createCiudadano(data: any){
-    
-    this.ciudadanoService.createiudadano(data, this.idCiudadano).subscribe({
+
+    this.ciudadanoService.createiudadano(data, this.idpersona).subscribe({
       next: data => {
         
         Swal.fire({
-          title: "Ciudadano creado correctamente",
+          title: "Ciudadano creado/modificado correctamente",
           text: `ciudadano: ${data.primernombre} ${data.primerapellido}`,
           icon: 'success',
           showCancelButton: false,
@@ -158,10 +187,12 @@ export class CiudadanoComponent implements OnInit {
           
           },
           }).then(data=>{
-            this.limpiarInputs();
+            //this.limpiarInputs();
+            this.router.navigate([`home/ciudadanosbash/`]);
           })
       }, // success path
       error: error => {
+        console.log(error)
         let errorText =''
         for (const field in error.error) {
           if (error.error.hasOwnProperty(field)) {
@@ -171,9 +202,9 @@ export class CiudadanoComponent implements OnInit {
         }
         Swal.fire({
           title: 'Oops...',
-          text: errorText,
+          text: error.error,
           icon: 'error',
-          footer: `${error.statusText} error ${error.status}`,
+          footer: ``,
           confirmButtonText: 'Aceptar',
           customClass: {
               confirmButton: 'btn btn-primary px-4'

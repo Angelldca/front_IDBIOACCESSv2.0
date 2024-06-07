@@ -11,13 +11,14 @@ import {
 import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 @Component({
   selector: 'app-ciudadano-table',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule,
+  imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
     MatIconModule,MatButtonModule,
   ],
   providers:[CiudadanoService],
@@ -148,7 +149,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   editarElemento(e:any){
     e.editMode = !e.editMode
     this.edicionActivada =  !this.edicionActivada
-    this.router.navigate(['home/ciudadano', e.idciudadano]);
+    this.router.navigate([`home/ciudadano/${e.idciudadano}`],{ state: { user: e } });
   }
 
 
@@ -159,12 +160,12 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
 
   openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
     const dialogRef =  this.dialog.open(DialogComponent, {
-      width: '250px',
+      width: '500px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if(result.delete){
         this.ciudadanoService.deleteCiudadano(e.idciudadano)
         .subscribe({
         next: data => {
@@ -194,7 +195,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
             title: 'Oops...',
             text: error,
             icon: 'error',
-            footer: `${error.statusText} error ${error.status}`,
+            footer: ``,
             confirmButtonText: 'Aceptar',
             customClass: {
                 confirmButton: 'btn btn-primary px-4'

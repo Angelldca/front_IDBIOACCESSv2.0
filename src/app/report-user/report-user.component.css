@@ -1,7 +1,10 @@
 .report_date_Container{
     width: 80%;
 }
-
+.formContainer{
+    display: flex;
+    justify-content: space-between;
+  }
 .example-form-field {
     margin-right: 20px;
     width: 300px;

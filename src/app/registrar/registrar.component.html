@@ -9,8 +9,11 @@
             placeholder="Introduzca su nombre" 
             name="name" 
             [formControl]="nombre"
-            [value]="username"
+            [value]="nombre"
             required>
+            @if(nombre.errors){
+                <span class="errorInput">{{getErrorMessage(nombre, 'nombre')}}</span>
+              }
         </div>
 
         <div class="input-box">
@@ -22,6 +25,10 @@
             [formControl]="apellido"
             [value]="apellido"
             >
+
+            @if(apellido.errors){
+                <span class="errorInput">{{getErrorMessage(apellido,'apellido')}}</span>
+              }
         </div>
 
         <div class="input-box">
@@ -33,6 +40,9 @@
              [formControl]="username"
              [value]="username"
              >
+             @if(username.errors){
+                <span class="errorInput">{{getErrorMessage(username, 'username')}}</span>
+              }
         </div>
 
         <div class="input-box">
@@ -44,6 +54,9 @@
             [formControl]="email"
             [value]="email"
             >
+            @if(email.errors){
+                <span class="errorInput">{{getErrorMessage(email, 'email')}}</span>
+              }
         </div>
 
         <div class="input-box">
@@ -55,6 +68,9 @@
             [formControl]="password"
             [value]="password"
             >
+            @if(password.errors){
+                <span class="errorInput">{{getErrorMessage(password, 'password')}}</span>
+              }
         </div>
 
         <div class="input-box">
@@ -65,6 +81,9 @@
             [formControl]="confirm_password"
             [value]="confirm_password"
             >
+            @if(confirm_password.errors){
+                <span class="errorInput">{{getErrorMessage(confirm_password, 'password')}}</span>
+              }
         </div>
 
         <div class="button-container">

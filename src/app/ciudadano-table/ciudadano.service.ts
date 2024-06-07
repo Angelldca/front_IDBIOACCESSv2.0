@@ -13,7 +13,7 @@ import { urlBack } from '../Finals';
   
  })
 export class CiudadanoService {
-  ciudadanoUrl = 'http://127.0.0.1:8000/api/ciudadano/';
+  ciudadanoUrl = urlBack+'ciudadano/';
   userAuth: IUsuario | undefined = undefined;
 
   constructor(private http: HttpClient) {
@@ -81,6 +81,15 @@ export class CiudadanoService {
   });
     return this.http.delete<Ciudadano>(this.ciudadanoUrl + `${id}`,{headers})
   }
+
+  makeInactive(id: string, data:any){
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<Ciudadano>(urlBack + `ciudadanobash/${id}/make_estado_delete/`,data,{headers})
+  }
   updateCiudadano(id: string, data: any) {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
@@ -104,14 +113,25 @@ export class CiudadanoService {
 
     if (id != undefined || id != null) {
       data = this.eliminarAtributosVacios(data)
-     
-      return this.http.patch<Ciudadano>(this.ciudadanoUrl + `${id}/`, data, {headers})
+
+      return this.http.patch<Ciudadano>(urlBack+`ciudadanobash/${id}/`, data, {headers})
+    }
+    else{
+      return this.http.post<Ciudadano>(urlBack+`ciudadanobash/`, data, {headers})
 
     }
-    else
-      return this.http.post<Ciudadano>(this.ciudadanoUrl, data, {headers})
 
   }
+createCiudadano(data: any, id: any | undefined) {
+    const token = localStorage.getItem('Token')
+     const headers = new HttpHeaders({
+     'Content-Type': 'application/json',
+     'Authorization': `Bearer ${token}`
+   });
+  return this.http.post<Ciudadano>(urlBack+`ciudadano/`, data, {headers})
+}
+
+
   exportCiudadanos(url: string) {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
@@ -284,6 +304,13 @@ export class CiudadanoService {
   }
 
   hasAllPermissions(requiredPermissions: string[]): boolean {
+    const userLocal =   localStorage.getItem('user')
+    if(userLocal && !this.userAuth){
+      this.userAuth = JSON.parse(userLocal)
+     
+    }
+    if (this.userAuth?.is_superuser)
+    return true
     const userPermissions = this.getUserAllPermissions();
     return requiredPermissions.every(permission => userPermissions.includes(permission));
   }
@@ -416,7 +443,9 @@ export interface Ciudadano {
   provincia: string;
   municipio: string;
   roluniversitario: any,
+  identificadorroluni: any,
   area: any,
+  identificadorarea: any,
   fecha: any,
   detail: string,
   data: {

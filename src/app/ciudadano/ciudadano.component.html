@@ -1,72 +1,102 @@
 <div class="ciudadano_create">
     <form [formGroup]="ciudadanoForm" (ngSubmit)="onSubmit(ciudadanoForm)">
-    <h2>Crear/Modificar Ciudadano</h2>
+    <h2>Registrar/Modificar Ciudadano</h2>
 
     <div class="formContainer">
             <div class="input-box">
                 <label>Primer nombre </label>
-                <input matInput [formControl]="primernombre" required >
+                <input matInput [formControl]="primernombre" required  [value]="primernombre">
+                @if(primernombre.errors){
+                  <span class="errorInput">{{getErrorMessage(primernombre)}}</span>
+                }
+             
+                
               
             </div>
             <div class="input-box">
                 <label>Segundo nombre </label>
-                <input matInput [formControl]="segundonombre"  >
-              
+                <input matInput [formControl]="segundonombre" [value]="segundonombre" >
+                @if(segundonombre.errors){
+                  <span class="errorInput">{{getErrorMessage(segundonombre)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Primer apellido</label>
-                <input matInput [formControl]="primerapellido">
-               
+                <input matInput [formControl]="primerapellido" [value]="primerapellido">
+                @if(primerapellido.errors){
+                  <span class="errorInput">{{getErrorMessage(primerapellido)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Segundo apellido</label>
-                <input matInput [formControl]="segundoapellido">
-               
+                <input matInput [formControl]="segundoapellido" [value]="segundoapellido">
+                @if(segundoapellido.errors){
+                  <span class="errorInput">{{getErrorMessage(segundoapellido)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Carnet de Identidad</label>
-                <input matInput [formControl]="dni">
-               
+                <input matInput [formControl]="dni" [value]="dni">
+                @if(dni.errors){
+                  <span class="errorInput">{{getErrorMessage(dni)}}</span>
+                }
                 </div>
 
                 <div class="input-box">
                 <label>Expediente</label>
-                <input matInput [formControl]="expediente">
-               
+                <input matInput [formControl]="expediente" [value]="expediente">
+                @if(expediente.errors){
+                  <span class="errorInput">{{getErrorMessage(expediente)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Rol Institucional</label>
-                <input matInput [formControl]="rolInst">
-              
+                <input matInput [formControl]="rolInst" [value]="rolInst">
+                @if(rolInst.errors){
+                  <span class="errorInput">{{getErrorMessage(rolInst)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Area</label>
-                <input matInput [formControl]="area">
-             
+                <input matInput [formControl]="area" [value]="area">
+                @if(area.errors){
+                  <span class="errorInput">{{getErrorMessage(area)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Sexo</label>
-                <input matInput [formControl]="sexo">
-               
+                <input matInput [formControl]="sexo" [value]="sexo">
+                @if(sexo.errors){
+                  <span class="errorInput">{{getErrorMessage(sexo)}}</span>
+                }
                 </div>
 
                 <div class="input-box">
                 <label>Residente</label>
-                <mat-select [formControl]='residente' class="residente" >
-                  <mat-option class="residente" value={{true}}>Si</mat-option>
-                  <mat-option class="residente" value={{false}}>No</mat-option>
+                <mat-select [formControl]='residente'
+                 class="residente"
+                 >
+                  <mat-option class="residente" value="true">Si</mat-option>
+                  <mat-option class="residente" value="false">No</mat-option>
                 </mat-select>
-                
+                @if(residente.errors){
+                  <span class="errorInput">{{getErrorMessage(residente)}}</span>
+                }
                 </div>
 
                 <div class="input-box">
                 <label>Provincia</label>
-                <input matInput [formControl]="provincia">
-                
+                <input matInput [formControl]="provincia" [value]="provincia">
+                @if(provincia.errors){
+                  <span class="errorInput">{{getErrorMessage(provincia)}}</span>
+                }
                 </div>
                 <div class="input-box">
                 <label>Municipio</label>
-                <input matInput [formControl]="municipio">
+                <input matInput [formControl]="municipio" [value]="municipio">
+                @if(municipio.errors){
+                  <span class="errorInput">{{getErrorMessage(municipio)}}</span>
+                }
                 </div>
 
              <div class="fecha" >
@@ -74,13 +104,27 @@
                     <input  matInput 
                     [matDatepicker]="picker" 
                     placeholder="DD/MM/YYYY"
-                    [formControl]="fecha">
+                    [formControl]="fecha"
+                    [value]="fecha"
+                    >
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                    @if(fecha.errors){
+                      <span class="errorInput">{{getErrorMessage(fecha)}}</span>
+                    }
              </div>
-           
-            <div class="button-container">
-            <button mat-button type="submit" id="sendUser">Enviar</button>
+             <div 
+             class="button-container" 
+            >  
+            @if(ciudadanoForm.invalid){
+              <p>Complete el formulario para activar el botón</p>
+
+            }
+               <button mat-button type="submit"
+                id="sendUser" 
+                [disabled]="!ciudadanoForm.valid"
+                [class]="{'btnValid':ciudadanoForm.valid, 'btnInvalid': !ciudadanoForm.valid}"
+                >Enviar</button>
             </div>
         
     </div>

@@ -6,7 +6,14 @@
         <div class="name_send">
             <section>
                 <label>Nombre: </label>
-                <input type="text" name="name_rol" (keyup)="onKey($event)" [value]="nameInput"/>
+                <input type="text" name="name_rol"
+                  
+                 [formControl]="nameInput"
+                 [value]="nameInput"
+                />
+                @if(nameInput.errors){
+                    <span class="errorInput">{{getErrorMessage(nameInput, 'nameInput')}}</span>
+                  }
             </section>
             <div class="btn_cont">
                 <button class="rol_create_btn" (click)="guardarRol()">Guardar</button>

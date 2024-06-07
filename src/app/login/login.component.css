@@ -137,9 +137,9 @@
     
     .btn{
         display:block;
-        width:50%;
+        width:60%;
         height:50px;
-        border-radius:25px;
+        border-radius:5px;
         margin: 1rem 0;
         font-size:1.2rem;
         outline:none;
@@ -147,28 +147,50 @@
         background-image: linear-gradient(to right,#C70039 ,#e00000 , #C70039);
         cursor:pointer;
         color: #fff;
-        text-transform: uppercase;
+        
         background-size:200%;
         transition:.5s;
         margin-left: 100px;
         margin-top: 50px;
         
     }
+
+    .btnCas{
+        display:flex;
+        align-items: center;
+        width:60%;
+        height:50px;
+        border-radius:5px;
+        margin: 1rem 0;
+        font-size:1.2rem;
+        outline:none;
+        border:none;
+        background-color: #3d218d;
+        cursor:pointer;
+        color: #fff;
+        background-size:200%;
+        transition:.5s;
+        margin-left: 100px;
+        
+    }
+    img{
+        height: 40px;
+    }
     .btnInvalid{
         display:block;
-        width:50%;
+        width:60%;
         height:50px;
-        border-radius:25px;
+        border-radius:5px;
         margin: 1rem 0;
         font-size:1.2rem;
         outline:none;
         border:none;
         cursor:pointer;
         color: #fff;
-        text-transform: uppercase;
+       
         background-size:200%;
         transition:.5s;
-        background-image: linear-gradient(to right,#bd6b6b ,#e22323 , #bd0a0a);
+        background-image: linear-gradient(to right,#eb5b5b ,#d15f5f , #ffacac);
         margin-left: 100px;
         margin-top: 50px;
     }

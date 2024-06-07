@@ -15,6 +15,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse, HttpHeaders } from '@a
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { urlBack } from '../Finals';
+import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
 
 
 const MY_DATE_FORMATS = {
@@ -38,7 +39,8 @@ const MY_DATE_FORMATS = {
     CiudadanoTableComponent,
     MatIconModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TomarFotoComponent
   
   ],
   providers: [
@@ -54,7 +56,7 @@ const MY_DATE_FORMATS = {
 })
 export class ReportFotosComponent {
   constructor(private httpClient: HttpClient, private ciudadanoService: CiudadanoService,private cdr: ChangeDetectorRef){}
-
+  userID:string| undefined| null;
   
   rango = false;
   urlCiudadanos = '';
@@ -140,4 +142,10 @@ export class ReportFotosComponent {
         });
   
   }
+
+  getUserID(value: string|undefined|null){
+    this.userID = value;
+    //this.rango=false;
+
+ }
 }

@@ -5,13 +5,15 @@ import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
 import { CiudadanobashComponent } from '../ciudadanobash/ciudadanobash.component';
 import { CiudadanobashTableComponent } from '../ciudadanobash-table/ciudadanobash-table.component';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
+import { urlBack } from '../Finals';
 
 @Component({
   selector: 'app-panel-contenido-cd',
   standalone: true,
   imports: [BuscarCiudadanoComponent, CiudadanoTableComponent,
     TomarFotoComponent,
-    CiudadanobashTableComponent
+    CiudadanobashTableComponent,
+    CiudadanoTableComponent,
   
   ],providers:[],
   templateUrl: './panel-contenido.component.html',
@@ -20,6 +22,7 @@ import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 export class PanelContenidoComponent {
   userID:string| undefined| null;
   search:string| undefined;
+  urlList = urlBack+'ciudadanobash/ciudadanosbash_sin_img/'
   constructor( ){
     
   }

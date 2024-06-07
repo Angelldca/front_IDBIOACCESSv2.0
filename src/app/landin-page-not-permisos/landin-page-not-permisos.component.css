@@ -1,0 +1,20 @@
+.info{
+    display: flex;
+    height: auto;
+    min-height: 80vh;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+
+}
+.infoText{
+    padding: 20px;
+}
+
+
+.copyright{
+    cursor: pointer;
+    
+    font-size: 18px;
+    opacity: 0.9;
+}

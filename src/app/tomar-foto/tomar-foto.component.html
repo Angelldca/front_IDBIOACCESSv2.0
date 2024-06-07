@@ -13,7 +13,7 @@
             <button (click)="showWebcamToggle()">Mostrar/ocultar webcam</button>
         -->
         <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undo()">
-            <mat-icon>undo</mat-icon>
+            <img src="../../assets/img/undo (2).svg"/>
         </button> 
     <button mat-raised-button color="primary" (click)="showNextWebcam(true);"
         [disabled]="!multiplesCamarasDisponibles">Cambiar cámara</button>
@@ -32,7 +32,7 @@
         aria-label="button-image"
         [style.view-transition-name] = "'transition_img'"
         (click)="triggerCaptura()">
-            <mat-icon >add_a_photo</mat-icon>
+            <img src="../../assets/img/photo.svg"/>
         </button>
 
     </div>
@@ -52,7 +52,7 @@
         </div>
         <div class="btnsContainer">
             <button mat-fab color="primary" aria-label="button icon" #recaptura (click)="undoCapture()">
-                <mat-icon>undo</mat-icon>
+                <img src="../../assets/img/undo (2).svg"/>
             </button>
             <button 
             mat-raised-button color="warn"
