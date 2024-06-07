@@ -35,7 +35,11 @@
                 <button type="submit" [class]="{'btn':userForm.valid, 'btnInvalid': !userForm.valid}"
                     [disabled]="!userForm.valid">Entrar
                 </button>
+             
             </form>
+            <button  class="btn" (click)="loginCass()">
+                Autenticarse via CAS
+          </button>
         </div>
     </div>
 

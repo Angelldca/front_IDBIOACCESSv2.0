@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit{
   loginCiudadano(data: any){
     this.ciudadanoService.loginCiudadano(data, urlBack+'seguridad/login/' ).subscribe({
       next: data => { 
-        console.log(data)
+        
         this.ciudadanoService.setUser(data.user) 
         localStorage.setItem('Token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
@@ -108,5 +108,10 @@ export class LoginComponent implements OnInit{
   }
   limpiarInputs(){
     console.log("Acuerdate de limpiar los inputs")
+  }
+
+
+  loginCass(){
+    window.location.href = 'http://localhost:8000/accounts/login'
   }
 }

@@ -148,6 +148,7 @@ export class CiudadanoService {
   }
    logOut(){
     localStorage.removeItem('Token');
+    localStorage.removeItem('user');
     this.userAuth = undefined
    }
    updatePassword(url: string, data: any) {
@@ -296,7 +297,37 @@ getUsers(url: string) {
   return this.http.get<any>(url,{headers});
 }
 
+getUserInfo() {
+  // Obtener la cookie sessionid
+  const sessionid = this.getCookie('sessionid');
+  console.log("Esta es la cookie "+ sessionid)
 
+ 
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'X-CSRFToken': this.getCookie('csrftoken'),
+    'Cookie': `sessionid=${sessionid}`
+  });
+
+  // Realizar la solicitud HTTP
+  return this.http.get<any>('http://localhost:8000/user_logeado', { headers: headers });
+}
+
+// Función para obtener el valor de una cookie por su nombre
+ getCookie(name: string) {
+  // Separar las cookies por punto y coma
+  var cookies = document.cookie.split(';');
+  
+  // Iterar sobre las cookies para encontrar la que buscamos
+  for(var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if(cookie.indexOf(name) === 0) {
+          return cookie.substring(name.length + 1, cookie.length);
+      }
+  }
+  // Si no se encuentra la cookie, devolvemos null
+  return "";
+}
 
 }
 

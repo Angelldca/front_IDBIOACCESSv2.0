@@ -58,8 +58,10 @@ userDelete(user: IUsuario){
       buttonsStyling: false,
       })
   }else{
+    console.log(user.id)
     this.ciudadanoService.delete(urlBack+`seguridad/user/${user.id}/`).subscribe({
       next: data => {
+        console.log(data)
         
         Swal.fire({
           title: "Usuario eliminado correctamente",

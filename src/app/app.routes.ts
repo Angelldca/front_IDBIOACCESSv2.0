@@ -20,15 +20,18 @@ import { UsermanageComponent } from './usermanage/usermanage.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FechaAutenticacionComponent } from './fecha-autenticacion/fecha-autenticacion.component';
 import { AccionesUsuariosComponent } from './acciones-usuarios/acciones-usuarios.component';
+import { CasComponent } from './cas/cas.component';
 
 export const routes: Routes = [
 
   { path: '', component: LandinPageComponent },
  
   { path: 'login', component: LoginComponent },
+  { path: 'cas', component: CasComponent },
+  { path: 'cas/:token', component: CasComponent },
   { path: 'home', component: ContainerComponent,
-  canActivate:[authGuard],
-  data: { expectedRoles: []},
+  //canActivate:[authGuard],
+  //data: { expectedRoles: []},
   children: [
     {
       path: 'ciudadanosbash',

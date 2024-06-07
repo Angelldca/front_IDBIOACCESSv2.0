@@ -8,7 +8,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(CiudadanoService)
   const router = inject(Router)
   const requiredPermissions = route.data['expectedRoles'] as string[];
+  
   const token = localStorage.getItem('Token')
+
 
   if(token){
     authService.validateToken(token).subscribe({
@@ -23,7 +25,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
   if (!authService.isAuthenticated()) {
     console.log("Usuario no autenticado")
-    router.navigate(['/login']);
+    router.navigate(['/']);
     return false;
   }
   if(!authService.hasAllPermissions(requiredPermissions)){

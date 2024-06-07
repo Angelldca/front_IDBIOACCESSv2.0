@@ -17,6 +17,9 @@ export class LandinPageComponent implements OnInit{
 
   }
   ngOnInit(): void {
+
+
+
     const token = localStorage.getItem('Token')
     const userLog = localStorage.getItem('user')
     const route = this.router
