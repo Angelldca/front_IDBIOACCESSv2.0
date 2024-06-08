@@ -1,0 +1,25 @@
+<div class="ciudadanoListSS">
+    @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
+        
+    } @else {
+        <h2>Exportar Lista de Ciudadanos de la Entidad</h2>
+        <hr/>
+        <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+        <section class="btn_export">
+            <p>Exportar registro en csv</p>
+    
+            <span (click)="donwloadListCiudadanos()">
+                Descargar
+                <button mat-button color="primary" aria-label="download">
+                    <img src="../../assets/img/download.svg"/>
+                </button>
+            </span>
+    
+    
+        </section>
+        <app-ciudadano-table buscar={{search}} urlCiudadanos= {{urlList}} (newUserIDEvent)="getUserID($event)"/>
+    
+        <hr />
+    }
+</div>

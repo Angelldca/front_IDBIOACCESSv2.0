@@ -68,7 +68,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
   dataSource = new MatTableDataSource<Ciudadano>(this.ELEMENT_DATA);
-  user = { ////Poner unuario autenticado
+  user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
   url:string = `http://127.0.0.1:8000/api/ciudadano/`

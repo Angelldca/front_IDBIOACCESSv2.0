@@ -22,6 +22,7 @@ export class MenuPrincipalComponent {
   isCapturaDatosVisible = false;
   isSeguridadVisible = false;
   isReporteSeguridadVisible = false;
+  isGestionSolapinVisible = false;
 
   showSubmenu(elements: string) {
     switch (elements){
@@ -37,7 +38,9 @@ export class MenuPrincipalComponent {
       case 'seguridadReportes':
           this.isReporteSeguridadVisible = !this.isReporteSeguridadVisible;
           break;
-
+      case 'gestion_solapin':
+          this.isGestionSolapinVisible = !this.isGestionSolapinVisible;
+          break;
     }
     
   }
@@ -55,6 +58,9 @@ export class MenuPrincipalComponent {
           break;
       case 'seguridadReportes':
             this.isReporteSeguridadVisible = false;
+            break;
+      case 'gestion_solapin':
+            this.isGestionSolapinVisible = false;
             break;
 
     }
