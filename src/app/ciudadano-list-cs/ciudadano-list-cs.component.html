@@ -3,7 +3,7 @@
         <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
         
     } @else {
-        <h2 style="padding-left: 20px">Lista de Ciudadanos sin Identificación</h2>
+        <h2 style="padding-left: 20px">Lista de Ciudadanos con Identificacion</h2>
         <hr/>
         <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
         <section class="btn_export">

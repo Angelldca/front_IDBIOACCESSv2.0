@@ -24,6 +24,7 @@ import { CasComponent } from './cas/cas.component';
 import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landin-page-not-permisos.component';
 import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.component';
 import { CiudadanoListSSComponent } from './ciudadano-list-ss/ciudadano-list-ss.component';
+import { CiudadanoListCSComponent } from './ciudadano-list-cs/ciudadano-list-cs.component';
 
 export const routes: Routes = [
 
@@ -84,6 +85,12 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: CiudadanoListSSComponent,
+    },
+    {
+      path: 'ciudadano_list_cs',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: CiudadanoListCSComponent,
     },
     {
       path: 'report_historial_ciudadanos',

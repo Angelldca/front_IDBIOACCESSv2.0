@@ -180,34 +180,6 @@
 
            <div (click)="showSubmenu('gestion_solapin')"
             class="contReporte">
-              <section class="btn_cd desplegable">
-                  <p>
-                      Trazas Seguridad
-                  </p>
-      
-                  <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
-              </section>
-
-           @if(isReporteSeguridadVisible){
-            <div id="submenu" (click)="showSubmenu('seguridadReportes')" 
-            >
-                <section class="btnSubmenu" routerLink="trazas/seccion">
-    
-                    <p>
-                       Inicios de sesión
-                    </p>
-    
-                </section>
-                <section class="btnSubmenu" routerLink="trazas/accionesusuarios">
-    
-                    <p>
-                       Modificaciones por usuarios
-                    </p>
-    
-                </section>
-            </div>
-           
-            }
            </div>
        </div>
        <hr/>
