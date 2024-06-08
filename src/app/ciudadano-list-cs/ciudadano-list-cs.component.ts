@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { CiudadanoTableComponent } from '../ciudadano-table/ciudadano-table.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { TableGestionSolapinComponent } from '../table-gestion-solapin/table-gestion-solapin.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
 import { BuscarCiudadanoComponent, Busqueda } from '../buscar-ciudadano/buscar-ciudadano.component';
 import { TomarFotoComponent } from '../tomar-foto/tomar-foto.component';
@@ -11,7 +11,7 @@ import { urlBack } from '../Finals';
 @Component({
   selector: 'ciudadano-list-cs',
   standalone: true,
-  imports: [CiudadanoTableComponent,
+  imports: [TableGestionSolapinComponent,
     MatIconModule,MatButtonModule,
     BuscarCiudadanoComponent,
     TomarFotoComponent

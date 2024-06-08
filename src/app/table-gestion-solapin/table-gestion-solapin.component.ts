@@ -3,7 +3,7 @@ import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
-import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { CiudadanoService, Ciudadano } from '../ciudadano-table/ciudadano.service';
 
 import {
   MatDialog,
@@ -16,18 +16,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @Component({
-  selector: 'table-generar-solapin',
+  selector: 'table-gestion-solapin',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
     MatIconModule,MatButtonModule,
   ],
   providers:[CiudadanoService],
-  templateUrl: './table-generar-solapin.component.html',
-  styleUrl: './table-generar-solapin.component.css'
+  templateUrl: './table-gestion-solapin.component.html',
+  styleUrl: './table-gestion-solapin.component.css'
 })
 
 
-export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class TableGestionSolapinComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
@@ -53,7 +53,7 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadanoss/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadanocs/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -63,7 +63,7 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   displayedColumns: string[] = ['id',
   'opciones',
   'img','primernombre','segundonombre', 'primerapellido','segundoapellido', 'area', 
-  'roluniversitario', 'carnetidentidad','provincia','municipio',
+  'roluniversitario', 'carnetidentidad', 'solapin', 'provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
@@ -71,9 +71,9 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadanoss/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadanoss/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanoss/`
+  url:string = `http://127.0.0.1:8000/api/ciudadanocs/`
+  urlNext:string = `http://127.0.0.1:8000/api/ciudadanocs/`
+  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanocs/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined
