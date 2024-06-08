@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CiudadanoTableComponent } from '../ciudadano-table/ciudadano-table.component';
+import { TableGenerarSolapinComponent } from '../table-generar-solapin/table-generar-solapin.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { CiudadanoService } from '../ciudadano-table/ciudadano.service';
@@ -11,7 +11,7 @@ import { urlBack } from '../Finals';
 @Component({
   selector: 'ciudadano-list-ss',
   standalone: true,
-  imports: [CiudadanoTableComponent,
+  imports: [TableGenerarSolapinComponent,
     MatIconModule,MatButtonModule,
     BuscarCiudadanoComponent,
     TomarFotoComponent
