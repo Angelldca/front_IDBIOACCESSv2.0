@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { GenerarSolapinComponent } from '../generar-solapin/generar-solapin.component';
 
 import {
   MatDialog,
@@ -31,7 +32,7 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
-  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog, private router: Router){
+  constructor(private ciudadanoService :CiudadanoService, public dialog: MatDialog, private router: Router){
 
   }
   addNewUserID(value: string) {
@@ -213,6 +214,19 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
     console.log(element.idciudadano)
     this.addNewUserID(element.idciudadano);
       
+  }
+
+  openGenerarSolapinDialog(idCiudadano: number): void {
+    const dialogRef = this.dialog.open(GenerarSolapinComponent, {
+      width: '400px',
+      data: { idCiudadano }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
+      }
+    });
   }
 }
 

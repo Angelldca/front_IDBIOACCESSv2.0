@@ -25,6 +25,7 @@ import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landi
 import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.component';
 import { CiudadanoListSSComponent } from './ciudadano-list-ss/ciudadano-list-ss.component';
 import { CiudadanoListCSComponent } from './ciudadano-list-cs/ciudadano-list-cs.component';
+import { GenerarSolapinComponent } from './generar-solapin/generar-solapin.component';
 
 export const routes: Routes = [
 
@@ -93,6 +94,12 @@ export const routes: Routes = [
       component: CiudadanoListCSComponent,
     },
     {
+      path: 'generar_solapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: GenerarSolapinComponent,
+    },
+    {
       path: 'report_historial_ciudadanos',
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
@@ -108,7 +115,6 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: CruUsuarioComponent,
-      
     },
     {
       path: 'registrar',

@@ -10,6 +10,7 @@ import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { PiePaginaComponent } from './pie-pagina/pie-pagina.component';
 import { CruUsuarioComponent } from './cru-usuario/cru-usuario.component';
 import { CiudadanoService } from './ciudadano-table/ciudadano.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -27,6 +28,7 @@ import { CiudadanoService } from './ciudadano-table/ciudadano.service';
     EncabezadoComponent,
     PiePaginaComponent,
     CruUsuarioComponent,
+    ReactiveFormsModule
   ],
   providers:[], //CiudadanoService
   templateUrl: './app.component.html',
