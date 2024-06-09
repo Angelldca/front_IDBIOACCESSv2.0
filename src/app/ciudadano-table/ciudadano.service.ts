@@ -149,7 +149,7 @@ createCiudadano(data: any, id: any | undefined) {
   });
     return this.http.post<any[]>(urlUploadFile, formData, {headers});
   }
-  doloadCiudadanoList() {
+  donwloadCiudadanoList() {
     const token = localStorage.getItem('Token')
     const headers = new HttpHeaders({
     'Content-Type': 'application/json',
