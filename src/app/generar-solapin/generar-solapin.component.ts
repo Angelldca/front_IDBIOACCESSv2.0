@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import Swal from 'sweetalert2';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-generar-solapin',
@@ -123,10 +125,17 @@ export class GenerarSolapinComponent implements OnInit {
       var fechaHoraActual = new Date();
       formData.fecha = fechaHoraActual.toISOString();
 
-      this.solapinService.createSolapin(formData).subscribe(response => {
-        Swal.fire('Éxito', 'Solapín generado correctamente', 'success');
-        console.log('Solapín creado:', response);
-        this.dialogRef.close();
+      this.solapinService.createSolapin(formData).pipe(
+        catchError(error => {
+          // Manejo del error
+          Swal.fire('Error', 'No se pudo generar el solapín', 'error');
+          return of(null); // Retornar un observable nulo para completar el flujo
+        })
+      ).subscribe(response => {
+        if (response) {
+          Swal.fire('Éxito', 'Solapín generado correctamente', 'success');
+          this.dialogRef.close();
+        }
       });
     }
   }

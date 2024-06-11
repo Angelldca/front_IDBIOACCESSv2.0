@@ -26,6 +26,7 @@ import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.compo
 import { CiudadanoListSSComponent } from './ciudadano-list-ss/ciudadano-list-ss.component';
 import { CiudadanoListCSComponent } from './ciudadano-list-cs/ciudadano-list-cs.component';
 import { GenerarSolapinComponent } from './generar-solapin/generar-solapin.component';
+import { ModificarSolapinComponent } from './modificar-solapin/modificar-solapin.component';
 
 export const routes: Routes = [
 
@@ -98,6 +99,12 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: GenerarSolapinComponent,
+    },
+    {
+      path: 'modificar_solapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: ModificarSolapinComponent,
     },
     {
       path: 'report_historial_ciudadanos',

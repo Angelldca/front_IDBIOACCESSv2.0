@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { CiudadanoService, Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { ModificarSolapinComponent } from '../modificar-solapin/modificar-solapin.component';
 
 import {
   MatDialog,
@@ -213,6 +214,19 @@ export class TableGestionSolapinComponent implements AfterViewInit ,OnInit,OnCha
     console.log(element.idciudadano)
     this.addNewUserID(element.idciudadano);
       
+  }
+
+  openModificarSolapinDialog(idCiudadano: number): void {
+    const dialogRef = this.dialog.open(ModificarSolapinComponent, {
+      width: '400px',
+      data: { idCiudadano }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
+      }
+    });
   }
 }
 

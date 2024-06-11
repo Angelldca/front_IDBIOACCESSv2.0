@@ -18,9 +18,25 @@ export class SolapinService {
     return throwError(error.message || 'Server error');
   }
 
+  getSolapin(data: { numerosolapin: string }): Observable<any> {
+    const url = `${this.apiUrl}get_solapin_by_numero/`;
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   createSolapin(data: any): Observable<any> {
     const url = `${this.apiUrl}create_solapin/`;
     return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  updateSolapin(data: any): Observable<any> {
+    const url = `${this.apiUrl}update_solapin/`;
+    return this.http.put<any>(url, data)
       .pipe(
         catchError(this.handleError)
       );
