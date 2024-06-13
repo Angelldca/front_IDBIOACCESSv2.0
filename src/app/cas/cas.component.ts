@@ -37,10 +37,10 @@ export class CasComponent  implements OnInit{
                      localStorage.setItem("user", JSON.stringify(userL))
                    }
                    else{
-                     localStorage.removeItem("user")
-                     localStorage.removeItem("Token")
+                     //localStorage.removeItem("user")
+                     //localStorage.removeItem("Token")
                      //window.location.href = 'http://localhost:8000/accounts/login'
-                     route.navigate(['']);
+                     route.navigate(['bienvenido'],{ state: { user: userL } });
                    }
               
                  

@@ -11,7 +11,7 @@ import { urlBack } from '../Finals';
 @Injectable({
   providedIn: 'root',
   
- })
+})
 export class CiudadanoService {
   ciudadanoUrl = urlBack+'ciudadano/';
   userAuth: IUsuario | undefined = undefined;
@@ -20,9 +20,9 @@ export class CiudadanoService {
     const userLocal = localStorage.getItem('user')
     if(userLocal)
     this.userAuth = JSON.parse(userLocal)
-   }
-   validateToken(token: any){
-   
+}
+validateToken(token: any){
+
     return this.http.post<any>(urlBack+'seguridad/validatetoken/',{token})
   }
   getCiudadanos() {
