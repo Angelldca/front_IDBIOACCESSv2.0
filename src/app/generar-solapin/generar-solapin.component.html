@@ -9,16 +9,15 @@
       <label for="codigobarra">Código de Barra</label>
       <input id="codigobarra" formControlName="codigobarra" type="text" readonly/>
     </div>
-    <div class="form-group">
-      <label for="serial">Serial</label>
-      <input id="serial" formControlName="serial" type="text" readonly/>
-    </div>
-    <div class="form-group">
-      <label for="estado">Estado</label>
-      <select id="estado" formControlName="estado">
-        <option value="1">Activo</option>
-        <option value="0">Inactivo</option>
-      </select>
+    
+    <div class="form-group form-group-serial">
+      <div>
+        <label for="serial">Serial</label>
+      </div>
+      <div class="serial-wrapper">
+        <input id="serial" formControlName="serial" type="text" readonly/>
+        <button type="button" class="btn-nuevo-lote" (click)="nuevoLote()">Nuevo lote</button>
+      </div>
     </div>
     <div class="form-group">
       <label for="idtiposolapin">Tipo de Solapín</label>

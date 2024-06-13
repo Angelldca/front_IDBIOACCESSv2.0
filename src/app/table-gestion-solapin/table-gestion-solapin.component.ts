@@ -13,6 +13,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AnularSolapinComponent } from '../anular-solapin/anular-solapin.component';
 
 
 
@@ -223,9 +224,18 @@ export class TableGestionSolapinComponent implements AfterViewInit ,OnInit,OnCha
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
         this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
-      }
+    });
+  }
+
+  openAnularSolapinDialog(idCiudadano: number): void {
+    const dialogRef = this.dialog.open(AnularSolapinComponent, {
+      width: '400px',
+      data: { idCiudadano }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
     });
   }
 }

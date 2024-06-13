@@ -10,6 +10,7 @@ import { throwError } from 'rxjs';
 export class SolapinService {
   private apiUrl = 'http://127.0.0.1:8000/api/solapin/';
   private apiUrlTipo = 'http://127.0.0.1:8000/api/tiposolapin/';
+  private apiUrlCausasAnulacion = 'http://127.0.0.1:8000/api/causaanulacion/';
 
   constructor(private http: HttpClient) {}
 
@@ -76,6 +77,14 @@ export class SolapinService {
 
   getTiposSolapin(): Observable<any> {
     const url = `${this.apiUrlTipo}`;
+    return this.http.get<any>(url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getCausasAnulacion(): Observable<any> {
+    const url = `${this.apiUrlCausasAnulacion}`;
     return this.http.get<any>(url)
       .pipe(
         catchError(this.handleError)

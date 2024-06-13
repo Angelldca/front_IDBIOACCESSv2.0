@@ -25,8 +25,12 @@ import { LandinPageNotPermisosComponent } from './landin-page-not-permisos/landi
 import { CapturaHuellasComponent } from './captura-huellas/captura-huellas.component';
 import { CiudadanoListSSComponent } from './ciudadano-list-ss/ciudadano-list-ss.component';
 import { CiudadanoListCSComponent } from './ciudadano-list-cs/ciudadano-list-cs.component';
+import { CiudadanoListASComponent } from './ciudadano-list-as/ciudadano-list-as.component';
 import { GenerarSolapinComponent } from './generar-solapin/generar-solapin.component';
 import { ModificarSolapinComponent } from './modificar-solapin/modificar-solapin.component';
+import { AnularSolapinComponent } from './anular-solapin/anular-solapin.component';
+import { ActivarSolapinComponent } from './activar-solapin/activar-solapin.component';
+
 
 export const routes: Routes = [
 
@@ -95,6 +99,12 @@ export const routes: Routes = [
       component: CiudadanoListCSComponent,
     },
     {
+      path: 'ciudadano_list_as',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: CiudadanoListASComponent,
+    },
+    {
       path: 'generar_solapin',
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
@@ -105,6 +115,18 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: ModificarSolapinComponent,
+    },
+    {
+      path: 'activar_solapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: ActivarSolapinComponent,
+    },
+    {
+      path: 'anular_solapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: AnularSolapinComponent,
     },
     {
       path: 'report_historial_ciudadanos',

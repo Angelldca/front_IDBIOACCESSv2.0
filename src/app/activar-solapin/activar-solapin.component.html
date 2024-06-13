@@ -1,17 +1,17 @@
 <div class="dialog-container">
-    <div class="dialog-title">Modificar datos de solapín</div>
+    <div class="dialog-title">Activar solapín</div>
     <form [formGroup]="solapinForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="nuevonumerosolapin">Número de Solapín</label>
-        <input id="nuevonumerosolapin" formControlName="nuevonumerosolapin" type="text" />
+        <label for="numerosolapin">Número de Solapín</label>
+        <input id="numerosolapin" formControlName="numerosolapin" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="codigobarra">Código de Barra</label>
-        <input id="codigobarra" formControlName="codigobarra" type="text" />
+        <input id="codigobarra" formControlName="codigobarra" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="serial">Serial</label>
-        <input id="serial" formControlName="serial" type="text" />
+        <input id="serial" formControlName="serial" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="idtiposolapin">Tipo de Solapín</label>
@@ -23,7 +23,7 @@
       </div>
       <div class="button-group">
         <button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
-        <button type="submit" class="btn-submit">Modificar</button>
+        <button type="submit" class="btn-submit">Activar</button>
       </div>
     </form>
   </div>

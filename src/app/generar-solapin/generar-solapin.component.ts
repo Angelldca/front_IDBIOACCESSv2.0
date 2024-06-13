@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import Swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-generar-solapin',
@@ -35,6 +36,8 @@ export class GenerarSolapinComponent implements OnInit {
     private fb: FormBuilder,
     private solapinService: SolapinService,
     public dialogRef: MatDialogRef<GenerarSolapinComponent>,
+    private route: ActivatedRoute, 
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.idciudadano = data.idCiudadano.idciudadano; // Pasar el idciudadano al componente
@@ -42,7 +45,6 @@ export class GenerarSolapinComponent implements OnInit {
       numerosolapin: ['', Validators.required],
       codigobarra: ['', Validators.required],
       serial: ['', Validators.required],
-      estado: ['', Validators.required],
       idtiposolapin: ['', Validators.required],
     });
   }
@@ -54,18 +56,43 @@ export class GenerarSolapinComponent implements OnInit {
 
     if ( String(this.data.idCiudadano.area).match("XETID") ){
       this.prefijoNumeroSolapin = "X";
+      this.solapinForm.patchValue({ idtiposolapin: 4 });
+
     }else{
-      if ( String(this.data.idCiudadano.roluniversitario).match("Trabajador") ){
-        this.prefijoNumeroSolapin = "T";
-      }
-      if ( String(this.data.idCiudadano.roluniversitario).match("Estudiante") ){
-        this.prefijoNumeroSolapin = "E";
-      }
-      if ( String(this.data.idCiudadano.roluniversitario).match("Visitante") ){
-        this.prefijoNumeroSolapin = "V";
-      }
-      if ( String(this.data.idCiudadano.roluniversitario).match("Familiar") ){
-        this.prefijoNumeroSolapin = "F";
+
+      switch( this.data.idCiudadano.roluniversitario ) {
+        case "Trabajador":
+          this.prefijoNumeroSolapin = "T";
+          this.solapinForm.patchValue({idtiposolapin: 1});
+          break;
+        case "Estudiante":
+          this.prefijoNumeroSolapin = "E";
+          this.solapinForm.patchValue({idtiposolapin: 2});
+          break;
+        case "Visitante":
+          this.prefijoNumeroSolapin = "V";
+          this.solapinForm.patchValue({idtiposolapin: 5});
+          break;
+        case "Familiar":
+          this.prefijoNumeroSolapin = "F";
+          this.solapinForm.patchValue({idtiposolapin: 7});
+          break;
+        case "Eventual":
+          this.prefijoNumeroSolapin = "X";
+          this.solapinForm.patchValue({idtiposolapin: 6});
+          break;
+        case "Servicios":
+          this.prefijoNumeroSolapin = "T";
+          this.solapinForm.patchValue({idtiposolapin: 3});
+          break;
+        case "Postgrado":
+          this.prefijoNumeroSolapin = "T";
+          this.solapinForm.patchValue({idtiposolapin: 8});
+          break;
+        default:
+          this.prefijoNumeroSolapin = "T";
+          this.solapinForm.patchValue({idtiposolapin: 1})
+          break;
       }
     }
 
@@ -87,6 +114,36 @@ export class GenerarSolapinComponent implements OnInit {
       this.solapinForm.patchValue({ codigobarra: codigobarra });
     });
 
+    this.solapinService.getUltimoSerial().subscribe(data => {
+      var serial:number = data.serial;
+      var serialS: string = "";
+      
+      switch ( (serial.toString()).length ){
+        case 6:
+          serialS = serial.toString();
+          break;
+        case 5:
+          serialS = "0" + serial.toString();
+          break;
+        case 4:
+          serialS = "00" + serial.toString();
+          break;
+        case 3:
+          serialS = "000" + serial.toString();
+          break;
+        case 2:
+          serialS = "0000" + serial.toString();
+          break;
+        case 1:
+          serialS = "00000" + serial.toString();
+          break;
+      }
+
+      this.solapinForm.patchValue({ serial: serialS });
+    });
+  }
+
+  nuevoLote(){
     this.solapinService.getUltimoSerial().subscribe(data => {
       var serial:number = data.serial;
       serial++;
@@ -119,8 +176,10 @@ export class GenerarSolapinComponent implements OnInit {
 
   onSubmit(): void {
     if (this.solapinForm.valid) {
+
       var formData = this.solapinForm.value;
       formData.idciudadano = this.idciudadano;
+      formData.estado = 1;
 
       var fechaHoraActual = new Date();
       formData.fecha = fechaHoraActual.toISOString();

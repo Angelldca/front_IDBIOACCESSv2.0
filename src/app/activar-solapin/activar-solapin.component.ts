@@ -11,9 +11,9 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'app-modificar-solapin',
-  templateUrl: './modificar-solapin.component.html',
-  styleUrls: ['./modificar-solapin.component.css'],
+  selector: 'app-activar-solapin',
+  templateUrl: './activar-solapin.component.html',
+  styleUrls: ['./activar-solapin.component.css'],
   standalone: true,
   imports: [
     CommonModule, 
@@ -24,27 +24,25 @@ import { of } from 'rxjs';
     MatSelectModule
   ]
 })
-export class ModificarSolapinComponent implements OnInit {
+export class ActivarSolapinComponent implements OnInit {
   solapinForm: FormGroup;
   tiposSolapin: any[] = [];
   numerosolapin: string = "";
-  nuevonumerosolapin: string = "";
   fecha: string = "";
   solapin: any;
 
   constructor(
     private fb: FormBuilder,
     private solapinService: SolapinService,
-    public dialogRef: MatDialogRef<ModificarSolapinComponent>,
+    public dialogRef: MatDialogRef<ActivarSolapinComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.numerosolapin = data.idCiudadano.solapin; // Pasar el numerosolapin al componente
-    this.nuevonumerosolapin = this.numerosolapin;
     this.solapinForm = this.fb.group({
-      nuevonumerosolapin: ['', Validators.required],
+      numerosolapin: ['', Validators.required],
       codigobarra: ['', Validators.required],
       serial: ['', Validators.required],
-      idtiposolapin: ['', Validators.required],
+      idtiposolapin: [{value: '', disabled: true}],
     });
   }
 
@@ -58,7 +56,7 @@ export class ModificarSolapinComponent implements OnInit {
         this.solapin = data; 
 
         this.solapinForm.patchValue({ 
-          nuevonumerosolapin: this.nuevonumerosolapin,
+          numerosolapin: this.solapin.numerosolapin,
           codigobarra: this.solapin.codigobarra,
           serial: this.solapin.serial,
           idtiposolapin: this.solapin.idtiposolapin
@@ -73,9 +71,9 @@ export class ModificarSolapinComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.solapinForm.valid && this.solapinForm.dirty) {
+    if (this.solapinForm.valid) {
       var formData = this.solapinForm.value;
-      formData.numerosolapin = this.numerosolapin;
+      formData.estado = 1; // Activar el solapin
 
       var fechaHoraActual = new Date();
       formData.fecha = fechaHoraActual.toISOString();
@@ -83,17 +81,15 @@ export class ModificarSolapinComponent implements OnInit {
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {
           // Manejo del error
-          Swal.fire('Error', 'No se pudo modificar el solapín', 'error');
+          Swal.fire('Error', 'No se pudo activar el solapín', 'error');
           return of(null); // Retornar un observable nulo para completar el flujo
         })
       ).subscribe(response => {
         if (response) {
-          Swal.fire('Éxito', 'Solapín modificado correctamente', 'success');
+          Swal.fire('Éxito', 'Solapín activado correctamente', 'success');
           this.dialogRef.close();
         }
       });
-    }else{
-      Swal.fire('Advertencia', 'No se ha modificado ningún campo', 'warning');
     }
   }
 }
