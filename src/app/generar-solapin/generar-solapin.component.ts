@@ -22,7 +22,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class GenerarSolapinComponent implements OnInit {
@@ -171,16 +171,17 @@ export class GenerarSolapinComponent implements OnInit {
       }
 
       this.solapinForm.patchValue({ serial: serialS });
+      
     });
   }
 
   onSubmit(): void {
     if (this.solapinForm.valid) {
 
+      // Datos solapin
       var formData = this.solapinForm.value;
       formData.idciudadano = this.idciudadano;
       formData.estado = 1;
-
       var fechaHoraActual = new Date();
       formData.fecha = fechaHoraActual.toISOString();
 
@@ -192,10 +193,54 @@ export class GenerarSolapinComponent implements OnInit {
         })
       ).subscribe(response => {
         if (response) {
+          this.registrarNuevoSolapin(response);
+
           Swal.fire('Éxito', 'Solapín generado correctamente', 'success');
           this.dialogRef.close();
         }
       });
     }
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear(); // Año completo
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Agrega un cero delante si es necesario
+    const day = ('0' + date.getDate()).slice(-2); // Agrega un cero delante si es necesario
+    return `${year}-${month}-${day}`;
+  }
+
+  registrarNuevoSolapin(response: any){
+          var dataReg: any = {};
+          dataReg.idsolapin = response.idsolapin;
+          console.log(response)
+
+          dataReg.numerosolapin = response.numerosolapin;
+          dataReg.serial = response.serial;
+          dataReg.codigobarra = response.codigobarra;
+          dataReg.idtiposolapin = response.idtiposolapin;
+          dataReg.nombrecompleto = this.data.idCiudadano.primernombre + " " + 
+                                    ((this.data.idCiudadano.segundonombre == null) ? "" : (this.data.idCiudadano.segundonombre + " ")) + 
+                                      this.data.idCiudadano.primerapellido + " " +
+                                        this.data.idCiudadano.segundoapellido;
+          dataReg.area = this.data.idCiudadano.area;
+          dataReg.roluniversitario = this.data.idCiudadano.roluniversitario;
+          dataReg.residente = this.data.idCiudadano.residente;
+          dataReg.fecha = this.formatDate(new Date());
+          dataReg.idciudadano = this.data.idCiudadano.idciudadano;
+          
+          // Obtener los detalles del tipo de solapín
+          this.solapinService.getTipoSolapinById(response.idtiposolapin).subscribe(tipoSolapin => {
+            dataReg.datatiposolapin = tipoSolapin.descripcion;
+            dataReg.datacategoriasolapin = tipoSolapin.categoria;
+  
+            // Crear el historial del solapín
+            this.solapinService.createNewSolapinHist(dataReg).subscribe(() => {
+              console.log("REGISTRO DE NUEVO SOLAPIN CREADO");
+            }, error => {
+              console.log("No se pudo crear el registro del nuevo solapín");
+            });
+          }, error => {
+            console.log("No se pudo obtener los datos de tipo de solapin");
+          });
   }
 }

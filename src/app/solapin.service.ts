@@ -3,14 +3,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { urlBack } from './Finals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolapinService {
-  private apiUrl = 'http://127.0.0.1:8000/api/solapin/';
-  private apiUrlTipo = 'http://127.0.0.1:8000/api/tiposolapin/';
-  private apiUrlCausasAnulacion = 'http://127.0.0.1:8000/api/causaanulacion/';
+  private apiUrl = urlBack + 'solapin/';
+  private apiUrlTipo = urlBack + 'tiposolapin/';
+  private apiUrlCausasAnulacion = urlBack + 'causaanulacion/';
+  private apiUrlTipoOperacion = urlBack + 'tipooperacionsolapin/';
+  private apiUrlRegistroPagos = urlBack + 'registropago/';
+  private apiUrlCiudadanoSolapinHist = urlBack + 'ciudadanosolapinhist/';
+  private apiUrlNewSolapinHist = urlBack + 'newsolapinhist/';
+  private apiUrlOperacionSolapin = urlBack + 'operacionsolapin/';
 
   constructor(private http: HttpClient) {}
 
@@ -83,9 +89,53 @@ export class SolapinService {
       );
   }
 
+  getTipoSolapinById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrlTipo}${id}`);
+  }
+
   getCausasAnulacion(): Observable<any> {
     const url = `${this.apiUrlCausasAnulacion}`;
     return this.http.get<any>(url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getTipoOperacion(): Observable<any> {
+    const url = `${this.apiUrlTipoOperacion}`;
+    return this.http.get<any>(url)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  createRegistroPago(data: any): Observable<any> {
+    const url = `${this.apiUrlRegistroPagos}`;
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  createCiudadanoSolapinHist(data: any): Observable<any> {
+    const url = `${this.apiUrlCiudadanoSolapinHist}`;
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  createNewSolapinHist(data: any): Observable<any> {
+    const url = `${this.apiUrlNewSolapinHist}`;
+    return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  createOperacionSolapin(data: any): Observable<any> {
+    const url = `${this.apiUrlOperacionSolapin}`;
+    return this.http.post<any>(url, data)
       .pipe(
         catchError(this.handleError)
       );

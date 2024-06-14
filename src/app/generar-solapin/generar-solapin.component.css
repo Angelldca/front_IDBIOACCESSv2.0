@@ -30,7 +30,7 @@
 }
 
 .form-group label {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   color: #555;
   margin-bottom: 5px;
@@ -113,4 +113,10 @@
 
 .button-group .btn-cancel:hover {
   background-color: #5a6268;
+}
+
+.form-group select,
+.form-group select option {
+  color: black;
+  font-size: 15px;
 }

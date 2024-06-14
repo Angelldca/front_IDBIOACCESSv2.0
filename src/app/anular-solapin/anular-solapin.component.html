@@ -1,38 +1,38 @@
 <div class="dialog-container">
-    <div class="dialog-title">Anular solapín</div>
+    <div mat-dialog-title class="dialog-title">Anular solapín</div>
     <form [formGroup]="solapinForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="numerosolapin">Número de Solapín</label>
-        <input id="numerosolapin" formControlName="numerosolapin" type="text" readonly/>
+        <input mat-dialog-content id="numerosolapin" formControlName="numerosolapin" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="codigobarra">Código de Barra</label>
-        <input id="codigobarra" formControlName="codigobarra" type="text" readonly/>
+        <input mat-dialog-content id="codigobarra" formControlName="codigobarra" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="serial">Serial</label>
-        <input id="serial" formControlName="serial" type="text" readonly/>
+        <input mat-dialog-content id="serial" formControlName="serial" type="text" readonly/>
       </div>
       <div class="form-group">
         <label for="idtiposolapin">Tipo de Solapín</label>
-        <select id="idtiposolapin" formControlName="idtiposolapin">
-          <option *ngFor="let tipo of tiposSolapin" [value]="tipo.idtiposolapin">
+        <select mat-dialog-content id="idtiposolapin" formControlName="idtiposolapin">
+          <option mat-dialog-content *ngFor="let tipo of tiposSolapin" [value]="tipo.idtiposolapin">
             {{ tipo.descripcion }}
           </option>
         </select>
       </div>
       <div class="form-group">
         <label for="causaanulacion">Causa de Anulación</label>
-        <select id="causaanulacion" formControlName="causaanulacion">
-          <option value="" disabled selected>{{ "Selecciona una causa de anulacion" }}</option>
+        <select mat-dialog-content id="causaanulacion" formControlName="causaanulacion">
+          <option mat-dialog-content value="" disabled selected>{{ "Selecciona una causa de anulacion" }}</option>
           <option *ngFor="let causa of causasAnulacion" [value]="causa.identificadoranulacion">
             {{ causa.descripcion }}
           </option>
         </select>
       </div>
       <div class="button-group">
-        <button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
-        <button type="submit" class="btn-submit">Anular</button>
+        <button mat-button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
+        <button mat-button type="submit" class="btn-submit">Anular</button>
       </div>
     </form>
   </div>

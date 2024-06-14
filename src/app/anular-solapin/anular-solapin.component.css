@@ -89,4 +89,9 @@
     background-color: #5a6268;
   }
 
+#causaanulacion,
+.form-group select option {
+  color: black;
+  font-size: 15px;
+}
   
