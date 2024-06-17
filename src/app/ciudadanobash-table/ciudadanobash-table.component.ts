@@ -77,6 +77,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
   showCiudadanos(url:string) {
+    
    
     this.ciudadanoService.getCiudadano_pagination(url)
       .subscribe({
