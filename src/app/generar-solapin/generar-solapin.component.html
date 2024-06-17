@@ -1,0 +1,35 @@
+<div class="dialog-container">
+  <div mat-dialog-title class="dialog-title">Generar Solapín</div>
+  <form [formGroup]="solapinForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="numerosolapin">Número de Solapín</label>
+      <input mat-dialog-content id="numerosolapin" formControlName="numerosolapin" type="text" readonly/>
+    </div>
+    <div class="form-group">
+      <label for="codigobarra">Código de Barra</label>
+      <input mat-dialog-content id="codigobarra" formControlName="codigobarra" type="text" readonly/>
+    </div>
+    
+    <div class="form-group form-group-serial">
+      <div>
+        <label for="serial">Serial</label>
+      </div>
+      <div class="serial-wrapper">
+        <input mat-dialog-content id="serial" formControlName="serial" type="text" readonly/>
+        <button mat-button type="button" class="btn-nuevo-lote" (click)="nuevoLote()">Nuevo lote</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="idtiposolapin">Tipo de Solapín</label>
+        <select mat-dialog-content id="idtiposolapin" formControlName="idtiposolapin">
+          <option mat-dialog-content *ngFor="let tipo of tiposSolapin" [value]="tipo.idtiposolapin">
+            {{ tipo.descripcion }}
+          </option>
+        </select>
+    </div>
+    <div class="button-group">
+      <button mat-button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
+      <button mat-button type="submit" class="btn-submit">Generar Solapín</button>
+    </div>
+  </form>
+</div>

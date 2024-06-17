@@ -2,6 +2,7 @@
 
     <h4>Menú</h4>
     <hr/>
+    <!--Captura de datos-->
     <div (click)="showSubmenu('captura_datos')"
       class="opciones">
         <section class="btn_cd desplegable">
@@ -157,4 +158,36 @@
        <hr/>
     }
     </div>
+
+    <!--Gestion-->
+
+    <div (click)="showSubmenu('gestion_solapin')"
+     class="opciones">
+       <section class="btn_cd desplegable" >
+           <p>Gestión solapines</p>
+           <img id="rotateIconCaptura" src="../../assets/img/chevron_right.svg" alt="ri" />
+       </section>
+       
+       @if(isGestionSolapinVisible){
+       <div id="submenu" (click)="showSubmenu('gestion_solapin')">
+           <section class="btnSubmenu" routerLink="ciudadano_list_ss">
+               <p>Ciudadanos sin solapín</p>
+           </section>
+
+            <section class="btnSubmenu" routerLink="ciudadano_list_cs">
+            <p>Gestionar documento</p>
+            </section>
+
+            <section class="btnSubmenu" routerLink="ciudadano_list_as">
+                <p>Reactivar solapín</p>
+                </section>
+
+           <div (click)="showSubmenu('gestion_solapin')"
+            class="contReporte">
+           </div>
+       </div>
+       <hr/>
+    }
+    </div>    
+
 </div>

@@ -1,9 +1,10 @@
 import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import { CiudadanoService,Ciudadano } from './ciudadano.service';
+import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatIconModule} from '@angular/material/icon';
+import { MatButtonModule} from '@angular/material/button';
+import { CiudadanoService, Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { ActivarSolapinComponent } from '../activar-solapin/activar-solapin.component';
 
 import {
   MatDialog,
@@ -15,19 +16,20 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
+
 @Component({
-  selector: 'app-ciudadano-table',
+  selector: 'table-activar-solapin',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
     MatIconModule,MatButtonModule,
   ],
   providers:[CiudadanoService],
-  templateUrl: './ciudadano-table.component.html',
-  styleUrl: './ciudadano-table.component.css'
+  templateUrl: './table-activar-solapin.component.html',
+  styleUrl: './table-activar-solapin.component.css'
 })
 
 
-export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
@@ -53,7 +55,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadanoas/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -63,7 +65,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   displayedColumns: string[] = ['id',
   'opciones',
   'img','primernombre','segundonombre', 'primerapellido','segundoapellido', 'area', 
-  'roluniversitario', 'carnetidentidad','solapin','provincia','municipio',
+  'roluniversitario', 'carnetidentidad', 'solapin', 'provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
@@ -71,9 +73,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/`
+  url:string = `http://127.0.0.1:8000/api/ciudadanoas/`
+  urlNext:string = `http://127.0.0.1:8000/api/ciudadanoas/`
+  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanoas/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined
@@ -213,6 +215,17 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
     console.log(element.idciudadano)
     this.addNewUserID(element.idciudadano);
       
+  }
+
+  openActivarSolapinDialog(idCiudadano: number): void {
+    const dialogRef = this.dialog.open(ActivarSolapinComponent, {
+      width: '400px',
+      data: { idCiudadano }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
+    });
   }
 }
 

@@ -1,0 +1,39 @@
+
+.ciudadanoListSS {
+    width:80%;
+}
+
+.btn_export{
+    display: flex;
+    align-items: baseline;
+    justify-content: end;
+    margin-bottom: 10px;
+   }
+
+   span{
+       display: flex;
+       align-items: center;
+       padding: 6px;
+       text-decoration: none;
+       color: #444;
+       background-color: #71c4ef;
+       border: none;
+       width: 115px;
+       height:35px;
+       border-radius: 5px;
+       margin-left: 10px;
+       margin-right: 10px;
+       box-shadow: 0px 1px 2px #497388;
+   }
+   
+   span:hover {
+       cursor: pointer;
+       color: #444;
+   }
+   span:active {
+       transform: scale(0.95);
+   }
+   
+   mat-icon {
+    color: #444;
+   }

@@ -1,0 +1,30 @@
+<div class="dialog-container">
+    <div mat-dialog-title class="dialog-title">Activar solapín</div>
+    <form [formGroup]="solapinForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="numerosolapin">Número de Solapín</label>
+        <input mat-dialog-content id="numerosolapin" formControlName="numerosolapin" type="text" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="codigobarra">Código de Barra</label>
+        <input mat-dialog-content id="codigobarra" formControlName="codigobarra" type="text" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="serial">Serial</label>
+        <input mat-dialog-content id="serial" formControlName="serial" type="text" readonly/>
+      </div>
+      <div class="form-group">
+        <label for="idtiposolapin">Tipo de Solapín</label>
+          <select mat-dialog-content id="idtiposolapin" formControlName="idtiposolapin">
+            <option *ngFor="let tipo of tiposSolapin" [value]="tipo.idtiposolapin">
+              {{ tipo.descripcion }}
+            </option>
+          </select>
+      </div>
+      <div class="button-group">
+        <button mat-button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
+        <button mat-button type="submit" class="btn-submit">Activar</button>
+      </div>
+    </form>
+  </div>
+  

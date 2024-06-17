@@ -1,37 +1,31 @@
 import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import { CiudadanoService,Ciudadano } from './ciudadano.service';
-
-import {
-  MatDialog,
-} from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import Swal from 'sweetalert2';
+import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { MatIconModule} from '@angular/material/icon';
+import { MatButtonModule} from '@angular/material/button';
+import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
+import { GenerarSolapinComponent } from '../generar-solapin/generar-solapin.component';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-
-
 @Component({
-  selector: 'app-ciudadano-table',
+  selector: 'table-generar-solapin',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
     MatIconModule,MatButtonModule,
   ],
   providers:[CiudadanoService],
-  templateUrl: './ciudadano-table.component.html',
-  styleUrl: './ciudadano-table.component.css'
+  templateUrl: './table-generar-solapin.component.html',
+  styleUrl: './table-generar-solapin.component.css'
 })
 
 
-export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
-  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog, private router: Router){
+  constructor(private ciudadanoService :CiudadanoService, public dialog: MatDialog, private router: Router){
 
   }
   addNewUserID(value: string) {
@@ -53,7 +47,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadanoss/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -63,7 +57,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   displayedColumns: string[] = ['id',
   'opciones',
   'img','primernombre','segundonombre', 'primerapellido','segundoapellido', 'area', 
-  'roluniversitario', 'carnetidentidad','solapin','provincia','municipio',
+  'roluniversitario', 'carnetidentidad','provincia','municipio',
   'sexo','residente','idexpediente','fechanacimiento'];
   ciudadanos: Ciudadano[] | undefined;
   ELEMENT_DATA: Ciudadano[] = [];
@@ -71,9 +65,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/`
+  url:string = `http://127.0.0.1:8000/api/ciudadanoss/`
+  urlNext:string = `http://127.0.0.1:8000/api/ciudadanoss/`
+  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanoss/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined
@@ -136,7 +130,6 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
       }
     }else{
       this.showCiudadanos(this.url);
-
     }
 
   }
@@ -145,74 +138,16 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
       this.dataSource.paginator = this.paginator;
 
   }
-  edicionActivada:boolean = false
-  editarElemento(e:any){
-    e.editMode = !e.editMode
-    this.edicionActivada =  !this.edicionActivada
-    this.router.navigate([`home/ciudadano/${e.idciudadano}`],{ state: { user: e } });
-  }
 
-
-  deleteCiudadano(e:any){
-    this.openDialogDelete('0ms', '0ms',e)
-    console.log("delete", e.idciudadano)
-  }
-
-  openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string, e:any): void {
-    const dialogRef =  this.dialog.open(DialogComponent, {
-      width: '500px',
-      enterAnimationDuration,
-      exitAnimationDuration,
+  openGenerarSolapinDialog(idCiudadano: number): void {
+    const dialogRef = this.dialog.open(GenerarSolapinComponent, {
+      width: '400px',
+      data: { idCiudadano }
     });
+  
     dialogRef.afterClosed().subscribe(result => {
-      if(result.delete){
-        this.ciudadanoService.deleteCiudadano(e.idciudadano)
-        .subscribe({
-        next: data => {
-          Swal.fire({
-            title: 'Exito',
-            text: `ciudadano eliminado`,
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar',
-            buttonsStyling: false,
-            
-            customClass: {
-                confirmButton: 'btn btn-primary px-4',
-                cancelButton: 'btn btn-danger ms-2 px-4',
-            
-            },
-            });
-          this.showCiudadanos(this.url)
-          if(this.error){
-            this.showCiudadanos(this.urlPrevious)
-            this.clear
-          }
-          
-        }, // success path
-        error: error => {
-          Swal.fire({
-            title: 'Oops...',
-            text: error,
-            icon: 'error',
-            footer: ``,
-            confirmButtonText: 'Aceptar',
-            customClass: {
-                confirmButton: 'btn btn-primary px-4'
-            },
-            buttonsStyling: false,
-            })
-        }, // error path
-      })
-      }
-
-    })
-    
-  }
-  capturarImg(element:any){
-    console.log(element.idciudadano)
-    this.addNewUserID(element.idciudadano);
-      
+        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
+    });
   }
 }
 

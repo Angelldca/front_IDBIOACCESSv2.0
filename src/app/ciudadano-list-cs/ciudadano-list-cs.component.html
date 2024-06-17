@@ -1,0 +1,11 @@
+<div class="ciudadanoListSS">
+    @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
+        
+    } @else {
+        <h2 style="padding-left: 20px">Lista de Ciudadanos con Identificacion</h2>
+        <hr/>
+        <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
+        <table-gestion-solapin buscar={{search}} urlCiudadanos={{urlList}} (newUserIDEvent)="getUserID($event)"/>
+    }
+</div>

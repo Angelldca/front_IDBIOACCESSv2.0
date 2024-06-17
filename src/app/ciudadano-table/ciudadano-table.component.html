@@ -37,7 +37,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="img">
-      <th mat-header-cell *matHeaderCellDef> Img </th>
+      <th mat-header-cell *matHeaderCellDef> Foto </th>
       <td mat-cell *matCellDef="let element">
         @if(element.imagen !== null){
         <img [src]="'data:image/jpeg;base64,' + element.imagen.foto" alt="Foto" class="imgTable" />
@@ -84,7 +84,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="carnetidentidad">
-      <th mat-header-cell *matHeaderCellDef> Dni </th>
+      <th mat-header-cell *matHeaderCellDef> DNI </th>
       <td mat-cell *matCellDef="let element">
         {{element.carnetidentidad}}
 
