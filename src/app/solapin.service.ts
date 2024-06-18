@@ -17,6 +17,7 @@ export class SolapinService {
   private apiUrlCiudadanoSolapinHist = urlBack + 'ciudadanosolapinhist/';
   private apiUrlNewSolapinHist = urlBack + 'newsolapinhist/';
   private apiUrlOperacionSolapin = urlBack + 'operacionsolapin/';
+  private apiUrlSerialCount = this.apiUrl + 'get_solapin_count_by_serial/'
 
   constructor(private http: HttpClient) {}
 
@@ -91,6 +92,10 @@ export class SolapinService {
 
   getTipoSolapinById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrlTipo}${id}`);
+  }
+
+  getSerialCount(serial: string): Observable<any> {
+    return this.http.get(`${this.apiUrlSerialCount}?serial=${serial}`);
   }
 
   getCausasAnulacion(): Observable<any> {

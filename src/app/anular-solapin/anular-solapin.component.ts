@@ -29,6 +29,7 @@ export class AnularSolapinComponent implements OnInit {
   tiposSolapin: any[] = [];
   causasAnulacion: any[] = [];
   numerosolapin: string = "";
+  idciudadano: number = 0;
   fecha: string = "";
   solapin: any;
 
@@ -39,6 +40,7 @@ export class AnularSolapinComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.numerosolapin = data.idCiudadano.solapin; // Pasar el numerosolapin al componente
+    this.idciudadano = data.idCiudadano.idciudadano;
     this.solapinForm = this.fb.group({
       numerosolapin: ['', Validators.required],
       codigobarra: ['', Validators.required],
@@ -79,10 +81,9 @@ export class AnularSolapinComponent implements OnInit {
   onSubmit(): void {
     if (this.solapinForm.valid) {
       var formData = this.solapinForm.value;
-      formData.estado = 0; // Anular el solapin
-
-      var fechaHoraActual = new Date();
-      formData.fecha = fechaHoraActual.toISOString();
+      formData.estado = 0;
+      var idcausa = formData.causaanulacion;
+      console.log("ESSSSSSSSSSSSSSSSSTOOOOOO: " + idcausa );
 
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {
@@ -92,6 +93,8 @@ export class AnularSolapinComponent implements OnInit {
         })
       ).subscribe(response => {
         if (response) {
+          this.registrarOperacionSolapin(response, idcausa);
+          this.registrarCiudadanoSolapinHist(response, idcausa);
           Swal.fire('Éxito', 'Solapín anulado correctamente', 'success');
           this.dialogRef.close();
         }
@@ -99,5 +102,68 @@ export class AnularSolapinComponent implements OnInit {
     }else{
         Swal.fire('Advertencia', 'Seleccione una causa de anulación', 'warning');
     }
+  }
+
+  registrarOperacionSolapin(response: any, idcausa:number){
+    var dataReg: any = {};
+    var user = localStorage.getItem('user');
+    var userId;
+
+    if (user) {
+        try {
+            var userObj = JSON.parse(user);
+            userId = userObj.id;
+        } catch (error) {
+            console.error("Error parsing user from localStorage", error);
+        }
+    }
+
+    dataReg.idsolapin = response.idsolapin;
+    dataReg.codigobarra = response.codigobarra;
+    dataReg.numerosolapin = response.numerosolapin;
+    dataReg.serial = response.serial;
+    dataReg.fechaoperacion = new Date();
+    dataReg.idusuario = userId;
+    dataReg.idcausaanulacion = idcausa;
+    dataReg.idtipooperacionsolapin = 2;
+
+      // Crear el registro de operacion del solapín
+      this.solapinService.createOperacionSolapin(dataReg).subscribe(() => {
+        console.log("REGISTRO DE OPERACION ANULAR SOLAPIN CREADO");
+      }, error => {
+        console.log("No se pudo crear el registro de operacion solapín");
+      });
+  }
+
+  registrarCiudadanoSolapinHist(response: any, idcausa:number){
+    var dataReg: any = {};
+    var user = localStorage.getItem('user');
+    var userId;
+
+    if (user) {
+        try {
+            var userObj = JSON.parse(user);
+            userId = userObj.id;
+        } catch (error) {
+            console.error("Error parsing user from localStorage", error);
+        }
+    }
+
+    dataReg.idciudadano = this.idciudadano;
+    dataReg.idsolapin = response.idsolapin;
+    dataReg.fechaactivado = response.fecha;
+    dataReg.serialsolapin = response.serial;
+    dataReg.identificadoranulacion = idcausa;
+    dataReg.idusuario = userId;
+    dataReg.fechadesactivado = new Date();
+    dataReg.codigobarra = response.codigobarra;
+
+      // Crear el registro de operacion del solapín
+      this.solapinService.createCiudadanoSolapinHist(dataReg).subscribe(() => {
+        console.log("REGISTRO DE CIUDADANO SOLAPIN HISTORIAL CREADO");
+        console.log(dataReg);
+      }, error => {
+        console.log("No se pudo crear el registro de ciudadano solapín historial");
+      });
   }
 }

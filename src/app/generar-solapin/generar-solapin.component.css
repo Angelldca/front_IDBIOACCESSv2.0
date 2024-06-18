@@ -58,6 +58,7 @@
 
 .form-group-serial .serial-wrapper input {
   flex: 1;
+  margin-right: 5px;
 }
 
 .form-group-serial .serial-wrapper button {
@@ -119,4 +120,11 @@
 .form-group select option {
   color: black;
   font-size: 15px;
+}
+
+#infolote {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.875em;  /* Tamaño de fuente más pequeño */
+  color: #555;
 }

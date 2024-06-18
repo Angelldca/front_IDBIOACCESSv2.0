@@ -31,6 +31,7 @@ export class GenerarSolapinComponent implements OnInit {
   idciudadano: number;
   fecha: string = "";
   prefijoNumeroSolapin: string = "";
+  serialCount: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -115,31 +116,13 @@ export class GenerarSolapinComponent implements OnInit {
     });
 
     this.solapinService.getUltimoSerial().subscribe(data => {
-      var serial:number = data.serial;
-      var serialS: string = "";
-      
-      switch ( (serial.toString()).length ){
-        case 6:
-          serialS = serial.toString();
-          break;
-        case 5:
-          serialS = "0" + serial.toString();
-          break;
-        case 4:
-          serialS = "00" + serial.toString();
-          break;
-        case 3:
-          serialS = "000" + serial.toString();
-          break;
-        case 2:
-          serialS = "0000" + serial.toString();
-          break;
-        case 1:
-          serialS = "00000" + serial.toString();
-          break;
-      }
+      var serial:string = data.serial;
 
-      this.solapinForm.patchValue({ serial: serialS });
+      this.solapinService.getSerialCount(serial).subscribe(data => {
+        this.serialCount = data.count;
+      })
+
+      this.solapinForm.patchValue({ serial: serial });
     });
   }
 
@@ -170,6 +153,10 @@ export class GenerarSolapinComponent implements OnInit {
           break;
       }
 
+      this.solapinService.getSerialCount(serialS).subscribe(data => {
+        this.serialCount = data.count;
+      })
+
       this.solapinForm.patchValue({ serial: serialS });
       
     });
@@ -182,8 +169,7 @@ export class GenerarSolapinComponent implements OnInit {
       var formData = this.solapinForm.value;
       formData.idciudadano = this.idciudadano;
       formData.estado = 1;
-      var fechaHoraActual = new Date();
-      formData.fecha = fechaHoraActual.toISOString();
+      formData.fecha = new Date();
 
       this.solapinService.createSolapin(formData).pipe(
         catchError(error => {
@@ -194,6 +180,7 @@ export class GenerarSolapinComponent implements OnInit {
       ).subscribe(response => {
         if (response) {
           this.registrarNuevoSolapin(response);
+          this.registrarOperacionSolapin(response);
 
           Swal.fire('Éxito', 'Solapín generado correctamente', 'success');
           this.dialogRef.close();
@@ -243,4 +230,36 @@ export class GenerarSolapinComponent implements OnInit {
             console.log("No se pudo obtener los datos de tipo de solapin");
           });
   }
+
+  registrarOperacionSolapin(response: any){
+    var dataReg: any = {};
+    var user = localStorage.getItem('user');
+    var userId;
+
+    if (user) {
+        try {
+            var userObj = JSON.parse(user);
+            userId = userObj.id;
+        } catch (error) {
+            console.error("Error parsing user from localStorage", error);
+        }
+    }
+
+    dataReg.idsolapin = response.idsolapin;
+    dataReg.codigobarra = response.codigobarra;
+    dataReg.numerosolapin = response.numerosolapin;
+    dataReg.serial = response.serial;
+    dataReg.fechaoperacion = new Date();
+    dataReg.idusuario = userId;
+    dataReg.idcausaanulacion = null;
+    dataReg.idtipooperacionsolapin = 3;
+
+      // Crear el registro de operacion del solapín
+      this.solapinService.createOperacionSolapin(dataReg).subscribe(() => {
+        console.log("REGISTRO DE OPERACION CREAR SOLAPIN CREADO");
+      }, error => {
+        console.log("No se pudo crear el registro de operacion solapín");
+      });
+  }
+
 }

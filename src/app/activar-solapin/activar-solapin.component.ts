@@ -75,9 +75,6 @@ export class ActivarSolapinComponent implements OnInit {
       var formData = this.solapinForm.value;
       formData.estado = 1; // Activar el solapin
 
-      var fechaHoraActual = new Date();
-      formData.fecha = fechaHoraActual.toISOString();
-
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {
           // Manejo del error
@@ -86,10 +83,42 @@ export class ActivarSolapinComponent implements OnInit {
         })
       ).subscribe(response => {
         if (response) {
+          this.registrarOperacionSolapin(response);
           Swal.fire('Éxito', 'Solapín activado correctamente', 'success');
           this.dialogRef.close();
         }
       });
     }
+  }
+
+  registrarOperacionSolapin(response: any){
+    var dataReg: any = {};
+    var user = localStorage.getItem('user');
+    var userId;
+
+    if (user) {
+        try {
+            var userObj = JSON.parse(user);
+            userId = userObj.id;
+        } catch (error) {
+            console.error("Error parsing user from localStorage", error);
+        }
+    }
+
+    dataReg.idsolapin = response.idsolapin;
+    dataReg.codigobarra = response.codigobarra;
+    dataReg.numerosolapin = response.numerosolapin;
+    dataReg.serial = response.serial;
+    dataReg.fechaoperacion = new Date();
+    dataReg.idusuario = userId;
+    dataReg.idcausaanulacion = null;
+    dataReg.idtipooperacionsolapin = 1;
+
+      // Crear el registro de operacion del solapín
+      this.solapinService.createOperacionSolapin(dataReg).subscribe(() => {
+        console.log("REGISTRO DE OPERACION ACTIVAR SOLAPIN CREADO");
+      }, error => {
+        console.log("No se pudo crear el registro de operacion solapín");
+      });
   }
 }

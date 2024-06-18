@@ -77,9 +77,6 @@ export class ModificarSolapinComponent implements OnInit {
       var formData = this.solapinForm.value;
       formData.numerosolapin = this.numerosolapin;
 
-      var fechaHoraActual = new Date();
-      formData.fecha = fechaHoraActual.toISOString();
-
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {
           // Manejo del error
