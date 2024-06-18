@@ -50,9 +50,16 @@ export class SolapinService {
       );
   }
 
-  deleteSolapin(id: number): Observable<any> {
-    const url = `${this.apiUrl}${id}/delete_solapin/`;
-    return this.http.delete<any>(url)
+  deleteSolapin(numerosolapin: string): Observable<void> {
+    const url = `${this.apiUrl}delete_solapin/`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: { numerosolapin }
+    };
+
+    return this.http.delete<void>(url, httpOptions)
       .pipe(
         catchError(this.handleError)
       );

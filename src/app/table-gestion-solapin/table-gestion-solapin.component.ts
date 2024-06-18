@@ -230,7 +230,6 @@ export class TableGestionSolapinComponent implements AfterViewInit ,OnInit,OnCha
 
   openAnularSolapinDialog(idCiudadano: number): void {
     const dialogRef = this.dialog.open(AnularSolapinComponent, {
-      width: '400px',
       data: { idCiudadano }
     });
   

@@ -32,6 +32,7 @@ export class AnularSolapinComponent implements OnInit {
   idciudadano: number = 0;
   fecha: string = "";
   solapin: any;
+  pagoActivo: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -47,6 +48,8 @@ export class AnularSolapinComponent implements OnInit {
       serial: ['', Validators.required],
       idtiposolapin: [{value: '', disabled: true}],
       causaanulacion: ['', Validators.required],
+      tipopago: ['Efectivo'],
+      monto: [null, [Validators.min(0.01)]]
     });
   }
 
@@ -61,7 +64,12 @@ export class AnularSolapinComponent implements OnInit {
 
     this.solapinService.getSolapin({numerosolapin: this.numerosolapin}).subscribe(
       data => {
-        this.solapin = data; 
+        this.solapin = data;
+
+        if(this.solapin.estado == 0){
+          Swal.fire('Error', 'Este solapín ya se encuentra anulado', 'error');
+          this.dialogRef.close();
+        }
 
         this.solapinForm.patchValue({ 
           numerosolapin: this.solapin.numerosolapin,
@@ -76,6 +84,24 @@ export class AnularSolapinComponent implements OnInit {
       }
     );
 
+    // Suscribirse a los cambios del FormControl causaanulacion
+    this.solapinForm.get('causaanulacion')?.valueChanges.subscribe(value => {
+      switch (value) {
+        case '1':
+        case '4':
+        case '7':
+        case '8':
+          this.pagoActivo = true;
+          break;
+        case '2':
+        case '3':
+        case '5':
+        case '6':
+          this.pagoActivo = false;
+          break;
+      }
+    });
+
   }
 
   onSubmit(): void {
@@ -83,24 +109,38 @@ export class AnularSolapinComponent implements OnInit {
       var formData = this.solapinForm.value;
       formData.estado = 0;
       var idcausa = formData.causaanulacion;
-      console.log("ESSSSSSSSSSSSSSSSSTOOOOOO: " + idcausa );
+      
+        this.solapinService.updateSolapin(formData).pipe(
+          catchError(error => {
+            Swal.fire('Error', 'No se pudo anular el solapín', 'error');
+            return of(null);
+          })
+        ).subscribe(response => {
+          if (response) {
+            if (this.pagoActivo) {
+              var monto = formData.monto;
+              var tipopago = formData.tipopago;
+              this.registrarPago(response, idcausa, monto, tipopago);
+            }
+            this.registrarOperacionSolapin(response, idcausa);
+            this.registrarCiudadanoSolapinHist(response, idcausa);
 
-      this.solapinService.updateSolapin(formData).pipe(
-        catchError(error => {
-          // Manejo del error
-          Swal.fire('Error', 'No se pudo anular el solapín', 'error');
-          return of(null); // Retornar un observable nulo para completar el flujo
-        })
-      ).subscribe(response => {
-        if (response) {
-          this.registrarOperacionSolapin(response, idcausa);
-          this.registrarCiudadanoSolapinHist(response, idcausa);
-          Swal.fire('Éxito', 'Solapín anulado correctamente', 'success');
-          this.dialogRef.close();
-        }
-      });
+            if(idcausa == 6){
+              this.solapinService.deleteSolapin(response.numerosolapin).pipe(
+                catchError(error => {
+                  console.log('Error al desasociar solapín');
+                  this.dialogRef.close();
+                  return of(null);
+                })
+              ).subscribe(response => {
+              });
+            }
+            Swal.fire('Éxito', 'Solapín anulado correctamente', 'success');
+            this.dialogRef.close();
+          }
+        });
     }else{
-        Swal.fire('Advertencia', 'Seleccione una causa de anulación', 'warning');
+        Swal.fire('Advertencia', 'Complete el formulario correctamente', 'warning');
     }
   }
 
@@ -161,9 +201,40 @@ export class AnularSolapinComponent implements OnInit {
       // Crear el registro de operacion del solapín
       this.solapinService.createCiudadanoSolapinHist(dataReg).subscribe(() => {
         console.log("REGISTRO DE CIUDADANO SOLAPIN HISTORIAL CREADO");
-        console.log(dataReg);
       }, error => {
         console.log("No se pudo crear el registro de ciudadano solapín historial");
+      });
+  }
+
+  registrarPago(response: any, idcausa: number, monto: number, tipopago: string){
+    var dataReg: any = {};
+    var user = localStorage.getItem('user');
+    var userId;
+
+    if (user) {
+        try {
+            var userObj = JSON.parse(user);
+            userId = userObj.id;
+        } catch (error) {
+            console.error("Error parsing user from localStorage", error);
+        }
+    }
+
+    dataReg.idciudadano = this.idciudadano;
+    dataReg.idsolapin = response.idsolapin;
+    dataReg.idusuario = userId;
+    dataReg.idcausaanulacion = idcausa;
+    dataReg.monto = monto;
+    dataReg.tipopago = tipopago;
+    dataReg.idtransferencia = "";
+    dataReg.fecha = new Date();
+
+      // Crear el registro de operacion del solapín
+      this.solapinService.createRegistroPago(dataReg).subscribe(() => {
+        console.log("REGISTRO DE PAGO CREADO");
+        
+      }, error => {
+        console.log("No se pudo crear el registro de pago");
       });
   }
 }

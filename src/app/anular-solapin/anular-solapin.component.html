@@ -30,6 +30,20 @@
           </option>
         </select>
       </div>
+
+      <div class="form-group form-group-pago" *ngIf="pagoActivo">
+        <div>
+          <label for="tipopago">Método de pago</label>
+        </div>
+        <div class="pago-wrapper">
+          <select mat-dialog-content id="tipopago" formControlName="tipopago">
+            <option value="Efectivo">Efectivo</option>
+            <option value="Transferencia" disabled>Transferencia</option>
+          </select>
+          <input mat-dialog-content id="monto" formControlName="monto" type="number"/>
+          <label mat-dialog-content id="cup">CUP</label>
+        </div>
+      </div>
       <div class="button-group">
         <button mat-button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
         <button mat-button type="submit" class="btn-submit">Anular</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SolapinService } from '../solapin.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,9 +42,9 @@ export class ModificarSolapinComponent implements OnInit {
     this.numerosolapin = data.idCiudadano.solapin; // Pasar el numerosolapin al componente
     this.nuevonumerosolapin = this.numerosolapin;
     this.solapinForm = this.fb.group({
-      nuevonumerosolapin: ['', Validators.required],
-      codigobarra: ['', Validators.required],
-      serial: ['', Validators.required],
+      nuevonumerosolapin: ['', [Validators.required, numerosolapinValidator()]],
+      codigobarra: ['', [Validators.required, codigobarraValidator()]],
+      serial: ['', [Validators.required, serialValidator()]],
       idtiposolapin: ['', Validators.required],
     });
   }
@@ -73,8 +74,9 @@ export class ModificarSolapinComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.solapinForm.valid && this.solapinForm.dirty) {
-      var formData = this.solapinForm.value;
+    if (this.solapinForm.valid) {
+      if (this.solapinForm.dirty) {
+        var formData = this.solapinForm.value;
       formData.numerosolapin = this.numerosolapin;
 
       this.solapinService.updateSolapin(formData).pipe(
@@ -89,8 +91,36 @@ export class ModificarSolapinComponent implements OnInit {
           this.dialogRef.close();
         }
       });
+      }else{
+        Swal.fire('Advertencia', 'No se ha modificado ningún campo', 'warning');
+      }
+      
     }else{
-      Swal.fire('Advertencia', 'No se ha modificado ningún campo', 'warning');
+      Swal.fire('Advertencia', 'Alguno de los valores a modificar no es válido', 'warning');
     }
   }
+}
+
+export function numerosolapinValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const regex = /^[ETXVF][0-9]{6}$/;
+    return regex.test(value) ? null : { invalidNumerosolapin: true };
+  };
+}
+
+export function codigobarraValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const regex = /^[ETXVF][0-9]{7}$/;
+    return regex.test(value) ? null : { invalidCodigobarra: true };
+  };
+}
+
+export function serialValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const regex = /^[0-9]{6}$/;
+    return regex.test(value) ? null : { invalidSerial: true };
+  };
 }
