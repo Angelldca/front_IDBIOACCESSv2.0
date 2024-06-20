@@ -1,0 +1,107 @@
+@if (ciudadanos) {
+
+    <div class="mat-elevation-z8 tabla_div animate__animated animate__fadeIn animate__fast">
+      <table mat-table [dataSource]="dataSource">
+    
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element ; let i = index">{{i+1}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="numerosolapin">
+          <th mat-header-cell *matHeaderCellDef> Numero de solapín </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.numerosolapin}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="serial">
+          <th mat-header-cell *matHeaderCellDef> Serial </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.serial}}
+          </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="codigobarra">
+          <th mat-header-cell *matHeaderCellDef> Código de barra </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.codigobarra}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idtiposolapin">
+          <th mat-header-cell *matHeaderCellDef> Tipo de solapín </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.idtiposolapin}}
+    
+          </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="nombrecompleto">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element">
+    
+            {{element.nombrecompleto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="area">
+          <th mat-header-cell *matHeaderCellDef> Area </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.area}}
+    
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="roluniversitario">
+          <th mat-header-cell *matHeaderCellDef> Rol Universitario </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.roluniversitario}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="residente">
+          <th mat-header-cell *matHeaderCellDef> Residente </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.residente}}
+    
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha de creación </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.fecha}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="datatiposolapin">
+          <th mat-header-cell *matHeaderCellDef> Tipo de solapín </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.datatiposolapin}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="datacategoriasolapin">
+          <th mat-header-cell *matHeaderCellDef> Categoría </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.datacategoriasolapin}}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="page_size" (page)="onPageFired($event)" class="paginator">
+    
+      </mat-paginator>
+    </div>
+    
+    }
+    @else {
+    <div class="newSearch animate__animated animate__fadeIn animate__fast">
+    
+      <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg"
+        alt="nueva busqueda" />
+    
+      <div class="animate__animated animate__fadeInRight">
+        <h3>No se encontraron ciudadanos</h3>
+        <p>Realize una nueva busqueda</p>
+      </div>
+    </div>
+    }

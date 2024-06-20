@@ -34,9 +34,22 @@ export class SolapinService {
       );
   }
 
-  createSolapin(data: any): Observable<any> {
-    const url = `${this.apiUrl}create_solapin/`;
+  getNewSolapin(data: { fecha_inicio: Date, fecha_fin: Date }): Observable<any> {
+    const url = `${this.apiUrlNewSolapinHist}rango_fecha/`;
     return this.http.post<any>(url, data)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  createSolapin(data: any): Observable<any> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    const url = `${this.apiUrl}create_solapin/`;
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -44,18 +57,26 @@ export class SolapinService {
 
   updateSolapin(data: any): Observable<any> {
     const url = `${this.apiUrl}update_solapin/`;
-    return this.http.put<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.put<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteSolapin(numerosolapin: string): Observable<void> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
     const url = `${this.apiUrl}delete_solapin/`;
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
+      headers: headers,
       body: { numerosolapin }
     };
 
@@ -152,4 +173,93 @@ export class SolapinService {
         catchError(this.handleError)
       );
   }
+
+  getNewsolapin_pagination(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get<Pagination>(url,{headers});
+  }
+
+  getOperacionSolapin_pagination(url: string) {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get<OperacionPagination>(url,{headers});
+  }
+}
+
+export interface NewSolapin {
+  idhistorico: any;
+  idsolapin: any;
+  numerosolapin: string;
+  serial: string;
+  codigobarra: string;
+  idtiposolapin: number,
+  nombrecompleto: string,
+  area: string,
+  roluniversitario: string,
+  residente: boolean;
+  fecha: any,
+  datatiposolapin: string;
+  datacategoriasolapin: string;
+  idciudadano: any,
+  detail: string,
+  data: {
+    idhistorico: any;
+  idsolapin: any;
+  numerosolapin: string;
+  serial: string;
+  codigobarra: string;
+  idtiposolapin: number,
+  nombrecompleto: string,
+  area: string,
+  roluniversitario: string,
+  residente: boolean;
+  fecha: any,
+  datatiposolapin: string;
+  datacategoriasolapin: string;
+  idciudadano: any,
+  }
+}
+
+export interface OperacionSolapin {
+  idoperacionsolapin: any,
+  idsolapin: number,
+  codigobarra: string,
+  numerosolapin: string,
+  serial: string,
+  fechaoperacion: any,
+  idusuario: number,
+  idcausaanulacion: number,
+  idtipooperacionsolapin: number,
+  data: {
+    idoperacionsolapin: any,
+    idsolapin: number,
+    codigobarra: string,
+    numerosolapin: string,
+    serial: string,
+    fechaoperacion: any,
+    idusuario: number,
+    idcausaanulacion: number,
+    idtipooperacionsolapin: number,
+  }
+}
+
+export interface Pagination {
+  count: Number,
+  next: string,
+  previous: string,
+  results: NewSolapin[]
+}
+
+export interface OperacionPagination {
+  count: Number,
+  next: string,
+  previous: string,
+  results: OperacionSolapin[]
 }

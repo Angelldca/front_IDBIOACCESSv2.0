@@ -160,7 +160,6 @@
     </div>
 
     <!--Gestion-->
-
     <div (click)="showSubmenu('gestion_solapin')"
      class="opciones">
        <section class="btn_cd desplegable" >
@@ -179,12 +178,32 @@
             </section>
 
             <section class="btnSubmenu" routerLink="ciudadano_list_as">
-                <p>Reactivar solapín</p>
+                <p>Activar solapín</p>
                 </section>
 
-           <div (click)="showSubmenu('gestion_solapin')"
-            class="contReporte">
-           </div>
+                <!--Reportes Gestion-->
+                <div (click)="showSubmenu('reporte_gestion_solapin')"
+                class="contReporte">
+                  <section class="btn_cd desplegable">
+                      <p>Reportes Gestión</p>
+                      <img class="rotateIcon" src="../../assets/img/chevron_right.svg" alt="ri" />
+                  </section>
+    
+               @if(isReportesGestionSolapin){
+                <div id="submenu" (click)="showSubmenu('reporte_gestion_solapin')" >
+
+                    <section class="btnSubmenu" routerLink="reporte_newsolapin">
+                        <p>Solapines creados</p>
+                    </section>
+                    <section class="btnSubmenu" routerLink="reporte_operacionsolapin">
+                        <p>Operaciones solapín</p>
+                    </section>
+                    <section class="btnSubmenu" routerLink="reporte_pago">
+                        <p>Pagos</p>
+                    </section>
+                </div>
+                }
+            </div>
        </div>
        <hr/>
     }

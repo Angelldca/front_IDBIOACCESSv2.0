@@ -108,6 +108,7 @@ export class AnularSolapinComponent implements OnInit {
     if (this.solapinForm.valid) {
       var formData = this.solapinForm.value;
       formData.estado = 0;
+      formData.action_description = "Anular";
       var idcausa = formData.causaanulacion;
       
         this.solapinService.updateSolapin(formData).pipe(

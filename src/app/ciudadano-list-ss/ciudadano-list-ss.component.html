@@ -1,6 +1,5 @@
 <div class="ciudadanoListSS">
     <h2 style="padding-left: 20px">Lista de Ciudadanos sin Identificación</h2>
-    <hr/>
     <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
     <table-generar-solapin buscar={{search}} urlCiudadanos={{urlList}} (newUserIDEvent)="getUserID($event)"/>
 </div>

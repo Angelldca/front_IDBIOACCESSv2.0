@@ -3,8 +3,7 @@
         <app-tomar-foto userID = {{userID}} (newEmitterUserIDChange)="getUserID($event)"/>
         
     } @else {
-        <h2 style="padding-left: 20px">Lista de Ciudadanos con Solapín Desactivado</h2>
-        <hr/>
+        <h2>Lista de Ciudadanos con Solapín Desactivado</h2>
         <app-buscar-ciudadano (newSearchEvent)="getBusqueda($event)"/>
         <table-activar-solapin buscar={{search}} urlCiudadanos={{urlList}} (newUserIDEvent)="getUserID($event)"/>
     }

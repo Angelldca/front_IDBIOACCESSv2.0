@@ -1,0 +1,88 @@
+@if (ciudadanos) {
+
+    <div class="mat-elevation-z8 tabla_div animate__animated animate__fadeIn animate__fast">
+      <table mat-table [dataSource]="dataSource">
+    
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element ; let i = index">{{i+1}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="idciudadano">
+          <th mat-header-cell *matHeaderCellDef> CI Ciudadano</th>
+          <td mat-cell *matCellDef="let element">
+            {{element.datosciudadano.carnetidentidad}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idsolapin">
+          <th mat-header-cell *matHeaderCellDef> Solapín </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.datossolapin.numerosolapin}}
+          </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="idusuario">
+          <th mat-header-cell *matHeaderCellDef> Usuario </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.datosusuario.username}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idcausaanulacion">
+          <th mat-header-cell *matHeaderCellDef> Causa de anulación </th>
+          <td mat-cell *matCellDef="let element">
+            {{ parseCausaAnulacion(element.idcausaanulacion) }}
+    
+          </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef> Monto </th>
+          <td mat-cell *matCellDef="let element">
+    
+            {{element.monto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="tipopago">
+          <th mat-header-cell *matHeaderCellDef> Tipo de pago </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.tipopago}}
+    
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idtransferencia">
+          <th mat-header-cell *matHeaderCellDef> ID de transferencia </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.idtransferencia}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element">
+            {{element.fecha}}
+    
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="page_size" (page)="onPageFired($event)" class="paginator">
+    
+      </mat-paginator>
+    </div>
+    
+    }
+    @else {
+    <div class="newSearch animate__animated animate__fadeIn animate__fast">
+    
+      <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg"
+        alt="nueva busqueda" />
+    
+      <div class="animate__animated animate__fadeInRight">
+        <h3>No se encontraron pagos</h3>
+        <p>Realize una nueva busqueda</p>
+      </div>
+    </div>
+    }

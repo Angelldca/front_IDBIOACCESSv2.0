@@ -1,10 +1,9 @@
 import { Component,AfterViewInit, ViewChild, OnInit, OnChanges, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatIconModule} from '@angular/material/icon';
-import { MatButtonModule} from '@angular/material/button';
-import { CiudadanoService, Ciudadano } from '../ciudadano-table/ciudadano.service';
-import { ActivarSolapinComponent } from '../activar-solapin/activar-solapin.component';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { PagoService, Pagination, RegistroPago } from '../pago.service';
 
 import {
   MatDialog,
@@ -16,24 +15,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
-
 @Component({
-  selector: 'table-activar-solapin',
+  selector: 'app-table-reporte-pago',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule,
     MatIconModule,MatButtonModule,
   ],
-  providers:[CiudadanoService],
-  templateUrl: './table-activar-solapin.component.html',
-  styleUrl: './table-activar-solapin.component.css'
+  providers:[PagoService],
+  templateUrl: './table-reporte-pago.component.html',
+  styleUrl: './table-reporte-pago.component.css'
 })
 
 
-export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnChanges  {
+export class TableReportePagoComponent implements AfterViewInit ,OnInit,OnChanges  {
   @Input() buscar:string|undefined;
   @Input() urlCiudadanos:string|undefined;
   @Output() newUserIDEvent = new EventEmitter<string>();
-  constructor(private ciudadanoService :CiudadanoService,public dialog: MatDialog, private router: Router){
+  constructor(private pagoService: PagoService,public dialog: MatDialog, private router: Router){
 
   }
   addNewUserID(value: string) {
@@ -55,30 +53,28 @@ export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnCha
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadanoas/?${atributo}=${value}`
+        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
     }
   }
 
-  displayedColumns: string[] = ['id',
-  'opciones',
-  'img','primernombre','segundonombre', 'primerapellido','segundoapellido', 'area', 
-  'roluniversitario', 'carnetidentidad', 'solapin', 'provincia','municipio',
-  'sexo','residente','idexpediente','fechanacimiento'];
-  ciudadanos: Ciudadano[] | undefined;
-  ELEMENT_DATA: Ciudadano[] = [];
-  dataSource = new MatTableDataSource<Ciudadano>(this.ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'idciudadano', 'idsolapin', 'idusuario', 'idcausaanulacion', 'monto',
+    'tipopago', 'idtransferencia', 'fecha'
+  ];
+  ciudadanos: RegistroPago[] | undefined;
+  ELEMENT_DATA: RegistroPago[] = [];
+  dataSource = new MatTableDataSource<RegistroPago>(this.ELEMENT_DATA);
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadanoas/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadanoas/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanoas/`
+  url:string = `http://127.0.0.1:8000/api/newsolapinhist/`
+  urlNext:string = `http://127.0.0.1:8000/api/newsolapinhist/`
+  urlPrevious:string = `http://127.0.0.1:8000/api/newsolapinhist/`
   count:Number = 5
   page_size = 6
-  ciudadano:Ciudadano | undefined
+  ciudadano:RegistroPago | undefined
   
   error: any;
   headers: string[] = [];
@@ -90,13 +86,12 @@ export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
   showCiudadanos(url:string) {
-    this.ciudadanoService.getCiudadano_pagination(url)
+    this.pagoService.getRegistroPago_pagination(url)
       .subscribe({
         next: data => {
           console.log(data)
           if(data.results.length> 0){
             this.ciudadanos = data.results
-            this.ciudadanos.forEach(c => c.editMode = false)
             this.ELEMENT_DATA = this.ciudadanos
             this.dataSource.data = this.ELEMENT_DATA;
             this.url = url
@@ -114,6 +109,37 @@ export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnCha
       
   }
 
+  parseCausaAnulacion(idcausaanulacion: any){
+    var nombreCausa;
+    switch (idcausaanulacion) {
+      case 1:
+        nombreCausa = "Pérdida de solapín";
+        break;
+      case 2:
+        nombreCausa = "Corrección de datos";
+        break;
+      case 3:
+        nombreCausa = "Corrección de imágenes";
+        break;
+      case 4:
+        nombreCausa = "Deterioro de solapín";
+        break;
+      case 5:
+        nombreCausa = "Baja";
+        break;
+      case 6:
+        nombreCausa = "Desasociar";
+        break;
+      case 7:
+        nombreCausa = "Baja con pérdida de solapín";
+        break;
+      case 8:
+        nombreCausa = "Baja con adeudos";
+        break;
+    }
+    return nombreCausa;
+  }
+
 
   onPageFired(event:any){
     if(event.previousPageIndex > event.pageIndex){
@@ -127,10 +153,6 @@ export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnCha
     
   }
   
-  parseResidente(residente:boolean){
-    return residente? "Sí" : "No";
-  }
-
   ngOnInit(): void {
     // Lógica que deseas ejecutar al renderizar el componente
     if(this.urlCiudadanos != undefined){
@@ -149,18 +171,6 @@ export class TableActivarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   
   ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
-
-  }
-
-  openActivarSolapinDialog(idCiudadano: number): void {
-    const dialogRef = this.dialog.open(ActivarSolapinComponent, {
-      width: '400px',
-      data: { idCiudadano }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-        this.showCiudadanos(this.url); // Actualizar la tabla si es necesario
-    });
   }
 }
 
@@ -171,4 +181,5 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
+
 

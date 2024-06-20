@@ -1,0 +1,36 @@
+
+<div class="report_date_Container">
+    <h2>Operaciones por solapín</h2>
+    
+      <form class="search_elements animate__animated animate__fadeIn animate__faster" [formGroup]="ciudadanoForm" (ngSubmit)="ciudadanoForm">
+          <div class="buscar">
+            <input matInput placeholder="Número de solapín..."[formControl]="busqueda" class="inputSearch">
+              <button aria-label="buscar" class="buscarb" type="submit" (click)="onSubmit(ciudadanoForm)">
+                <img src="../../assets/img/search.svg"/>
+              </button>
+          </div>
+      
+
+    <section class="btn_export">
+      <p>Exportar registro en csv</p>
+      <span (click)="donwloadListCiudadanos(ciudadanoForm)">
+          Descargar
+          <button mat-button color="primary" aria-label="download">
+            <img src="../../assets/img/download.svg"/>
+          </button>
+      </span>
+    </section>
+  </form>
+
+
+    
+    @if(search){
+      @if(userID !== undefined && userID !== null){
+        <app-tomar-foto userID={{userID}} (newEmitterUserIDChange)="getUserID($event)" />
+    
+        }@else {
+          <app-table-reporte-operacionsolapin
+          [urlCiudadanos]="urlCiudadanos"
+          (newUserIDEvent)="getUserID($event)"/>
+        }
+    }

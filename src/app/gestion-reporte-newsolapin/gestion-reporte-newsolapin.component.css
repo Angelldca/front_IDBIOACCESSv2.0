@@ -1,21 +1,32 @@
-
-.ciudadanoListSS {
-    width:80%;
+.report_date_Container{
+    width: 100%;
 }
-h2 {
+.formContainer{
+    display: flex;
+    justify-content: space-between;
+  }
+.example-form-field {
+    margin-right: 20px;
+    width: 300px;
+  }
+
+  h2 {
     padding-top: 5px;
     padding-left: 20px;
     margin: 0px;
     background-color:  #d3dbe3;
 }
 
+  
 .btn_export{
     display: flex;
     align-items: baseline;
     justify-content: end;
-    margin-bottom: 10px;
+   
    }
-
+   
+   
+   
    span{
        display: flex;
        align-items: center;
@@ -25,7 +36,7 @@ h2 {
        background-color: #71c4ef;
        border: none;
        width: 115px;
-       height:35px;
+       height:20px;
        border-radius: 5px;
        margin-left: 10px;
        margin-right: 10px;
@@ -40,6 +51,22 @@ h2 {
        transform: scale(0.95);
    }
    
-   mat-icon {
+mat-icon {
     color: #444;
-   }
+}
+
+.search_elements{
+    background-color: #d3dbe3;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+button{
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 10px;
+    color: #ffffff;
+}

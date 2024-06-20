@@ -106,6 +106,10 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
       
   }
 
+  parseResidente(residente:boolean){
+    return residente? "Sí" : "No";
+  }
+
 
   onPageFired(event:any){
     if(event.previousPageIndex > event.pageIndex){

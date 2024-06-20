@@ -23,6 +23,7 @@ export class MenuPrincipalComponent {
   isSeguridadVisible = false;
   isReporteSeguridadVisible = false;
   isGestionSolapinVisible = false;
+  isReportesGestionSolapin = false;
 
   showSubmenu(elements: string) {
     switch (elements){
@@ -41,6 +42,8 @@ export class MenuPrincipalComponent {
       case 'gestion_solapin':
           this.isGestionSolapinVisible = !this.isGestionSolapinVisible;
           break;
+      case 'reporte_gestion_solapin':
+          this.isReportesGestionSolapin = !this.isReportesGestionSolapin;
     }
     
   }
@@ -62,7 +65,9 @@ export class MenuPrincipalComponent {
       case 'gestion_solapin':
             this.isGestionSolapinVisible = false;
             break;
-
+      case 'reporte_gestion_solapin':
+          this.isReportesGestionSolapin = false;
+          break;
     }
   }
   }

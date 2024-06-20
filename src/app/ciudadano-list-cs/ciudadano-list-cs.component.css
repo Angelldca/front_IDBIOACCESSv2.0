@@ -3,6 +3,13 @@
     width:80%;
 }
 
+h2 {
+    padding-top: 5px;
+    padding-left: 20px;
+    margin: 0px;
+    background-color:  #d3dbe3;
+}
+
 .btn_export{
     display: flex;
     align-items: baseline;

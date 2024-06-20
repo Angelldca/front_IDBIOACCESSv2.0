@@ -74,6 +74,7 @@ export class ActivarSolapinComponent implements OnInit {
     if (this.solapinForm.valid) {
       var formData = this.solapinForm.value;
       formData.estado = 1; // Activar el solapin
+      formData.action_description = "Activar";
 
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {

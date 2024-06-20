@@ -1,0 +1,82 @@
+@if (ciudadanos) {
+
+  <div class="mat-elevation-z8 tabla_div animate__animated animate__fadeIn animate__fast">
+    <table mat-table [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element ; let i = index">{{i+1}} </td>
+      </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="numerosolapin">
+        <th mat-header-cell *matHeaderCellDef> Numero de solapín </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.numerosolapin}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="serial">
+        <th mat-header-cell *matHeaderCellDef> Serial </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.serial}}
+        </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="codigobarra">
+        <th mat-header-cell *matHeaderCellDef> Código de barra </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.codigobarra}}
+        </td>
+      </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="idtipooperacionsolapin">
+        <th mat-header-cell *matHeaderCellDef> Tipo de operación </th>
+        <td mat-cell *matCellDef="let element">
+  
+          {{ parseTipoOperacion(element.idtipooperacionsolapin) }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaoperacion">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.fechaoperacion}}
+  
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idusuario">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.datosusuario.username}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idcausaanulacion">
+        <th mat-header-cell *matHeaderCellDef> Causa de anulación </th>
+        <td mat-cell *matCellDef="let element">
+          {{ parseCausaAnulacion(element.idcausaanulacion) }}
+  
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="page_size" (page)="onPageFired($event)" class="paginator">
+  
+    </mat-paginator>
+  </div>
+  
+  }
+  @else {
+  <div class="newSearch animate__animated animate__fadeIn animate__fast">
+  
+    <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg"
+      alt="nueva busqueda" />
+  
+    <div class="animate__animated animate__fadeInRight">
+      <h3>No se encontraron solapines</h3>
+      <p>Realize una nueva busqueda</p>
+    </div>
+  </div>
+  }

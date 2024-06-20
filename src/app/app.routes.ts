@@ -30,7 +30,9 @@ import { GenerarSolapinComponent } from './generar-solapin/generar-solapin.compo
 import { ModificarSolapinComponent } from './modificar-solapin/modificar-solapin.component';
 import { AnularSolapinComponent } from './anular-solapin/anular-solapin.component';
 import { ActivarSolapinComponent } from './activar-solapin/activar-solapin.component';
-
+import { GestionReporteNewSolapinComponent } from './gestion-reporte-newsolapin/gestion-reporte-newsolapin.component';
+import { GestionReporteOperacionSolapinComponent } from './gestion-reporte-operacionsolapin/gestion-reporte-operacionsolapin.component';
+import { GestionReportePagoComponent } from './gestion-reporte-pago/gestion-reporte-pago.component';
 
 export const routes: Routes = [
 
@@ -127,6 +129,24 @@ export const routes: Routes = [
       canActivate:[authGuard],
       data: { expectedRoles: ['view_user']},
       component: AnularSolapinComponent,
+    },
+    {
+      path: 'reporte_newsolapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: GestionReporteNewSolapinComponent,
+    },
+    {
+      path: 'reporte_operacionsolapin',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: GestionReporteOperacionSolapinComponent,
+    },
+    {
+      path: 'reporte_pago',
+      canActivate:[authGuard],
+      data: { expectedRoles: ['view_user']},
+      component: GestionReportePagoComponent,
     },
     {
       path: 'report_historial_ciudadanos',

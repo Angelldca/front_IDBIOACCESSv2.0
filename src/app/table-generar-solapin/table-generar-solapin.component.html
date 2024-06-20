@@ -110,7 +110,7 @@
         <ng-container matColumnDef="residente">
           <th mat-header-cell *matHeaderCellDef> Residente </th>
           <td mat-cell *matCellDef="let element">
-            {{element.residente}}
+            {{ parseResidente(element.residente)}}
           </td>
         </ng-container>
         <ng-container matColumnDef="fechanacimiento">

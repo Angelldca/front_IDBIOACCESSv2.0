@@ -78,6 +78,7 @@ export class ModificarSolapinComponent implements OnInit {
       if (this.solapinForm.dirty) {
         var formData = this.solapinForm.value;
       formData.numerosolapin = this.numerosolapin;
+      formData.action_description = "Modificar datos";
 
       this.solapinService.updateSolapin(formData).pipe(
         catchError(error => {
