@@ -43,7 +43,14 @@
           <input mat-dialog-content id="monto" formControlName="monto" type="number"/>
           <label mat-dialog-content id="cup">CUP</label>
         </div>
+        <div *ngIf="solapinForm.get('monto')?.invalid && solapinForm.get('monto')?.touched" class="error-messages">
+          <span *ngIf="solapinForm.get('monto')?.errors?.['required']">El monto es requerido.</span>
+          <span *ngIf="solapinForm.get('monto')?.errors?.['min']">El monto debe ser mayor o igual a 1.</span>
+          <span *ngIf="solapinForm.get('monto')?.errors?.['pattern']">El monto debe ser un número válido.</span>
+        </div>
       </div>
+
+
       <div class="button-group">
         <button mat-button type="button" class="btn-cancel" (click)="dialogRef.close()">Cancelar</button>
         <button mat-button type="submit" class="btn-submit">Anular</button>

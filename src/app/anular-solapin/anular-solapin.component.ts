@@ -49,7 +49,7 @@ export class AnularSolapinComponent implements OnInit {
       idtiposolapin: [{value: '', disabled: true}],
       causaanulacion: ['', Validators.required],
       tipopago: ['Efectivo'],
-      monto: [null, [Validators.min(0.01)]]
+      monto: [0, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]]
     });
   }
 
