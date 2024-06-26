@@ -28,7 +28,12 @@ export class SolapinService {
 
   getSolapin(data: { numerosolapin: string }): Observable<any> {
     const url = `${this.apiUrl}get_solapin_by_numero/`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -36,7 +41,12 @@ export class SolapinService {
 
   getNewSolapin(data: { fecha_inicio: Date, fecha_fin: Date }): Observable<any> {
     const url = `${this.apiUrlNewSolapinHist}rango_fecha/`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -87,48 +97,83 @@ export class SolapinService {
   }
 
   getUltimoNumerosolapin(): Observable<any> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
     const url = `${this.apiUrl}ultimo_numerosolapin/`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getUltimoCodigobarra(): Observable<any> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
     const url = `${this.apiUrl}ultimo_codigobarra/`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getUltimoSerial(): Observable<any> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
     const url = `${this.apiUrl}ultimo_serial/`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getTiposSolapin(): Observable<any> {
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
     const url = `${this.apiUrlTipo}`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getTipoSolapinById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrlTipo}${id}`);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get(`${this.apiUrlTipo}${id}`, {headers});
   }
 
   getSerialCount(serial: string): Observable<any> {
-    return this.http.get(`${this.apiUrlSerialCount}?serial=${serial}`);
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get(`${this.apiUrlSerialCount}?serial=${serial}`, {headers});
   }
 
   getCausasAnulacion(): Observable<any> {
     const url = `${this.apiUrlCausasAnulacion}`;
-    return this.http.get<any>(url)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -136,7 +181,12 @@ export class SolapinService {
 
   getTipoOperacion(): Observable<any> {
     const url = `${this.apiUrlTipoOperacion}`;
-    return this.http.get<any>(url)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.get<any>(url, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -144,7 +194,12 @@ export class SolapinService {
 
   createRegistroPago(data: any): Observable<any> {
     const url = `${this.apiUrlRegistroPagos}`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -152,7 +207,12 @@ export class SolapinService {
 
   createCiudadanoSolapinHist(data: any): Observable<any> {
     const url = `${this.apiUrlCiudadanoSolapinHist}`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -160,7 +220,12 @@ export class SolapinService {
 
   createNewSolapinHist(data: any): Observable<any> {
     const url = `${this.apiUrlNewSolapinHist}`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -168,7 +233,12 @@ export class SolapinService {
 
   createOperacionSolapin(data: any): Observable<any> {
     const url = `${this.apiUrlOperacionSolapin}`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -180,7 +250,7 @@ export class SolapinService {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
   });
-    return this.http.get<Pagination>(url,{headers});
+    return this.http.get<Pagination>(url, {headers});
   }
 
   getOperacionSolapin_pagination(url: string) {
@@ -189,7 +259,7 @@ export class SolapinService {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
   });
-    return this.http.get<OperacionPagination>(url,{headers});
+    return this.http.get<OperacionPagination>(url, {headers});
   }
 }
 

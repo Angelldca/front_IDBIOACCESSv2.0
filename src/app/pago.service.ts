@@ -16,7 +16,12 @@ export class PagoService {
 
   getRegistroPago(data: { fecha_inicio: Date, fecha_fin: Date }): Observable<any> {
     const url = `${this.apiUrlRegistroPagos}rango_fecha/`;
-    return this.http.post<any>(url, data)
+    const token = localStorage.getItem('Token')
+    const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  });
+    return this.http.post<any>(url, data, {headers})
       .pipe(
         catchError(this.handleError)
       );
@@ -28,7 +33,7 @@ export class PagoService {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`
   });
-    return this.http.get<Pagination>(url,{headers});
+    return this.http.get<Pagination>(url, {headers});
   }
 
   private handleError(error: any): Observable<never> {
