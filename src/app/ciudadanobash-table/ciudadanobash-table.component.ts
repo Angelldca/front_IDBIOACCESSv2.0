@@ -11,6 +11,7 @@ import {
 import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { urlBack } from '../Finals';
 
 @Component({
   selector: 'app-ciudadanobash-table',
@@ -44,7 +45,7 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
          break;
         }
       }
-        const urlFind = `http://127.0.0.1:8000/api/ciudadanobash/?${atributo}=${value}`
+        const urlFind = `${urlBack}ciudadanobash/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
         
     }
@@ -60,9 +61,9 @@ export class CiudadanobashTableComponent implements AfterViewInit ,OnInit,OnChan
   user = { ////Poner unuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadanobash/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadanobash/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanobash/`
+  url:string = `${urlBack}ciudadanobash/`
+  urlNext:string = `${urlBack}ciudadanobash/`
+  urlPrevious:string = `${urlBack}ciudadanobash/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined

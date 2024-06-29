@@ -72,9 +72,9 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/`
+  url:string = `${urlBack}ciudadano/`
+  urlNext:string = `${urlBack}ciudadano/`
+  urlPrevious:string = `${urlBack}ciudadano/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined
