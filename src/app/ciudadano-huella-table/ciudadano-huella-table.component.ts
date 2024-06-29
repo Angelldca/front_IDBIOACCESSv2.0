@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { CiudadanoService,Ciudadano } from '../ciudadano-table/ciudadano.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { urlBack } from '../Finals';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class CiudadanoHuellaTableComponent implements AfterViewInit ,OnInit,OnCh
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `${urlBack}ciudadano/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -67,9 +68,9 @@ export class CiudadanoHuellaTableComponent implements AfterViewInit ,OnInit,OnCh
   user = { ////Poner unuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadano/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadano/`
+  url:string = `${urlBack}ciudadano/`
+  urlNext:string = `${urlBack}ciudadano/`
+  urlPrevious:string = `${urlBack}ciudadano/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined

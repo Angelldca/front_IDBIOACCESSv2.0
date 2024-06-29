@@ -12,6 +12,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { urlBack } from '../Finals';
 
 
 
@@ -53,7 +54,7 @@ export class TableReporteNewSolapinComponent implements AfterViewInit ,OnInit,On
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `${urlBack}ciudadano/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -69,9 +70,9 @@ export class TableReporteNewSolapinComponent implements AfterViewInit ,OnInit,On
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/newsolapinhist/`
-  urlNext:string = `http://127.0.0.1:8000/api/newsolapinhist/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/newsolapinhist/`
+  url:string = `${urlBack}newsolapinhist/`
+  urlNext:string = `${urlBack}newsolapinhist/`
+  urlPrevious:string = `${urlBack}newsolapinhist/`
   count:Number = 5
   page_size = 6
   ciudadano:NewSolapin | undefined

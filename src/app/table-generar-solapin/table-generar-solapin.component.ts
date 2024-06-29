@@ -8,6 +8,7 @@ import { GenerarSolapinComponent } from '../generar-solapin/generar-solapin.comp
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { urlBack } from '../Finals';
 
 @Component({
   selector: 'table-generar-solapin',
@@ -47,7 +48,7 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadanoss/?${atributo}=${value}`
+        const urlFind = `${urlBack}ciudadanoss/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
@@ -65,9 +66,9 @@ export class TableGenerarSolapinComponent implements AfterViewInit ,OnInit,OnCha
   user = { ////Poner usuario autenticado
     entidad :"UCI"
   }
-  url:string = `http://127.0.0.1:8000/api/ciudadanoss/`
-  urlNext:string = `http://127.0.0.1:8000/api/ciudadanoss/`
-  urlPrevious:string = `http://127.0.0.1:8000/api/ciudadanoss/`
+  url:string = `${urlBack}ciudadanoss/`
+  urlNext:string = `${urlBack}ciudadanoss/`
+  urlPrevious:string = `${urlBack}ciudadanoss/`
   count:Number = 5
   page_size = 6
   ciudadano:Ciudadano | undefined

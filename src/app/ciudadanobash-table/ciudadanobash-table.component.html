@@ -17,21 +17,24 @@
                (click)="capturarImg(element)"
                matTooltip="Capturar imagen y datos biograficos"
                >
-                <img src="../../assets/img/add_photo.svg"/>
+                <!--
+                  <img src="../../assets/img/add_photo.svg"/>
+                -->
+                <img src="assets/img/add_photo.svg"/>
               </button>
               <button
                mat-icon-button aria-label="photo" 
                (click)="editarElemento(element)"
                matTooltip="Editar ciudadano"
                >
-                <img src="../../assets/img/person_edit.svg"/>
+                <img src="assets/img/person_edit.svg"/>
               </button>
               <button
               mat-icon-button aria-label="photo" 
               (click)="deleteCiudadano(element)"
               matTooltip="Eliminar ciudadano"
               >
-               <img src="../../assets/img/person_remove.svg"/>
+               <img src="assets/img/person_remove.svg"/>
              </button>
             </div>
           </td>
@@ -150,7 +153,7 @@
     @else {
     <div class="newSearch animate__animated animate__fadeIn animate__fast">
     
-      <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg"
+      <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="assets/font/busqueda.jpg"
         alt="nueva busqueda" />
     
       <div class="animate__animated animate__fadeInRight">

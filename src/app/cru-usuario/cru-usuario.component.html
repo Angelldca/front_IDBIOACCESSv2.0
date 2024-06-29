@@ -5,7 +5,7 @@
       <div class="buscar">
               <input type="text" placeholder="Buscar Usuario" 
               name="buscar_user" (keyup)="buscarUser($event)">
-              <button class="buscarb" type="submit"><img src="../../assets/img/search.svg"/></button>
+              <button class="buscarb" type="submit"><img src="assets/img/search.svg"/></button>
              
       </div>
       <button class="btn_add"(click)="userRegistrer()">
@@ -33,8 +33,8 @@
                     <td>{{user.last_name}}</td>
                     <td>{{user.email}}</td>
                     <td>
-                        <button class="nth-child" (click)="userEdit(user)"><img src="../../assets/img/person_edit.svg"></button>
-                        <button class="nth-child" (click)="userDelete(user)"><img src="../../assets/img/person_remove.svg"></button>
+                        <button class="nth-child" (click)="userEdit(user)"><img src="assets/img/person_edit.svg"></button>
+                        <button class="nth-child" (click)="userDelete(user)"><img src="assets/img/person_remove.svg"></button>
                      </td>
                 </tr>
 

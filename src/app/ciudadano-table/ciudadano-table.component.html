@@ -31,7 +31,7 @@
           mat-icon-button 
           matTooltip="Capturar imagen"
           aria-label="photo" (click)="capturarImg(element)">
-          <img src="../../assets/img/add_photo.svg"/>
+          <img src="assets/img/add_photo.svg"/>
           </button>
         </div>
       </td>
@@ -43,7 +43,7 @@
         <img [src]="'data:image/jpeg;base64,' + element.imagen.foto" alt="Foto" class="imgTable" />
 
         }@else {
-        <img src="../../assets/font/imgUser.png" alt="Foto" class="imgTable" />
+        <img src="assets/font/imgUser.png" alt="Foto" class="imgTable" />
         }
       </td>
     </ng-container>
@@ -156,7 +156,7 @@
 @else {
 <div class="newSearch animate__animated animate__fadeIn animate__fast">
 
-  <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="../../assets/font/busqueda.jpg"
+  <img class="imgBusqueda animate__animated animate__fadeInUpBig" src="assets/font/busqueda.jpg"
     alt="nueva busqueda" />
 
   <div class="animate__animated animate__fadeInRight">
