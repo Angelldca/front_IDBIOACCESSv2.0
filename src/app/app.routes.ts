@@ -204,6 +204,6 @@ export const routes: Routes = [
   
   ],
 },
-  { path: 'unauthorized', component: UnauthorizedComponent},
- { path: '**', component: NotFoundComponent }
+ { path: 'unauthorized', component: UnauthorizedComponent},
+ { path: '**', component: LandinPageComponent}//NotFoundComponent }
 ];

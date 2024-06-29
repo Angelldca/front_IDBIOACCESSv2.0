@@ -1,1 +1,1 @@
-export const urlBack = 'http://127.0.0.1:8000/api/'
+export const urlBack = 'https://back-idbioaccess.onrender.com/api/' //'http://127.0.0.1:8000/api/'
