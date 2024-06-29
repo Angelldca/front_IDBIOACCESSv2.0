@@ -12,6 +12,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { urlBack } from '../Finals';
 
 
 
@@ -53,7 +54,7 @@ export class CiudadanoTableComponent implements AfterViewInit ,OnInit,OnChanges 
         const urlFind = `${this.urlCiudadanos}?${atributo}=${value}`
         this.showCiudadanos(urlFind)
       }else{
-        const urlFind = `http://127.0.0.1:8000/api/ciudadano/?${atributo}=${value}`
+        const urlFind = `${urlBack}ciudadano/?${atributo}=${value}`
         this.showCiudadanos(urlFind)
 
       }
